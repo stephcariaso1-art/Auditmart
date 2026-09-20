@@ -21,6 +21,10 @@ export class PaymentMethodsPage {
 
   showAddModal = signal<boolean>(false);
 
+  get defaultCard(): PaymentCard | undefined {
+    return this.auth.paymentCards().find(c => c.isDefault) || this.auth.paymentCards()[0];
+  }
+
   // New Card Form state
   cardholderName = 'Alex Rivera';
   cardType: 'Mastercard' | 'Visa' | 'Amex' = 'Mastercard';
@@ -61,15 +65,7 @@ export class PaymentMethodsPage {
     }
 
     const last4 = rawNumber.slice(-4);
-    this.auth.addPaymentCard(this.cardType, last4, this.expiryDate, this.cardholderName);
-    
-    if (this.setAsDefault) {
-      const cards = this.auth.paymentCards();
-      const latest = cards[cards.length - 1];
-      if (latest) {
-        this.auth.setDefaultCard(latest.id);
-      }
-    }
+    this.auth.addPaymentCard(this.cardType, last4, this.expiryDate, this.cardholderName, this.setAsDefault);
 
     this.cartService.showToast(`${this.cardType} ending in ${last4} added`);
     this.closeAddModal();

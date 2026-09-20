@@ -12,10 +12,10 @@
     @if (cart.items().length > 0) {
       <div class="space-y-3.5 pt-1">
         @for (item of cart.items(); track item.product.id + item.selectedColor.name) {
-          <div class="w-full bg-[#222226] rounded-[24px] p-4 flex items-start gap-3.5 border border-white/[0.06] shadow-md">
+          <div class="w-full bg-[#222226] rounded-[24px] p-4 flex items-center gap-3.5 border border-white/[0.06] shadow-md">
             
             <!-- Left: Square Thumbnail (matches Item ordered RECTANGLE in Figma 58:2) -->
-            <div class="w-22 h-22 sm:w-24 sm:h-24 rounded-2xl bg-[#2D2D33] overflow-hidden flex items-center justify-center shrink-0 border border-white/5">
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#2D2D33] overflow-hidden flex items-center justify-center shrink-0 border border-white/5">
               <img 
                 [src]="item.product.images[0]" 
                 [alt]="item.product.name" 
@@ -23,49 +23,54 @@
             </div>
 
             <!-- Right Details Stack (Title, Edition, Price, and 3 Quantity Circles matching Figma 58:2) -->
-            <div class="flex-1 min-w-0 flex flex-col justify-between min-h-[88px] sm:min-h-[96px] py-0.5">
+            <div class="flex-1 min-w-0 flex flex-col justify-between h-24 sm:h-28 py-0.5">
               
               <!-- Row 1: Title & Delete Trash -->
-              <div class="flex items-start justify-between gap-1">
-                <div class="min-w-0 flex-1">
-                  <h4 class="text-sm font-bold text-white tracking-tight truncate">{{ item.product.name }}</h4>
-                  <p class="text-xs text-[#8E8E93] mt-0.5 font-medium">{{ item.selectedColor.name }} Edition</p>
-                </div>
-
-                <!-- Delete button -->
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="text-sm font-bold text-white tracking-tight truncate">{{ item.product.name }}</h4>
                 <button 
                   (click)="cart.removeItem(item.product.id, item.selectedColor.name)"
-                  class="text-white/40 hover:text-red-400 p-1 transition-colors active:scale-90 cursor-pointer"
+                  class="text-white/40 hover:text-red-400 p-1 -mr-1 transition-colors active:scale-90 cursor-pointer shrink-0"
                   title="Remove item">
                   <app-icon name="trash" [size]="14" color="currentColor"></app-icon>
                 </button>
               </div>
 
-              <!-- Row 2: Price & Quantity Controls Row -->
-              <div class="flex items-center justify-between pt-2">
+              <!-- Row 2: Edition / Color Subtitle -->
+              <p class="text-xs text-[#8E8E93] font-medium truncate -mt-0.5">
+                {{ item.selectedColor.name }} Edition
+              </p>
+
+              <!-- Row 3: Item Price -->
+              <div class="flex items-baseline gap-1.5">
                 <span class="text-sm font-black text-white tabular-nums">${{ item.product.price * item.quantity }}</span>
+                @if (item.quantity > 1) {
+                  <span class="text-[10px] text-[#8E8E93] font-medium">(${{ item.product.price }} ea)</span>
+                }
+              </div>
 
-                <!-- Row 3: The 3 Circular Buttons from Figma 58:2 (Quantity VECTOR 58:41, 58:45, 58:47) -->
-                <div class="flex items-center gap-1.5">
-                  <!-- Circle 1: Minus -->
-                  <button 
-                    (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, -1)"
-                    class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all cursor-pointer">
-                    -
-                  </button>
+              <!-- Row 4: The 3 Circular Buttons from Figma 58:2 (Quantity VECTOR 58:41, 58:45, 58:47) -->
+              <div class="flex items-center gap-2 pt-0.5">
+                <!-- Circle 1: Minus -->
+                <button 
+                  (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, -1)"
+                  class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all cursor-pointer"
+                  title="Decrease quantity">
+                  -
+                </button>
 
-                  <!-- Circle 2: Current Quantity -->
-                  <div class="w-7 h-7 rounded-full bg-[#18181B] text-white flex items-center justify-center font-bold text-xs border border-white/10 tabular-nums">
-                    {{ item.quantity }}
-                  </div>
-
-                  <!-- Circle 3: Plus -->
-                  <button 
-                    (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, 1)"
-                    class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all cursor-pointer">
-                    +
-                  </button>
+                <!-- Circle 2: Current Quantity -->
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#18181B] text-white flex items-center justify-center font-bold text-xs border border-white/10 tabular-nums">
+                  {{ item.quantity }}
                 </div>
+
+                <!-- Circle 3: Plus -->
+                <button 
+                  (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, 1)"
+                  class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all cursor-pointer"
+                  title="Increase quantity">
+                  +
+                </button>
               </div>
 
             </div>

@@ -24,15 +24,15 @@
         </div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
-            <p class="text-xs font-bold text-white truncate">{{ defaultAddress.recipientName }}</p>
+            <p class="text-xs font-bold text-white truncate">{{ defaultAddress?.recipientName || 'Alex Rivera' }}</p>
             <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-white/80 shrink-0">
-              {{ defaultAddress.label }}
+              {{ defaultAddress?.label || 'Home' }}
             </span>
           </div>
           <p class="text-xs text-[#8E8E93] mt-1 leading-relaxed">
-            {{ defaultAddress.streetAddress }}, {{ defaultAddress.city }}, {{ defaultAddress.state }} {{ defaultAddress.postalCode }}
+            {{ defaultAddress ? (defaultAddress.streetAddress + ', ' + defaultAddress.city + ', ' + defaultAddress.state + ' ' + defaultAddress.postalCode) : '742 Evergreen Terrace, Springfield, OR 97477' }}
           </p>
-          <p class="text-[11px] text-white/50 mt-1">{{ defaultAddress.phone }}</p>
+          <p class="text-[11px] text-white/50 mt-1">{{ defaultAddress?.phone || '+1 (555) 234-8921' }}</p>
         </div>
       </div>
     </div>
@@ -103,8 +103,8 @@
               <app-icon name="credit-card" [size]="16" color="#60A5FA"></app-icon>
             </div>
             <div class="text-left">
-              <span class="text-xs font-bold block">{{ defaultCard.type }}</span>
-              <span class="text-[10px] text-[#8E8E93]">•••• •••• •••• {{ defaultCard.last4 }}</span>
+              <span class="text-xs font-bold block">{{ defaultCard?.type || 'Credit / Debit Card' }}</span>
+              <span class="text-[10px] text-[#8E8E93]">{{ defaultCard ? '•••• •••• •••• ' + defaultCard.last4 : 'Add a payment card' }}</span>
             </div>
           </div>
           <span class="w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0"

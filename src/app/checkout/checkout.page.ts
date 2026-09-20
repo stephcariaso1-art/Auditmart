@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
-import { AuthService } from '../services/auth.service';
+import { AuthService, PaymentCard, ShippingAddress } from '../services/auth.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -25,11 +25,11 @@ export class CheckoutPage {
   selectedPayment: 'apple_pay' | 'card' = 'apple_pay';
   isSubmitting = signal<boolean>(false);
 
-  get defaultAddress() {
+  get defaultAddress(): ShippingAddress | undefined {
     return this.auth.shippingAddresses().find(a => a.isDefault) || this.auth.shippingAddresses()[0];
   }
 
-  get defaultCard() {
+  get defaultCard(): PaymentCard | undefined {
     return this.auth.paymentCards().find(c => c.isDefault) || this.auth.paymentCards()[0];
   }
 

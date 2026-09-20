@@ -135,15 +135,19 @@ export class AuthService {
     }
   }
 
-  addPaymentCard(type: string, last4: string, exp: string, cardholderName: string = 'Alex Rivera') {
+  addPaymentCard(type: string, last4: string, exp: string, cardholderName: string = 'Alex Rivera', isDefault: boolean = false) {
+    const shouldBeDefault = isDefault || this.paymentCards().length === 0;
     const newCard: PaymentCard = {
       id: `c-${Date.now()}`,
       type,
       cardholderName,
       last4,
       exp,
-      isDefault: this.paymentCards().length === 0
+      isDefault: shouldBeDefault
     };
+    if (shouldBeDefault) {
+      this.paymentCards.update(cards => cards.map(c => ({ ...c, isDefault: false })));
+    }
     this.paymentCards.update(cards => [...cards, newCard]);
   }
 
