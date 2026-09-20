@@ -97,6 +97,13 @@ import { CommonModule } from '@angular/common';
         @case ('heart') {
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         }
+        @case ('gift') {
+          <polyline points="20 12 20 22 4 22 4 12"></polyline>
+          <rect x="2" y="7" width="20" height="5"></rect>
+          <line x1="12" y1="22" x2="12" y2="7"></line>
+          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+        }
         @case ('truck') {
           <rect x="1" y="3" width="15" height="13"></rect>
           <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
@@ -122,6 +129,14 @@ import { CommonModule } from '@angular/common';
         @case ('check-circle') {
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
           <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        }
+        @case ('close') {
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        }
+        @case ('x') {
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
         }
         @default {
           <circle cx="12" cy="12" r="10"></circle>

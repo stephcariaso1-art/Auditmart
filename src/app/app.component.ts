@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TabbarComponent } from './components/tabbar/tabbar.component';
+import { IconComponent } from './components/icon/icon.component';
 import { CartService } from './services/cart.service';
 import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TabbarComponent],
+  imports: [CommonModule, RouterOutlet, TabbarComponent, IconComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

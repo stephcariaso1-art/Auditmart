@@ -13,7 +13,7 @@ import { IconComponent } from '../../components/icon/icon.component';
   imports: [CommonModule, NavbarComponent, IconComponent],
   template: `
     @if (product) {
-      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in relative pb-36">
+      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative">
         
         <!-- Top Navbar with Details Title & Back Arrow (matches cZDul4ky.jpg) -->
         <app-navbar 
@@ -22,24 +22,24 @@ import { IconComponent } from '../../components/icon/icon.component';
           backUrl="/home">
         </app-navbar>
 
-        <!-- Product Hero Showcase (matches cZDul4ky.jpg) -->
-        <div class="relative w-full pt-2 pb-6 flex flex-col items-center justify-center">
+        <!-- Product Hero Showcase (snug, proportional spacing matching cZDul4ky.jpg) -->
+        <div class="relative w-full pt-1 pb-3 flex flex-col items-center justify-center">
           
           <!-- Radial Backdrop Spotlight for Headphone Hero -->
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div class="w-64 h-64 rounded-full bg-white/[0.04] blur-2xl"></div>
+            <div class="w-56 h-56 rounded-full bg-white/[0.04] blur-2xl"></div>
           </div>
 
           <!-- Headphone Image -->
-          <div class="relative w-64 h-64 flex items-center justify-center z-10">
+          <div class="relative w-56 h-56 flex items-center justify-center z-10">
             <img 
               [src]="activeImage()" 
               [alt]="product.name" 
-              class="max-w-[85%] max-h-[85%] object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] transition-all duration-300" />
+              class="max-w-[85%] max-h-[85%] object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)] transition-all duration-300" />
           </div>
 
           <!-- Vertical Color Swatches on Right (matches cZDul4ky.jpg) -->
-          <div class="absolute right-6 top-6 flex flex-col items-center gap-3.5 z-20">
+          <div class="absolute right-6 top-4 flex flex-col items-center gap-3 z-20">
             @for (color of product.colors; track color.name) {
               <button 
                 (click)="selectColor(color)"
@@ -63,7 +63,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           </div>
 
           <!-- Carousel Pagination Dots (matches cZDul4ky.jpg: [● ○ ○]) -->
-          <div class="flex items-center gap-1.5 mt-3 z-10">
+          <div class="flex items-center gap-1.5 mt-2 z-10">
             <span class="w-6 h-1.5 rounded-full bg-white transition-all"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
@@ -71,14 +71,14 @@ import { IconComponent } from '../../components/icon/icon.component';
 
         </div>
 
-        <!-- Details White Card Overlay (matches cZDul4ky.jpg sheet) -->
-        <div class="w-full bg-white text-[#141416] rounded-t-[36px] p-6 pb-36 shadow-2xl space-y-5 animate-fade-in relative z-20">
+        <!-- Details White Card Overlay (fills bottom smoothly without massive extra space) -->
+        <div class="w-full flex-1 bg-white text-[#141416] rounded-t-[36px] p-6 pb-24 shadow-2xl space-y-4 relative z-20">
           
           <!-- Top indicator bar -->
           <div class="w-10 h-1 bg-black/10 rounded-full mx-auto -mt-2"></div>
 
           <!-- Product Title & Tagline -->
-          <div class="space-y-1.5">
+          <div class="space-y-1">
             <div class="flex items-baseline gap-2">
               <span class="text-xl font-black tracking-tight text-black font-sans">{{ product.brand }}</span>
               <span class="text-lg font-bold text-[#1C1C1E]">{{ getModel(product) }}</span>
@@ -89,9 +89,9 @@ import { IconComponent } from '../../components/icon/icon.component';
           </div>
 
           <!-- Feature Chips (matches cZDul4ky.jpg: Adaptive Noise Cancelling, Battery Life) -->
-          <div class="space-y-2.5">
+          <div class="space-y-2">
             @for (feat of product.features; track feat; let i = $index) {
-              <div class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#F5F5F7] border border-black/[0.04] text-xs font-medium text-[#1C1C1E]">
+              <div class="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#F5F5F7] border border-black/[0.04] text-xs font-medium text-[#1C1C1E]">
                 <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-xs">
                   @if (i === 0) {
                     <app-icon name="shield" [size]="13" color="#141416"></app-icon>
@@ -108,15 +108,15 @@ import { IconComponent } from '../../components/icon/icon.component';
 
           <!-- Audio Specs Mini Grid -->
           <div class="grid grid-cols-3 gap-2.5 pt-1">
-            <div class="p-3 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
+            <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
               <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Driver</p>
               <p class="text-xs font-bold text-black">40mm</p>
             </div>
-            <div class="p-3 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
+            <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
               <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Freq</p>
               <p class="text-xs font-bold text-black">16Hz - 20kHz</p>
             </div>
-            <div class="p-3 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
+            <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
               <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Weight</p>
               <p class="text-xs font-bold text-black">265g</p>
             </div>
@@ -124,9 +124,9 @@ import { IconComponent } from '../../components/icon/icon.component';
 
         </div>
 
-        <!-- Sticky Floating Bottom Dock: Price, Add & Buy Now (matches bottom nav dock style and navigates properly) -->
+        <!-- Sticky Floating Bottom Dock: Price, Add & Buy Now (matches bottom nav dock style) -->
         <div class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none">
-          <div class="glass-dock rounded-[32px] px-5 py-3 flex items-center justify-between shadow-dock border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
+          <div class="glass-dock rounded-[32px] px-5 py-2.5 flex items-center justify-between shadow-dock border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
             
             <!-- Price Display -->
             <div class="flex flex-col">
@@ -137,12 +137,12 @@ import { IconComponent } from '../../components/icon/icon.component';
             </div>
 
             <!-- Action Buttons: Add & Buy Now behaving like bottom nav -->
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2">
               <!-- Add to Cart (adds and navigates to cart tab like bottom nav) -->
               <button 
                 (click)="addToCart()"
                 title="Add to Cart"
-                class="px-4 py-3 rounded-full bg-[#27272C] hover:bg-[#34343A] active:scale-95 text-white text-xs font-bold transition-all border border-white/10 flex items-center gap-1.5 cursor-pointer shadow-sm">
+                class="px-4 py-2.5 rounded-full bg-[#27272C] hover:bg-[#34343A] active:scale-95 text-white text-xs font-bold transition-all border border-white/10 flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <app-icon name="cart" [size]="16" color="#FFFFFF"></app-icon>
                 <span>Add</span>
               </button>
@@ -151,7 +151,7 @@ import { IconComponent } from '../../components/icon/icon.component';
               <button 
                 (click)="buyNow()"
                 title="Buy Now"
-                class="px-6 py-3 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
+                class="px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
                 Buy Now
               </button>
             </div>
@@ -203,7 +203,6 @@ export class ProductDetailPage implements OnInit {
   addToCart() {
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
-      // Navigates directly to cart just like clicking the cart tab in the bottom nav
       this.router.navigate(['/cart']);
     }
   }
@@ -211,7 +210,6 @@ export class ProductDetailPage implements OnInit {
   buyNow() {
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
-      // Directly proceeds to checkout for seamless payment flow
       this.router.navigate(['/checkout']);
     }
   }

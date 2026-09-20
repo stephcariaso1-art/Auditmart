@@ -22,55 +22,122 @@
 
     <!-- Global Notification Panel (Triggered by Bell on top right) -->
     @if (notifService.showModal()) {
-      <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-xs animate-fade-in"
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
            (click)="notifService.close()">
         <div 
-          class="w-full max-w-[430px] bg-[#1E1E22] rounded-t-[32px] p-6 space-y-4 border-t border-white/10 shadow-2xl"
+          class="w-full max-w-[390px] bg-[#18181C] border border-white/10 rounded-[32px] p-5 space-y-4 shadow-[0_20px_50px_rgba(0,0,0,0.85)] relative overflow-hidden"
           (click)="$event.stopPropagation()">
           
-          <div class="w-10 h-1 rounded-full bg-white/20 mx-auto -mt-1"></div>
+          <!-- Subtle ambient top glow inside card -->
+          <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-24 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
 
-          <div class="flex items-center justify-between pb-1">
-            <div>
-              <h3 class="text-sm font-bold text-white">Notifications</h3>
-              <p class="text-[11px] text-[#7E7E88]">Audio updates & order alerts</p>
+          <!-- Header -->
+          <div class="flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center shadow-inner relative">
+                <app-icon name="bell" [size]="18" color="#FFFFFF"></app-icon>
+                @if (notifService.unreadCount() > 0) {
+                  <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-blue-500 ring-2 ring-[#18181C] animate-pulse"></span>
+                }
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-black text-white tracking-tight">Notifications</h3>
+                  @if (notifService.unreadCount() > 0) {
+                    <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-[10px] font-bold border border-blue-500/30">
+                      {{ notifService.unreadCount() }} new
+                    </span>
+                  }
+                </div>
+                <p class="text-[11px] text-[#8E8E98]">Audio updates & order alerts</p>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <button 
-                (click)="notifService.markAllAsRead()" 
-                class="text-[11px] text-white/70 hover:text-white font-medium underline">
-                Mark read
-              </button>
-              <button 
-                (click)="notifService.close()" 
-                class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs ml-1">
-                ✕
-              </button>
-            </div>
+            
+            <!-- Close Button -->
+            <button 
+              (click)="notifService.close()" 
+              class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer border border-white/5">
+              <app-icon name="close" [size]="14" color="#FFFFFF"></app-icon>
+            </button>
           </div>
 
+          <!-- Unread sub-bar -->
+          @if (notifService.unreadCount() > 0) {
+            <div class="flex items-center justify-between px-1 text-[11px] relative z-10">
+              <span class="text-white/40">Recent alerts</span>
+              <button 
+                (click)="notifService.markAllAsRead()" 
+                class="text-blue-400 hover:text-blue-300 font-semibold transition-colors cursor-pointer flex items-center gap-1">
+                <app-icon name="check" [size]="12" color="#60A5FA"></app-icon>
+                <span>Mark all read</span>
+              </button>
+            </div>
+          }
+
           <!-- Notifications List -->
-          <div class="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+          <div class="space-y-2.5 max-h-[340px] overflow-y-auto no-scrollbar pr-0.5 relative z-10">
             @for (notif of notifService.notifications(); track notif.id) {
-              <div class="p-3.5 rounded-2xl bg-[#25252B] border border-white/5 space-y-1 relative"
-                   [ngClass]="notif.isUnread ? 'border-l-4 border-l-white' : ''">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-white">{{ notif.title }}</span>
-                  <span class="text-[10px] text-[#7E7E88]">{{ notif.time }}</span>
+              <div class="p-3.5 rounded-2xl bg-[#222228] border transition-all duration-200 relative group"
+                   [ngClass]="notif.isUnread ? 'border-white/20 shadow-sm bg-[#25252D]' : 'border-white/5 opacity-85 hover:opacity-100'">
+                
+                <div class="flex items-start gap-3">
+                  <!-- Category Icon Badge -->
+                  <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                       [ngClass]="{
+                         'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400': notif.icon === 'truck',
+                         'bg-purple-500/15 border border-purple-500/30 text-purple-400': notif.icon === 'gift',
+                         'bg-sky-500/15 border border-sky-500/30 text-sky-400': notif.icon === 'sliders' || (notif.icon !== 'truck' && notif.icon !== 'gift')
+                       }">
+                    @if (notif.icon === 'truck') {
+                      <app-icon name="truck" [size]="16" color="#34D399"></app-icon>
+                    } @else if (notif.icon === 'gift') {
+                      <app-icon name="gift" [size]="16" color="#C084FC"></app-icon>
+                    } @else {
+                      <app-icon name="sliders" [size]="16" color="#38BDF8"></app-icon>
+                    }
+                  </div>
+
+                  <!-- Content -->
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-xs font-bold text-white tracking-wide truncate">{{ notif.title }}</span>
+                      <span class="text-[10px] text-white/40 whitespace-nowrap font-medium">{{ notif.time }}</span>
+                    </div>
+                    <p class="text-[11px] text-[#A2A2AD] leading-relaxed">{{ notif.message }}</p>
+                  </div>
+
+                  <!-- Dismiss Button -->
+                  <button 
+                    (click)="notifService.dismiss(notif.id); $event.stopPropagation()"
+                    title="Dismiss notification"
+                    class="opacity-0 group-hover:opacity-100 p-1 text-white/40 hover:text-white transition-opacity shrink-0 cursor-pointer">
+                    <app-icon name="close" [size]="12" color="#FFFFFF"></app-icon>
+                  </button>
                 </div>
-                <p class="text-[11px] text-[#A0A0A8] leading-relaxed">{{ notif.message }}</p>
+
+                <!-- Unread indicator glow dot -->
+                @if (notif.isUnread) {
+                  <span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-blue-400 ring-2 ring-[#25252D]"></span>
+                }
               </div>
             } @empty {
-              <div class="py-8 text-center text-xs text-[#7E7E88]">
-                No notifications right now
+              <div class="py-10 flex flex-col items-center justify-center text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                  <app-icon name="bell" [size]="20" color="#7E7E88"></app-icon>
+                </div>
+                <p class="text-xs font-bold text-white">All caught up!</p>
+                <p class="text-[11px] text-[#7E7E88] max-w-[200px]">
+                  Order updates, firmware alerts, and audiophile deals will appear here.
+                </p>
               </div>
             }
           </div>
 
+          <!-- Bottom Dismiss Action -->
           <button 
             (click)="notifService.close()"
-            class="w-full py-3 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors">
-            Close
+            class="w-full py-3 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer relative z-10">
+            Done
           </button>
         </div>
       </div>
