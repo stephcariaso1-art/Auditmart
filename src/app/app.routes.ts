@@ -40,19 +40,21 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then(m => m.LoginPage),
+    loadComponent: () => import('./auth/login/login.page').then(m => m.LoginPage),
   },
   {
     path: 'signup',
-    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage),
+    loadComponent: () => import('./auth/signup/signup.page').then(m => m.SignupPage),
   },
   {
     path: 'auth/login',
-    loadComponent: () => import('./auth/login.page').then(m => m.LoginPage),
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
     path: 'auth/signup',
-    loadComponent: () => import('./auth/signup.page').then(m => m.SignupPage),
+    redirectTo: 'signup',
+    pathMatch: 'full',
   },
   {
     path: '**',
