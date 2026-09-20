@@ -25,7 +25,7 @@ export class CartService {
           description: 'Experience deep bass, clear vocals, and all day comfort.',
           features: ['Adaptive Noise Cancelling', 'Up to 50 Hours Battery Life'],
           colors: [{ name: 'Black', hex: '#1C1C1E', inStock: true }],
-          images: ['assets/products/jbl-clean.png'],
+          images: ['assets/products/jbl-live-660nc.jpg'],
           category: 'Over-Ear'
         },
         selectedColor: { name: 'Black', hex: '#1C1C1E', inStock: true },
@@ -43,7 +43,7 @@ export class CartService {
           description: 'Critically acclaimed sonic performance.',
           features: ['45mm large-aperture drivers'],
           colors: [{ name: 'Matte Black', hex: '#18181A', inStock: true }],
-          images: ['assets/products/sony-clean.png'],
+          images: ['assets/products/sony-wh1000.jpg'],
           category: 'Studio'
         },
         selectedColor: { name: 'Matte Black', hex: '#18181A', inStock: true },
