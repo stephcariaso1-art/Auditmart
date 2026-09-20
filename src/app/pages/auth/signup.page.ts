@@ -12,7 +12,7 @@ import { IconComponent } from '../../components/icon/icon.component';
   template: `
     <div class="w-full min-h-screen p-6 bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in">
       
-      <!-- Top Bar -->
+      <!-- Top Bar: Back to Login -->
       <div class="flex items-center justify-between pt-2">
         <button 
           (click)="goBack()" 
@@ -23,70 +23,62 @@ import { IconComponent } from '../../components/icon/icon.component';
         <div class="w-10"></div>
       </div>
 
-      <!-- Form (matching 1:26 creating acc wireframe) -->
+      <!-- Form: Email, Create Password, Re-enter Password (matches video script) -->
       <div class="w-full max-w-sm mx-auto my-auto py-4 space-y-6">
         
         <div class="space-y-1 text-center">
-          <h1 class="text-2xl font-bold text-white tracking-tight">Join VibraTune Club</h1>
-          <p class="text-xs text-[#8E8E93]">Unlock lossless audio previews and member discounts</p>
+          <h1 class="text-2xl font-black text-white tracking-tight">Join audiMart</h1>
+          <p class="text-xs text-[#8E8E93]">Set up your credentials to start browsing</p>
         </div>
 
         <form (ngSubmit)="onSubmit()" class="space-y-4">
           
+          <!-- Field 1: Email -->
           <div class="space-y-1.5">
-            <label class="text-xs font-semibold text-white/80 pl-1">Full Name</label>
-            <input 
-              type="text" 
-              [(ngModel)]="name" 
-              name="name"
-              placeholder="Alex Rivera"
-              required
-              class="w-full px-4 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white transition-colors" />
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="text-xs font-semibold text-white/80 pl-1">Email Address</label>
+            <label class="text-xs font-semibold text-white/80 pl-2">Email Address</label>
             <input 
               type="email" 
               [(ngModel)]="email" 
               name="email"
               placeholder="alex.rivera@audiomart.io"
               required
-              class="w-full px-4 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white transition-colors" />
+              class="w-full px-5 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/40 transition-colors" />
           </div>
 
+          <!-- Field 2: Create Password -->
           <div class="space-y-1.5">
-            <label class="text-xs font-semibold text-white/80 pl-1">Password</label>
+            <label class="text-xs font-semibold text-white/80 pl-2">Create Password</label>
             <input 
               type="password" 
               [(ngModel)]="password" 
               name="password"
-              placeholder="Create a strong password"
+              placeholder="Create password"
               required
-              class="w-full px-4 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white transition-colors" />
+              class="w-full px-5 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/40 transition-colors" />
           </div>
 
-          <div class="flex items-center gap-2 pt-1 pl-1">
+          <!-- Field 3: Re-enter Password -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-white/80 pl-2">Re-enter Password</label>
             <input 
-              type="checkbox" 
-              [(ngModel)]="agreeTerms" 
-              name="agreeTerms"
-              id="terms"
-              class="w-4 h-4 rounded bg-[#232328] border-white/20 text-white focus:ring-0 accent-white cursor-pointer" />
-            <label for="terms" class="text-xs text-white/70 cursor-pointer">
-              I agree to the Terms of Service and Privacy Policy
-            </label>
+              type="password" 
+              [(ngModel)]="confirmPassword" 
+              name="confirmPassword"
+              placeholder="Confirm password"
+              required
+              class="w-full px-5 py-3.5 rounded-2xl bg-[#232328] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-white/40 transition-colors" />
           </div>
 
           @if (errorMessage) {
-            <p class="text-xs text-red-400 pl-1">{{ errorMessage }}</p>
+            <p class="text-xs text-red-400 pl-2">{{ errorMessage }}</p>
           }
 
+          <!-- Enter Button (matches video script: tap Enter at the bottom to create their account) -->
           <div class="pt-3">
             <button 
               type="submit" 
-              class="w-full py-4 rounded-full bg-white text-black font-bold text-sm tracking-wide shadow-lg hover:bg-neutral-200 active:scale-[0.98] transition-all">
-              Create Account
+              class="w-full py-4 rounded-full bg-white text-black font-extrabold text-sm tracking-wide shadow-xl hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer">
+              Enter
             </button>
           </div>
 
@@ -97,7 +89,7 @@ import { IconComponent } from '../../components/icon/icon.component';
       <!-- Bottom Login Link -->
       <div class="text-center pb-4 text-xs text-white/50">
         Already have an account? 
-        <a [routerLink]="['/login']" class="text-white font-bold underline hover:text-white/80 ml-1">Sign In</a>
+        <a [routerLink]="['/login']" class="text-white font-bold underline hover:text-white/80 ml-1 cursor-pointer">Sign In</a>
       </div>
 
     </div>
@@ -107,18 +99,27 @@ export class SignupPage {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  name = '';
   email = '';
   password = '';
-  agreeTerms = true;
+  confirmPassword = '';
   errorMessage = '';
 
   onSubmit() {
-    if (!this.name || !this.email) {
-      this.errorMessage = 'Please provide both your name and email';
+    if (!this.email || !this.email.includes('@')) {
+      this.errorMessage = 'Please enter a valid email address';
       return;
     }
-    this.auth.signup(this.name, this.email, this.password);
+    if (!this.password) {
+      this.errorMessage = 'Please create a password';
+      return;
+    }
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwords do not match';
+      return;
+    }
+
+    const name = this.email.split('@')[0] || 'Member';
+    this.auth.signup(name, this.email, this.password);
     this.router.navigate(['/home']);
   }
 

@@ -60,7 +60,7 @@ import { IconComponent } from '../../components/icon/icon.component';
               (click)="selectedShipping = 'express'"
               class="p-3.5 rounded-2xl border text-left transition-all"
               [ngClass]="selectedShipping === 'express' ? 'bg-[#2E2E35] border-white text-white shadow-md' : 'bg-[#1C1C20] border-white/5 text-white/60'">
-              <p class="text-xs font-bold">Acoustic Air</p>
+              <p class="text-xs font-bold">audiMart Priority Air</p>
               <p class="text-[11px] text-[#8E8E93] mt-0.5">Next Day Priority</p>
               <p class="text-xs font-bold text-white mt-2">+\$15</p>
             </button>

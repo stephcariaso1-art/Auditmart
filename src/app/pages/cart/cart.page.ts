@@ -108,7 +108,7 @@ import { IconComponent } from '../../components/icon/icon.component';
                 <span class="text-xs font-bold text-[#8E8E93] uppercase tracking-wider">Total Amount</span>
                 <span class="text-xl font-black text-white tracking-tight">\${{ cart.total() }}</span>
               </div>
-              <p class="text-[11px] text-[#7E7E88]">Fast priority dispatch with Acoustic Air Courier</p>
+              <p class="text-[11px] text-[#7E7E88]">Fast priority dispatch with audiMart Express Courier</p>
             </div>
 
             <!-- Pill 3: In-Flow Checkout Button (matches Total RECTANGLE 76:132) -->

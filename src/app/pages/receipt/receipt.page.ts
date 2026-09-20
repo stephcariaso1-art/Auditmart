@@ -12,17 +12,17 @@ import { IconComponent } from '../../components/icon/icon.component';
   template: `
     <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between p-5 pb-10 select-none animate-fade-in">
       
-      <!-- Top Navbar (matches Figma 90:2 receipt wireframe) -->
+      <!-- Top Navbar -->
       <app-navbar 
         [title]="'Receipt'" 
         [showBack]="true"
         backUrl="/home">
       </app-navbar>
 
-      <!-- Receipt Perforated Ticket Card (matches Figma 90:2 receipt wireframe) -->
+      <!-- Receipt Perforated Ticket Card (matches video script layout) -->
       <div class="relative w-full max-w-sm mx-auto my-auto pt-10">
         
-        <!-- Top Floating Circle Badge (matches avatar/badge in 90:2 wireframe) -->
+        <!-- Top Floating Check Badge -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 z-20">
           <div class="w-20 h-20 rounded-full bg-[#232328] border-4 border-[#141416] flex items-center justify-center shadow-2xl">
             <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black">
@@ -34,13 +34,16 @@ import { IconComponent } from '../../components/icon/icon.component';
         <!-- Main White Ticket Body -->
         <div class="relative bg-white text-[#141416] rounded-[32px] pt-14 pb-8 px-6 shadow-2xl space-y-5 overflow-hidden">
           
-          <!-- Header info -->
+          <!-- Upper Part: audiMart Logo & Transaction Title (matches script) -->
           <div class="text-center space-y-1">
-            <h2 class="text-lg font-black tracking-tight text-black">Payment Successful!</h2>
-            <p class="text-xs text-[#8E8E93]">Thank you for choosing VibraTune</p>
+            <div class="flex items-center justify-center gap-1 font-black text-xl tracking-tight text-black">
+              <span>audi</span><span class="text-neutral-500 font-semibold">Mart</span>
+            </div>
+            <h2 class="text-base font-bold tracking-tight text-neutral-800">Payment Successful</h2>
+            <p class="text-[11px] text-[#8E8E93]">Official Transaction Proof</p>
           </div>
 
-          <!-- Order meta box (matches top rounded container in 90:2 wireframe) -->
+          <!-- Transaction details meta box (matches script) -->
           <div class="bg-[#F5F5F7] rounded-2xl p-3.5 space-y-1.5 text-xs">
             <div class="flex justify-between">
               <span class="text-[#8E8E93] font-medium">Order Number</span>
@@ -51,21 +54,21 @@ import { IconComponent } from '../../components/icon/icon.component';
               <span class="font-semibold text-black">{{ order.date }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-[#8E8E93] font-medium">Payment</span>
+              <span class="text-[#8E8E93] font-medium">Payment Method</span>
               <span class="font-semibold text-black">{{ order.paymentMethod }}</span>
             </div>
           </div>
 
-          <!-- Perforated Cutout Divider (matches circular notches & dashed line in 90:2 wireframe) -->
+          <!-- Perforated Cutout Divider -->
           <div class="relative flex items-center justify-between -mx-6 my-4">
             <div class="w-6 h-6 rounded-full bg-[#141416] -ml-3"></div>
             <div class="flex-1 border-b-2 border-dashed border-black/10 mx-2"></div>
             <div class="w-6 h-6 rounded-full bg-[#141416] -mr-3"></div>
           </div>
 
-          <!-- Items Summary box (matches bottom container in 90:2 wireframe) -->
+          <!-- Middle Section: Purchased items and their prices (matches script) -->
           <div class="space-y-2.5">
-            <p class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Itemized Breakdown</p>
+            <p class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Purchased Items</p>
             
             <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
               @for (item of order.items; track item.product.id) {
@@ -78,6 +81,7 @@ import { IconComponent } from '../../components/icon/icon.component';
               }
             </div>
 
+            <!-- Total amount and payment information highlighted near bottom (matches script) -->
             <div class="border-t border-black/10 pt-2.5 space-y-1 text-xs">
               <div class="flex justify-between text-[#8E8E93]">
                 <span>Subtotal</span>
@@ -87,14 +91,14 @@ import { IconComponent } from '../../components/icon/icon.component';
                 <span>Shipping</span>
                 <span>{{ order.deliveryFee === 0 ? 'FREE' : '\$' + order.deliveryFee }}</span>
               </div>
-              <div class="flex justify-between text-sm font-black text-black pt-1">
-                <span>Total Paid</span>
+              <div class="flex justify-between text-sm font-black text-black pt-1 border-t border-black/5">
+                <span>Total Amount Paid</span>
                 <span class="text-base font-black">\${{ order.total }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Bottom Button inside Card (matches dark pill button in 90:2 wireframe) -->
+          <!-- Confirmation button (matches script) -->
           <div class="pt-2">
             <button 
               (click)="goHome()"

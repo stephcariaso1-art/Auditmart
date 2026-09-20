@@ -14,12 +14,12 @@ import { CartService } from '../../services/cart.service';
   template: `
     <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
       
-      <!-- Top Brand Navbar (matches xwCBv8L_.jpg: hamburger menu, VibraTune, notification bell) -->
+      <!-- Top Brand Navbar: Menu, audiMart, Notification Bell -->
       <app-navbar></app-navbar>
 
       <div class="px-5 space-y-4 pt-1">
         
-        <!-- Search Bar with Sliders Icon (matches xwCBv8L_.jpg) -->
+        <!-- Search Bar (matches video script: top search bar to find products quickly) -->
         <div class="relative flex items-center">
           <div class="absolute left-4 flex items-center pointer-events-none text-[#7E7E88]">
             <app-icon name="search" [size]="17" color="#7E7E88"></app-icon>
@@ -29,40 +29,40 @@ import { CartService } from '../../services/cart.service';
             type="text" 
             [ngModel]="productService.searchQuery()" 
             (ngModelChange)="productService.setSearchQuery($event)"
-            placeholder="Search your ear..." 
+            placeholder="Search audio products..." 
             class="w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[#222226] border border-white/[0.06] text-white placeholder-[#6E6E78] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
 
           <!-- Sliders Filter Icon on Far Right -->
           <button 
             (click)="showFilterModal.set(true)"
-            title="Filter acoustics"
-            class="absolute right-3.5 flex items-center text-[#7E7E88] hover:text-white transition-colors p-1 active:scale-90">
+            title="Filter by budget"
+            class="absolute right-3.5 flex items-center text-[#7E7E88] hover:text-white transition-colors p-1 active:scale-90 cursor-pointer">
             <app-icon name="sliders" [size]="16" color="#8E8E93"></app-icon>
           </button>
         </div>
 
-        <!-- Horizontal Brand Filter Pills (matches xwCBv8L_.jpg: All in white pill, others in muted clean text) -->
-        <div class="flex items-center gap-6 overflow-x-auto no-scrollbar py-1 text-xs">
-          @for (brand of productService.brands; track brand) {
-            @if (productService.selectedBrand() === brand) {
-              <!-- Active Brand: Solid White Pill -->
+        <!-- Product Categories (matches video script: All, Headphones, Earphones, Speakers) -->
+        <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-1 text-xs">
+          @for (cat of productService.categories; track cat) {
+            @if (productService.selectedCategory() === cat) {
+              <!-- Active Category: Solid White Pill -->
               <button 
-                (click)="productService.setBrand(brand)"
-                class="px-5 py-2 rounded-full bg-white text-black font-extrabold whitespace-nowrap shadow-sm transition-all">
-                {{ brand }}
+                (click)="productService.setCategory(cat)"
+                class="px-5 py-2 rounded-full bg-white text-black font-extrabold whitespace-nowrap shadow-sm transition-all cursor-pointer">
+                {{ cat }}
               </button>
             } @else {
-              <!-- Inactive Brand: Clean muted text link -->
+              <!-- Inactive Category: Clean text link with hover feedback -->
               <button 
-                (click)="productService.setBrand(brand)"
-                class="text-[#7E7E88] hover:text-white whitespace-nowrap transition-colors font-medium px-1 py-1">
-                {{ brand }}
+                (click)="productService.setCategory(cat)"
+                class="px-4 py-2 rounded-full bg-[#222226] text-[#8E8E93] hover:text-white whitespace-nowrap transition-colors font-medium border border-white/[0.04] cursor-pointer">
+                {{ cat }}
               </button>
             }
           }
         </div>
 
-        <!-- Product Cards Feed (Strict gap-4 ensures cards never touch) -->
+        <!-- Available Audio Products Feed (Large rectangles with smaller price boxes, matching script) -->
         <div class="pt-1 flex flex-col gap-4">
           @for (product of filteredProducts(); track product.id) {
             <app-product-card [product]="product"></app-product-card>
@@ -71,11 +71,11 @@ import { CartService } from '../../services/cart.service';
               <div class="w-12 h-12 rounded-full bg-[#222226] flex items-center justify-center mx-auto text-white/30">
                 <app-icon name="search" [size]="20" color="#7E7E88"></app-icon>
               </div>
-              <p class="text-sm font-bold text-white">No audio gear found</p>
-              <p class="text-xs text-[#7E7E88]">Try adjusting your search query or brand filter</p>
+              <p class="text-sm font-bold text-white">No products found in {{ productService.selectedCategory() }}</p>
+              <p class="text-xs text-[#7E7E88]">Try selecting "All" or adjusting your search</p>
               <button 
                 (click)="resetFilters()" 
-                class="mt-2 px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors">
+                class="mt-2 px-5 py-2 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors cursor-pointer">
                 Reset Filters
               </button>
             </div>
@@ -84,7 +84,7 @@ import { CartService } from '../../services/cart.service';
 
       </div>
 
-      <!-- Usable Filter Modal / Drawer -->
+      <!-- Budget Filter Modal -->
       @if (showFilterModal()) {
         <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-xs animate-fade-in"
              (click)="showFilterModal.set(false)">
@@ -96,15 +96,15 @@ import { CartService } from '../../services/cart.service';
 
             <div class="flex items-center justify-between">
               <div>
-                <h3 class="text-sm font-bold text-white">Filter Acoustics</h3>
-                <p class="text-[11px] text-[#7E7E88]">Set your budget preference</p>
+                <h3 class="text-sm font-bold text-white">Filter by Budget</h3>
+                <p class="text-[11px] text-[#7E7E88]">Select maximum price</p>
               </div>
               <button (click)="resetFilters()" class="text-xs text-[#7E7E88] hover:text-white underline">Reset</button>
             </div>
 
             <div class="space-y-2 pt-1">
               <div class="flex justify-between text-xs">
-                <span class="text-[#8E8E93]">Maximum Price</span>
+                <span class="text-[#8E8E93]">Max Price</span>
                 <span class="font-bold text-white font-mono">\${{ maxPrice() }}</span>
               </div>
               <input 
@@ -119,7 +119,7 @@ import { CartService } from '../../services/cart.service';
 
             <button 
               (click)="showFilterModal.set(false)"
-              class="w-full py-3.5 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors">
+              class="w-full py-3.5 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors cursor-pointer">
               Apply Filter
             </button>
           </div>
@@ -141,7 +141,7 @@ export class HomePage {
   }
 
   resetFilters() {
-    this.productService.setBrand('All');
+    this.productService.setCategory('All');
     this.productService.setSearchQuery('');
     this.maxPrice.set(250);
   }

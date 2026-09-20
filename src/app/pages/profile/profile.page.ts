@@ -54,7 +54,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           <div class="space-y-0.5">
             <h2 class="text-sm font-bold tracking-tight text-white">{{ firstName }} {{ lastName }}</h2>
             <span class="inline-block px-3 py-0.5 rounded-full bg-white/10 text-[10px] font-extrabold uppercase tracking-wider text-white/90 border border-white/10">
-              {{ user()?.memberTier || 'Audiophile VIP Club' }}
+              {{ user()?.memberTier || 'audiMart VIP Member' }}
             </span>
           </div>
         </div>

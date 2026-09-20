@@ -10,7 +10,7 @@ import { NotificationService } from '../../services/notification.service';
   imports: [CommonModule, IconComponent],
   template: `
     <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
-      <!-- Left Action -->
+      <!-- Left Action (Back or Menu) -->
       @if (showBack) {
         <button 
           (click)="onBack()" 
@@ -25,13 +25,13 @@ import { NotificationService } from '../../services/notification.service';
         </button>
       }
 
-      <!-- Center Title or Logo -->
+      <!-- Center Title or App Logo -->
       <div class="flex-1 text-center">
         @if (title) {
           <h1 class="text-base font-semibold tracking-wide text-white">{{ title }}</h1>
         } @else {
-          <h1 class="text-lg font-bold tracking-tight text-white flex items-center justify-center gap-0.5 font-sans">
-            <span>VibraTune</span>
+          <h1 class="text-lg font-black tracking-tight text-white flex items-center justify-center gap-0.5 font-sans">
+            <span>audi</span><span class="text-white/70 font-semibold">Mart</span>
           </h1>
         }
       </div>
@@ -76,7 +76,6 @@ export class NavbarComponent {
     if (this.rightAction.observed) {
       this.rightAction.emit();
     } else {
-      // Default: Open interactive notification panel!
       this.notifService.open();
     }
   }

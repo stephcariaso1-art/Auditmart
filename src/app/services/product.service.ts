@@ -29,9 +29,9 @@ export class ProductService {
       ],
       images: [
         'assets/products/jbl-clean.png',
-        'assets/products/jbl-clean.png'
+        'assets/products/jbl-live-660nc.png'
       ],
-      category: 'Over-Ear',
+      category: 'Headphones',
       isPopular: true
     },
     {
@@ -57,9 +57,9 @@ export class ProductService {
       ],
       images: [
         'assets/products/sony-clean.png',
-        'assets/products/sony-clean.png'
+        'assets/products/sony-ath-m50x.png'
       ],
-      category: 'Studio',
+      category: 'Headphones',
       isPopular: true
     },
     {
@@ -74,7 +74,7 @@ export class ProductService {
       description: 'Engineered with patented acoustic technology, delivering mind-blowing sensory bass and customizable sound profiles.',
       features: [
         'Adjustable Sensory Bass control slider',
-        'Personal Sound with the Bose Companion App',
+        'Personal Sound with the Companion App',
         'Rapid Charge: 10 mins = 4 hours playback',
         'Built-in Tile finding technology'
       ],
@@ -84,37 +84,11 @@ export class ProductService {
         { name: 'Pure White', hex: '#F0F0F3', inStock: true }
       ],
       images: [
-        'assets/products/jbl-clean.png',
+        'assets/products/bose-crusher-evo.png',
         'assets/products/jbl-clean.png'
       ],
-      category: 'Wireless',
+      category: 'Headphones',
       isPopular: true
-    },
-    {
-      id: 'skullcandy-crusher',
-      brand: 'Skullcandy',
-      name: 'Skullcandy Crusher ANC',
-      subtitle: 'Haptic Bass & Active Noise',
-      price: 65,
-      originalPrice: 85,
-      rating: 4.6,
-      reviewsCount: 189,
-      description: 'Unleash your music with adjustable sensory bass and active noise cancelling that tunes out unwanted distractions.',
-      features: [
-        'Digital Active Noise Canceling',
-        'Adjustable Sensory Bass dial',
-        'Built-in Tile finding tech',
-        'Ambient Mode monitoring'
-      ],
-      colors: [
-        { name: 'Stealth Black', hex: '#1F1F22', inStock: true },
-        { name: 'Deep Red', hex: '#7A1822', inStock: false },
-        { name: 'Olive Green', hex: '#3B4D3C', inStock: true }
-      ],
-      images: [
-        'assets/products/sony-clean.png'
-      ],
-      category: 'Over-Ear'
     },
     {
       id: 'apple-airpods-max',
@@ -125,7 +99,7 @@ export class ProductService {
       originalPrice: 249,
       rating: 4.9,
       reviewsCount: 880,
-      description: 'Computational audio combines custom acoustic design with the Apple H1 chip and software for breakthrough listening experiences.',
+      description: 'Computational audio combines custom acoustic design with high fidelity H1 drivers for breakthrough listening experiences.',
       features: [
         'High-fidelity audio with dynamic head tracking',
         'Active Noise Cancellation with Transparency mode',
@@ -140,26 +114,131 @@ export class ProductService {
       images: [
         'assets/products/airpods-clean.png'
       ],
-      category: 'Wireless'
+      category: 'Headphones'
+    },
+    {
+      id: 'apple-airpods-pro',
+      brand: 'Apple',
+      name: 'Apple AirPods Pro 2',
+      subtitle: 'Active Noise Cancelling MagSafe',
+      price: 119,
+      originalPrice: 149,
+      rating: 4.8,
+      reviewsCount: 420,
+      description: 'Next-level Active Noise Cancellation and Adaptive Audio for rich, immersive listening wherever you go.',
+      features: [
+        'Adaptive Audio & Transparency Mode',
+        'Personalized Spatial Audio',
+        'MagSafe Case with Precision Finding',
+        'Up to 30 Hours Total Listening Time'
+      ],
+      colors: [
+        { name: 'Pure White', hex: '#FFFFFF', inStock: true }
+      ],
+      images: [
+        'assets/products/airpods-clean.png'
+      ],
+      category: 'Earphones',
+      isPopular: true
+    },
+    {
+      id: 'sony-wf1000xm5',
+      brand: 'Sony',
+      name: 'Sony WF-1000XM5',
+      subtitle: 'The Best Noise Cancelling Earbuds',
+      price: 139,
+      originalPrice: 179,
+      rating: 4.9,
+      reviewsCount: 310,
+      description: 'Featuring dual processor technology and dynamic driver X for unparalleled clarity and call quality.',
+      features: [
+        'Specially designed Dynamic Driver X',
+        'Dual proprietary noise cancelling processors',
+        'Multipoint connection & Bone conduction sensors',
+        'IPX4 water resistant'
+      ],
+      colors: [
+        { name: 'Black', hex: '#1C1C1E', inStock: true },
+        { name: 'Silver', hex: '#D1D1D6', inStock: true }
+      ],
+      images: [
+        'assets/products/sony-clean.png'
+      ],
+      category: 'Earphones'
+    },
+    {
+      id: 'jbl-flip-6',
+      brand: 'JBL',
+      name: 'JBL Flip 6 Portable',
+      subtitle: '2-Way Speaker System Deep Bass',
+      price: 69,
+      originalPrice: 89,
+      rating: 4.7,
+      reviewsCount: 290,
+      description: 'Bold JBL Original Pro Sound with exceptional clarity thanks to its 2-way speaker system and dual bass radiators.',
+      features: [
+        'Louder, more powerful 2-way audio',
+        'IP67 waterproof and dustproof',
+        '12 hours of playtime on a single charge',
+        'PartyBoost multiple speaker pairing'
+      ],
+      colors: [
+        { name: 'Midnight Black', hex: '#1C1C1E', inStock: true },
+        { name: 'Squad Blue', hex: '#2A3B5C', inStock: true },
+        { name: 'Fiesta Red', hex: '#9C2A2A', inStock: true }
+      ],
+      images: [
+        'assets/products/jbl-cutout.png'
+      ],
+      category: 'Speakers',
+      isPopular: true
+    },
+    {
+      id: 'bose-soundlink-flex',
+      brand: 'Bose',
+      name: 'Bose SoundLink Flex',
+      subtitle: 'Rugged Waterproof Bluetooth Speaker',
+      price: 89,
+      originalPrice: 119,
+      rating: 4.8,
+      reviewsCount: 195,
+      description: 'Astonishing sound and deep, waterproof durability with PositionIQ technology that optimizes acoustics anywhere.',
+      features: [
+        'High-fidelity audio with deep bass',
+        'PositionIQ technology automatically adjusts tone',
+        'Waterproof and dustproof (IP67) that even floats',
+        'Up to 12 hours battery life per charge'
+      ],
+      colors: [
+        { name: 'Black', hex: '#1C1C1E', inStock: true },
+        { name: 'Stone Blue', hex: '#4A6B82', inStock: true },
+        { name: 'Carmine Red', hex: '#87252B', inStock: true }
+      ],
+      images: [
+        'assets/products/bose-cutout.png'
+      ],
+      category: 'Speakers'
     }
   ];
 
-  readonly brands = ['All', 'JBL', 'Bose', 'Sony', 'Skullcandy'] as const;
+  // Script categories: All, Headphones, Earphones, Speakers
+  readonly categories = ['All', 'Headphones', 'Earphones', 'Speakers'] as const;
 
-  readonly selectedBrand = signal<string>('All');
+  readonly selectedCategory = signal<string>('All');
   readonly searchQuery = signal<string>('');
 
   readonly products = computed(() => {
-    const brand = this.selectedBrand();
+    const category = this.selectedCategory();
     const query = this.searchQuery().toLowerCase().trim();
 
     return this.productsData.filter(p => {
-      const matchBrand = brand === 'All' || p.brand.toLowerCase() === brand.toLowerCase();
+      const matchCategory = category === 'All' || p.category.toLowerCase() === category.toLowerCase();
       const matchQuery = !query || 
         p.name.toLowerCase().includes(query) ||
         p.brand.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query) ||
         p.subtitle.toLowerCase().includes(query);
-      return matchBrand && matchQuery;
+      return matchCategory && matchQuery;
     });
   });
 
@@ -167,8 +246,8 @@ export class ProductService {
     return this.productsData.find(p => p.id === id);
   }
 
-  setBrand(brand: string) {
-    this.selectedBrand.set(brand);
+  setCategory(category: string) {
+    this.selectedCategory.set(category);
   }
 
   setSearchQuery(query: string) {
