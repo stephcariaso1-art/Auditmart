@@ -24,7 +24,7 @@ export class OrderService {
             description: 'Engineered with patented acoustic technology.',
             features: ['Adjustable Sensory Bass'],
             colors: [{ name: 'Triple Black', hex: '#111113', inStock: true }],
-            images: ['assets/products/bose-cutout.png'],
+            images: ['assets/products/sony-clean.png'],
             category: 'Wireless'
           },
           selectedColor: { name: 'Triple Black', hex: '#111113', inStock: true },
@@ -57,7 +57,7 @@ export class OrderService {
             description: 'Experience deep bass, clear vocals, and all day comfort.',
             features: ['Adaptive Noise Cancelling'],
             colors: [{ name: 'Black', hex: '#1C1C1E', inStock: true }],
-            images: ['assets/products/jbl-cutout.png'],
+            images: ['assets/products/jbl-clean.png'],
             category: 'Over-Ear'
           },
           selectedColor: { name: 'Black', hex: '#1C1C1E', inStock: true },

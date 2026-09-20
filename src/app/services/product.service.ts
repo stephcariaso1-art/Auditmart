@@ -23,13 +23,13 @@ export class ProductService {
         'Multi-Point Connection & Fast Pair'
       ],
       colors: [
-        { name: 'White', hex: '#EBEBEB', inStock: true },
+        { name: 'White', hex: '#FFFFFF', inStock: true },
         { name: 'Silver', hex: '#A3A3A8', inStock: true },
         { name: 'Black', hex: '#1C1C1E', inStock: true }
       ],
       images: [
-        'assets/products/jbl-live-660nc.png',
-        'assets/products/jbl-cutout.png'
+        'assets/products/jbl-clean.png',
+        'assets/products/jbl-clean.png'
       ],
       category: 'Over-Ear',
       isPopular: true
@@ -56,8 +56,8 @@ export class ProductService {
         { name: 'Midnight Navy', hex: '#1C2538', inStock: true }
       ],
       images: [
-        'assets/products/sony-wh1000xm4.png',
-        'assets/products/sony-cutout.png'
+        'assets/products/sony-clean.png',
+        'assets/products/sony-clean.png'
       ],
       category: 'Studio',
       isPopular: true
@@ -84,8 +84,8 @@ export class ProductService {
         { name: 'Pure White', hex: '#F0F0F3', inStock: true }
       ],
       images: [
-        'assets/products/bose-crusher.png',
-        'assets/products/bose-cutout.png'
+        'assets/products/jbl-clean.png',
+        'assets/products/jbl-clean.png'
       ],
       category: 'Wireless',
       isPopular: true
@@ -112,34 +112,9 @@ export class ProductService {
         { name: 'Olive Green', hex: '#3B4D3C', inStock: true }
       ],
       images: [
-        'assets/products/skullcandy-evo.png'
+        'assets/products/sony-clean.png'
       ],
       category: 'Over-Ear'
-    },
-    {
-      id: 'sennheiser-momentum-4',
-      brand: 'Sennheiser',
-      name: 'Sennheiser Momentum 4',
-      subtitle: 'Audiophile Acoustic Signature',
-      price: 120,
-      originalPrice: 159,
-      rating: 4.9,
-      reviewsCount: 420,
-      description: 'Maximum audio resolution with Sennheiser signature 42mm transducer system and next-generation Adaptive ANC.',
-      features: [
-        'Incredible 60-hour battery life',
-        'Advanced customizable equalizer',
-        'Lightweight foldable design',
-        'Crystal clear voice calls'
-      ],
-      colors: [
-        { name: 'Graphite', hex: '#26262B', inStock: true },
-        { name: 'White & Sand', hex: '#EAE5DB', inStock: true }
-      ],
-      images: [
-        'assets/products/sennheiser-momentum.png'
-      ],
-      category: 'Audiophile'
     },
     {
       id: 'apple-airpods-max',
@@ -163,13 +138,13 @@ export class ProductService {
         { name: 'Sky Blue', hex: '#7BA4C4', inStock: true }
       ],
       images: [
-        'assets/products/apple-airpods-max.png'
+        'assets/products/airpods-clean.png'
       ],
       category: 'Wireless'
     }
   ];
 
-  readonly brands = ['All', 'JBL', 'Bose', 'Sony', 'Skullcandy', 'Sennheiser', 'Apple'] as const;
+  readonly brands = ['All', 'JBL', 'Bose', 'Sony', 'Skullcandy'] as const;
 
   readonly selectedBrand = signal<string>('All');
   readonly searchQuery = signal<string>('');
