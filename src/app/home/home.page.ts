@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../services/product.service';
@@ -30,7 +30,6 @@ export class HomePage {
 
   toggleFilterModal(e?: Event) {
     if (e) {
-      e.preventDefault();
       e.stopPropagation();
     }
     this.showFilterModal.update(v => !v);
@@ -53,11 +52,11 @@ export class HomePage {
   setSort(option: SortOption) {
     this.sortBy.set(option);
     if (option !== 'default') {
-      this.cartService.showToast(`Sorted by ${this.getSortLabel(option)}`);
+      this.cartService.showToast(`Sorted: ${this.getSortLabel(option)}`);
     }
   }
 
-  filteredProducts() {
+  filteredProducts = computed(() => {
     let list = this.productService.products().filter(p => p.price <= this.maxPrice());
 
     switch (this.sortBy()) {
@@ -72,7 +71,7 @@ export class HomePage {
       default:
         return list;
     }
-  }
+  });
 
   resetFilters() {
     this.productService.setCategory('All');

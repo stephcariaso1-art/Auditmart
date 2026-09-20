@@ -73,6 +73,14 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": [
+              ".trycloudflare.com",
+              "reed-editions-hanging-drink.trycloudflare.com",
+              ".localtunnel.me",
+              "localhost"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "app:build:production"

@@ -28,8 +28,8 @@ export class ProductService {
         { name: 'Black', hex: '#1C1C1E', inStock: true }
       ],
       images: [
-        'assets/products/jbl-clean.png',
-        'assets/products/jbl-live-660nc.png'
+        'assets/products/jbl-live-660nc.jpg',
+        'assets/products/sony-wh1000.jpg'
       ],
       category: 'Headphones',
       isPopular: true
@@ -56,8 +56,8 @@ export class ProductService {
         { name: 'Midnight Navy', hex: '#1C2538', inStock: true }
       ],
       images: [
-        'assets/products/sony-clean.png',
-        'assets/products/sony-ath-m50x.png'
+        'assets/products/sony-wh1000.jpg',
+        'assets/products/bose-crusher.jpg'
       ],
       category: 'Headphones',
       isPopular: true
@@ -84,8 +84,8 @@ export class ProductService {
         { name: 'Pure White', hex: '#F0F0F3', inStock: true }
       ],
       images: [
-        'assets/products/bose-crusher-evo.png',
-        'assets/products/jbl-clean.png'
+        'assets/products/bose-crusher.jpg',
+        'assets/products/jbl-live-660nc.jpg'
       ],
       category: 'Headphones',
       isPopular: true
@@ -112,7 +112,8 @@ export class ProductService {
         { name: 'Sky Blue', hex: '#7BA4C4', inStock: true }
       ],
       images: [
-        'assets/products/airpods-clean.png'
+        'assets/products/airpods-max-black.jpg',
+        'assets/products/airpods-max-white.jpg'
       ],
       category: 'Headphones'
     },
@@ -136,7 +137,8 @@ export class ProductService {
         { name: 'Pure White', hex: '#FFFFFF', inStock: true }
       ],
       images: [
-        'assets/products/airpods-clean.png'
+        'assets/products/airpods-pro.jpg',
+        'assets/products/airpods-pro-case.jpg'
       ],
       category: 'Earphones',
       isPopular: true
@@ -162,7 +164,7 @@ export class ProductService {
         { name: 'Silver', hex: '#D1D1D6', inStock: true }
       ],
       images: [
-        'assets/products/sony-clean.png'
+        'assets/products/sony-wf1000xm5.jpg'
       ],
       category: 'Earphones'
     },
@@ -188,7 +190,8 @@ export class ProductService {
         { name: 'Fiesta Red', hex: '#9C2A2A', inStock: true }
       ],
       images: [
-        'assets/products/jbl-cutout.png'
+        'assets/products/jbl-flip6.jpg',
+        'assets/products/jbl-pulse.jpg'
       ],
       category: 'Speakers',
       isPopular: true
@@ -215,7 +218,8 @@ export class ProductService {
         { name: 'Carmine Red', hex: '#87252B', inStock: true }
       ],
       images: [
-        'assets/products/bose-cutout.png'
+        'assets/products/bose-flex.jpg',
+        'assets/products/jbl-pulse.jpg'
       ],
       category: 'Speakers'
     }

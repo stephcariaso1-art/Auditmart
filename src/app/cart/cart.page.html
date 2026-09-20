@@ -15,11 +15,11 @@
           <div class="w-full bg-[#222226] rounded-[26px] p-4 flex items-start gap-4 border border-white/[0.05] shadow-md">
             
             <!-- Left: Square Thumbnail (matches Item ordered RECTANGLE 140x142 in Figma 58:2) -->
-            <div class="w-24 h-24 rounded-2xl bg-[#2D2D33] p-2 flex items-center justify-center flex-shrink-0">
+            <div class="w-24 h-24 rounded-2xl bg-[#2D2D33] overflow-hidden flex items-center justify-center flex-shrink-0 border border-white/5">
               <img 
                 [src]="item.product.images[0]" 
                 [alt]="item.product.name" 
-                class="w-full h-full object-contain filter drop-shadow-md" />
+                class="w-full h-full object-cover" />
             </div>
 
             <!-- Right Details Stack (Title, Edition, Price, and 3 Quantity Circles matching Figma 58:2) -->
