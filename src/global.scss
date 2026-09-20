@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #141416 !important;
+  color: #FFFFFF;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #141416 !important;
+  color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for category pills / horizontal scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* App Frame Container for Responsive Phone / Tablet / Desktop */
+.app-viewport-wrapper {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #0B0B0D;
+}
+
+.mobile-stage-frame {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #141416;
+  position: relative;
+  overflow-x: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .mobile-stage-frame {
+    margin: 20px 0;
+    min-height: 890px;
+    height: 890px;
+    border-radius: 46px;
+    border: 8px solid #232328;
+    overflow-y: auto;
+  }
+}
+
+/* Sleek UI Helpers */
+.glass-dock {
+  background: rgba(28, 28, 32, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pill-active {
+  background-color: #FFFFFF;
+  color: #121214;
+  font-weight: 600;
+}
+
+.pill-inactive {
+  background-color: #27272C;
+  color: #A1A1A6;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.pill-inactive:hover {
+  background-color: #323238;
+  color: #FFFFFF;
+}
+
+.btn-white-cta {
+  background-color: #FFFFFF;
+  color: #121214;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  transition: all 0.2s ease;
+}
+.btn-white-cta:active {
+  transform: scale(0.97);
+  background-color: #ECECEF;
+}
+
+.btn-dark-pill {
+  background-color: #27272C;
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+.btn-dark-pill:active {
+  background-color: #323238;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

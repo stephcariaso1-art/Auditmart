@@ -1,0 +1,7 @@
+{
+  "name": "AudiMart",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
