@@ -41,6 +41,14 @@ export class ProductDetailPage implements OnInit {
 
   selectColor(color: ProductColor) {
     this.selectedColor.set(color);
+    if (this.product && this.product.images.length > 1) {
+      const idx = this.product.colors.findIndex(c => c.name === color.name);
+      if (idx !== -1 && idx < this.product.images.length) {
+        this.activeImage.set(this.product.images[idx]);
+      } else {
+        this.activeImage.set(this.product.images[0]);
+      }
+    }
   }
 
   addToCart() {

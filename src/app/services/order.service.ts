@@ -8,7 +8,7 @@ export class OrderService {
   readonly orders = signal<Order[]>([
     {
       id: 'ord-101',
-      orderNumber: 'VM-98421',
+      orderNumber: 'AM-98421',
       date: 'Sep 18, 2026',
       status: 'Delivered',
       items: [
@@ -24,7 +24,7 @@ export class OrderService {
             description: 'Engineered with patented acoustic technology.',
             features: ['Adjustable Sensory Bass'],
             colors: [{ name: 'Triple Black', hex: '#111113', inStock: true }],
-            images: ['assets/products/sony-clean.png'],
+            images: ['assets/products/bose-crusher.jpg'],
             category: 'Wireless'
           },
           selectedColor: { name: 'Triple Black', hex: '#111113', inStock: true },
@@ -41,7 +41,7 @@ export class OrderService {
     },
     {
       id: 'ord-100',
-      orderNumber: 'VM-88319',
+      orderNumber: 'AM-88319',
       date: 'Sep 02, 2026',
       status: 'Delivered',
       items: [
@@ -57,7 +57,7 @@ export class OrderService {
             description: 'Experience deep bass, clear vocals, and all day comfort.',
             features: ['Adaptive Noise Cancelling'],
             colors: [{ name: 'Black', hex: '#1C1C1E', inStock: true }],
-            images: ['assets/products/jbl-clean.png'],
+            images: ['assets/products/jbl-live-660nc.jpg'],
             category: 'Over-Ear'
           },
           selectedColor: { name: 'Black', hex: '#1C1C1E', inStock: true },
@@ -86,7 +86,7 @@ export class OrderService {
     paymentMethod: string
   ): Order {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const orderNumber = `VM-${randomNum}`;
+    const orderNumber = `AM-${randomNum}`;
     const newOrder: Order = {
       id: `ord-${Date.now()}`,
       orderNumber,
