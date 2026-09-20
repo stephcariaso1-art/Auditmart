@@ -1,11 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../services/product.service';
-import { CartService } from '../../services/cart.service';
-import { Product, ProductColor } from '../../models';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { IconComponent } from '../../components/icon/icon.component';
+import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
+import { Product, ProductColor } from '../models';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { IconComponent } from '../components/icon/icon.component';
 
 @Component({
   selector: 'app-product-detail-page',

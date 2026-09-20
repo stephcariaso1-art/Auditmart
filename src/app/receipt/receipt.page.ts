@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { OrderService } from '../../services/order.service';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { IconComponent } from '../../components/icon/icon.component';
+import { OrderService } from '../services/order.service';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { IconComponent } from '../components/icon/icon.component';
 
 @Component({
   selector: 'app-receipt-page',

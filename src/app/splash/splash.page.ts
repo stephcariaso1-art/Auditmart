@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IconComponent } from '../../components/icon/icon.component';
+import { IconComponent } from '../components/icon/icon.component';
 
 @Component({
   selector: 'app-splash-page',

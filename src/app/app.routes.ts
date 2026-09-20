@@ -8,43 +8,51 @@ export const routes: Routes = [
   },
   {
     path: 'splash',
-    loadComponent: () => import('./pages/splash/splash.page').then(m => m.SplashPage),
+    loadComponent: () => import('./splash/splash.page').then(m => m.SplashPage),
   },
   {
     path: 'home',
-    loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage),
+    loadComponent: () => import('./home/home.page').then(m => m.HomePage),
   },
   {
     path: 'product/:id',
-    loadComponent: () => import('./pages/product-detail/product-detail.page').then(m => m.ProductDetailPage),
+    loadComponent: () => import('./product-detail/product-detail.page').then(m => m.ProductDetailPage),
   },
   {
     path: 'cart',
-    loadComponent: () => import('./pages/cart/cart.page').then(m => m.CartPage),
+    loadComponent: () => import('./cart/cart.page').then(m => m.CartPage),
   },
   {
     path: 'checkout',
-    loadComponent: () => import('./pages/checkout/checkout.page').then(m => m.CheckoutPage),
+    loadComponent: () => import('./checkout/checkout.page').then(m => m.CheckoutPage),
   },
   {
     path: 'receipt',
-    loadComponent: () => import('./pages/receipt/receipt.page').then(m => m.ReceiptPage),
+    loadComponent: () => import('./receipt/receipt.page').then(m => m.ReceiptPage),
   },
   {
     path: 'orders',
-    loadComponent: () => import('./pages/orders/orders.page').then(m => m.OrdersPage),
+    loadComponent: () => import('./orders/orders.page').then(m => m.OrdersPage),
   },
   {
     path: 'profile',
-    loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage),
+    loadComponent: () => import('./profile/profile.page').then(m => m.ProfilePage),
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage),
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage),
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/signup/signup.page').then(m => m.SignupPage),
+    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage),
+  },
+  {
+    path: 'auth/login',
+    loadComponent: () => import('./auth/login.page').then(m => m.LoginPage),
+  },
+  {
+    path: 'auth/signup',
+    loadComponent: () => import('./auth/signup.page').then(m => m.SignupPage),
   },
   {
     path: '**',

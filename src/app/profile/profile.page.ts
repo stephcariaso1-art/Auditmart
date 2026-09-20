@@ -2,10 +2,10 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { CartService } from '../../services/cart.service';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { IconComponent } from '../../components/icon/icon.component';
+import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart.service';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { IconComponent } from '../components/icon/icon.component';
 
 @Component({
   selector: 'app-profile-page',

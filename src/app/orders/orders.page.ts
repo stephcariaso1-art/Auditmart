@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { OrderService } from '../../services/order.service';
-import { CartService } from '../../services/cart.service';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { Order } from '../../models';
+import { OrderService } from '../services/order.service';
+import { CartService } from '../services/cart.service';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { Order } from '../models';
 
 @Component({
   selector: 'app-orders-page',

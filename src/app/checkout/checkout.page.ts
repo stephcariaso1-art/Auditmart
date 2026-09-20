@@ -2,11 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CartService } from '../../services/cart.service';
-import { OrderService } from '../../services/order.service';
-import { AuthService } from '../../services/auth.service';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { IconComponent } from '../../components/icon/icon.component';
+import { CartService } from '../services/cart.service';
+import { OrderService } from '../services/order.service';
+import { AuthService } from '../services/auth.service';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { IconComponent } from '../components/icon/icon.component';
 
 @Component({
   selector: 'app-checkout-page',

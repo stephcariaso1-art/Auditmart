@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../../services/product.service';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ProductCardComponent } from '../../components/product-card/product-card.component';
-import { IconComponent } from '../../components/icon/icon.component';
-import { CartService } from '../../services/cart.service';
+import { ProductService } from '../services/product.service';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { ProductCardComponent } from '../components/product-card/product-card.component';
+import { IconComponent } from '../components/icon/icon.component';
+import { CartService } from '../services/cart.service';
 
 export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'name';
 
