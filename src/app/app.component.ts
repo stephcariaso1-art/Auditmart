@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { TabbarComponent } from './components/tabbar/tabbar.component';
-import { IconComponent } from './components/icon/icon.component';
 import { CartService } from './services/cart.service';
 import { NotificationService } from './services/notification.service';
 
@@ -18,10 +18,20 @@ export class AppComponent {
   cart = inject(CartService);
   notifService = inject(NotificationService);
 
+  readonly currentUrl = signal<string>(this.router.url);
+
+  constructor() {
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
+    ).subscribe(e => {
+      this.currentUrl.set(e.urlAfterRedirects || e.url);
+    });
+  }
+
   shouldShowTabBar(): boolean {
-    const url = this.router.url;
+    const url = this.currentUrl();
+    // Hide tabbar on checkout flow, product detail, auth, and splash screens
     if (
-      url.includes('/cart') ||
       url.includes('/product/') ||
       url.includes('/checkout') ||
       url.includes('/receipt') ||
