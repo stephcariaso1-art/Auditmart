@@ -1,0 +1,133 @@
+<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative pb-48">
+  
+  <!-- Top Navbar: Cart Title (NO back button on main Cart tab) -->
+  <app-navbar 
+    [title]="'Cart'" 
+    [showBack]="false">
+  </app-navbar>
+
+  <div class="px-5 space-y-4 pt-1 flex-1 flex flex-col justify-between">
+    
+    <!-- Cart Items Feed (Spot-on match for Figma 58:2 wireframe) -->
+    @if (cart.items().length > 0) {
+      <div class="space-y-3.5 pt-1">
+        @for (item of cart.items(); track item.product.id + item.selectedColor.name) {
+          <div class="w-full bg-[#222226] rounded-[26px] p-4 flex items-start gap-4 border border-white/[0.05] shadow-md">
+            
+            <!-- Left: Square Thumbnail (matches Item ordered RECTANGLE 140x142 in Figma 58:2) -->
+            <div class="w-24 h-24 rounded-2xl bg-[#2D2D33] p-2 flex items-center justify-center flex-shrink-0">
+              <img 
+                [src]="item.product.images[0]" 
+                [alt]="item.product.name" 
+                class="w-full h-full object-contain filter drop-shadow-md" />
+            </div>
+
+            <!-- Right Details Stack (Title, Edition, Price, and 3 Quantity Circles matching Figma 58:2) -->
+            <div class="flex-1 min-w-0 flex flex-col justify-between h-24 py-0.5">
+              
+              <!-- Row 1: Title & Delete Trash -->
+              <div class="flex items-start justify-between gap-1">
+                <div class="min-w-0 flex-1">
+                  <h4 class="text-sm font-bold text-white tracking-tight truncate">{{ item.product.name }}</h4>
+                  <p class="text-[11px] text-[#8E8E93] mt-0.5 font-medium">{{ item.selectedColor.name }} Edition</p>
+                </div>
+
+                <!-- Delete button -->
+                <button 
+                  (click)="cart.removeItem(item.product.id, item.selectedColor.name)"
+                  class="text-white/40 hover:text-white/90 p-1 transition-colors active:scale-90"
+                  title="Remove item">
+                  <app-icon name="trash" [size]="14" color="#8E8E93"></app-icon>
+                </button>
+              </div>
+
+              <!-- Row 2: Total Item Price -->
+              <div class="text-sm font-extrabold text-white">
+                ${{ item.product.price * item.quantity }}
+              </div>
+
+              <!-- Row 3: The 3 Circular Buttons from Figma 58:2 (Quantity VECTOR 58:41, 58:45, 58:47) -->
+              <div class="flex items-center gap-2">
+                <!-- Circle 1: Minus -->
+                <button 
+                  (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, -1)"
+                  class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
+                  -
+                </button>
+
+                <!-- Circle 2: Current Quantity -->
+                <div class="w-7 h-7 rounded-full bg-[#18181B] text-white flex items-center justify-center font-bold text-xs border border-white/10">
+                  {{ item.quantity }}
+                </div>
+
+                <!-- Circle 3: Plus -->
+                <button 
+                  (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, 1)"
+                  class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
+                  +
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        }
+      </div>
+
+      <!-- Bottom Summary Section (Matches the 3 stacked pills in Figma 58:2) -->
+      <div class="space-y-3 pt-4">
+        
+        <!-- Pill 1: Subtotal & Express Shipping (matches Total RECTANGLE 76:130) -->
+        <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-2 border border-white/[0.05] shadow-xs">
+          <div class="flex justify-between text-xs text-[#8E8E93]">
+            <span>Subtotal ({{ cart.totalCount() }} {{ cart.totalCount() === 1 ? 'item' : 'items' }})</span>
+            <span class="text-white font-semibold">${{ cart.subtotal() }}</span>
+          </div>
+          <div class="flex justify-between text-xs text-[#8E8E93]">
+            <span>Standard Express Shipping</span>
+            <span class="text-white font-semibold">{{ cart.deliveryFee() === 0 ? 'FREE' : '$' + cart.deliveryFee() }}</span>
+          </div>
+        </div>
+
+        <!-- Pill 2: Total Amount & Priority Dispatch (matches Total RECTANGLE 58:35) -->
+        <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-1 border border-white/[0.05] shadow-xs">
+          <div class="flex justify-between items-baseline">
+            <span class="text-xs font-bold text-[#8E8E93] uppercase tracking-wider">Total Amount</span>
+            <span class="text-xl font-black text-white tracking-tight">${{ cart.total() }}</span>
+          </div>
+          <p class="text-[11px] text-[#7E7E88]">Fast priority dispatch with audiMart Express Courier</p>
+        </div>
+
+        <!-- Pill 3: In-Flow Checkout Button (matches Total RECTANGLE 76:132) -->
+        <div class="pt-1">
+          <button 
+            (click)="proceedToCheckout()"
+            class="w-full py-4 rounded-full bg-white text-black font-extrabold text-sm tracking-wide shadow-xl hover:bg-neutral-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer">
+            <span>Proceed to Checkout</span>
+            <app-icon name="arrow-right" [size]="16" color="#000000" [strokeWidth]="2.5"></app-icon>
+          </button>
+        </div>
+
+      </div>
+
+    } @else {
+      <!-- Empty Cart State -->
+      <div class="py-24 text-center space-y-4 my-auto">
+        <div class="w-16 h-16 rounded-full bg-[#222226] flex items-center justify-center mx-auto text-white/30">
+          <app-icon name="cart" [size]="28" color="#7E7E88"></app-icon>
+        </div>
+        <div class="space-y-1">
+          <p class="text-base font-bold text-white">Your cart is empty</p>
+          <p class="text-xs text-[#7E7E88]">Add items from the collection to see them here</p>
+        </div>
+        <button 
+          (click)="goToExplore()" 
+          class="px-6 py-3 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors">
+          Browse Audio Gear
+        </button>
+      </div>
+    }
+
+  </div>
+
+</div>
