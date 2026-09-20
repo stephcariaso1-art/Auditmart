@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
 import { IconComponent } from '../../components/icon/icon.component';
 
 @Component({
@@ -14,6 +15,7 @@ import { IconComponent } from '../../components/icon/icon.component';
 })
 export class SignupPage {
   private auth = inject(AuthService);
+  private cart = inject(CartService);
   private router = inject(Router);
 
   email = '';
@@ -37,6 +39,12 @@ export class SignupPage {
 
     const name = this.email.split('@')[0] || 'Member';
     this.auth.signup(name, this.email, this.password);
+    this.router.navigate(['/home']);
+  }
+
+  goGuest() {
+    this.auth.setGuestMode(true);
+    this.cart.clearCart();
     this.router.navigate(['/home']);
   }
 

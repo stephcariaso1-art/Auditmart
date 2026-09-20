@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart.service';
+import { AuthService } from '../services/auth.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -14,10 +15,27 @@ import { IconComponent } from '../components/icon/icon.component';
 })
 export class CartPage {
   cart = inject(CartService);
+  auth = inject(AuthService);
   private router = inject(Router);
 
+  showGuestAuthModal = signal<boolean>(false);
+
   proceedToCheckout() {
+    if (this.auth.isGuest()) {
+      this.showGuestAuthModal.set(true);
+      return;
+    }
     this.router.navigate(['/checkout']);
+  }
+
+  goToLogin() {
+    this.showGuestAuthModal.set(false);
+    this.router.navigate(['/login']);
+  }
+
+  goToSignUp() {
+    this.showGuestAuthModal.set(false);
+    this.router.navigate(['/signup']);
   }
 
   goToExplore() {

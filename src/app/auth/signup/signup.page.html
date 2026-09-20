@@ -1,14 +1,17 @@
 <div class="w-full min-h-screen p-6 bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in">
   
-  <!-- Top Bar: Back to Login -->
+  <!-- Top Bar: Back to Login & Guest Explore -->
   <div class="flex items-center justify-between pt-2">
     <button 
       (click)="goBack()" 
       class="w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:text-white bg-white/5 active:scale-95 transition-all">
       <app-icon name="arrow-left" [size]="20" color="#FFFFFF"></app-icon>
     </button>
-    <h2 class="text-sm font-semibold tracking-wide text-white">Create Account</h2>
-    <div class="w-10"></div>
+    <button 
+      (click)="goGuest()" 
+      class="text-xs text-white/60 hover:text-white font-medium px-3 py-1.5 rounded-full bg-white/5 transition-colors cursor-pointer">
+      Explore as Guest
+    </button>
   </div>
 
   <!-- Form: Email, Create Password, Re-enter Password (matches video script) -->

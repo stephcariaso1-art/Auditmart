@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { IconComponent } from '../components/icon/icon.component';
   templateUrl: './checkout.page.html',
   styleUrls: ['./checkout.page.scss']
 })
-export class CheckoutPage {
+export class CheckoutPage implements OnInit {
   cart = inject(CartService);
   orderService = inject(OrderService);
   auth = inject(AuthService);
@@ -24,6 +24,13 @@ export class CheckoutPage {
   selectedShipping: 'standard' | 'express' = 'standard';
   selectedPayment: 'apple_pay' | 'card' = 'apple_pay';
   isSubmitting = signal<boolean>(false);
+
+  ngOnInit() {
+    if (this.auth.isGuest()) {
+      this.cart.showToast('Please sign in or create an account to checkout');
+      this.router.navigate(['/login']);
+    }
+  }
 
   get defaultAddress(): ShippingAddress | undefined {
     return this.auth.shippingAddresses().find(a => a.isDefault) || this.auth.shippingAddresses()[0];
@@ -50,6 +57,12 @@ export class CheckoutPage {
   }
 
   placeOrder() {
+    if (this.auth.isGuest()) {
+      this.cart.showToast('Guests cannot place orders. Please sign in.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
     if (this.cart.items().length === 0) return;
 
     this.isSubmitting.set(true);

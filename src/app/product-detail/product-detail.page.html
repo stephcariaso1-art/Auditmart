@@ -157,7 +157,12 @@
         
         <!-- Price Display -->
         <div class="flex flex-col">
-          <span class="text-[10px] text-white/50 font-bold uppercase tracking-wider">Price</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] text-white/50 font-bold uppercase tracking-wider">Price</span>
+            @if (auth.isGuest()) {
+              <span class="text-[9px] font-bold text-blue-400 px-1.5 py-0.5 rounded-full bg-blue-500/15 border border-blue-500/25">Guest</span>
+            }
+          </div>
           <span class="text-xl font-black text-white tracking-tight">
             ${{ product.price }}
           </span>
@@ -185,6 +190,57 @@
 
       </div>
     </div>
+
+    <!-- ================= MODAL: GUEST AUTH REQUIRED ================= -->
+    @if (showGuestAuthModal()) {
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+           (click)="showGuestAuthModal.set(false)">
+        <div 
+          class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl text-center relative"
+          (click)="$event.stopPropagation()">
+          
+          <!-- Close Icon -->
+          <button 
+            (click)="showGuestAuthModal.set(false)"
+            class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
+            ✕
+          </button>
+
+          <!-- Icon Emblem -->
+          <div class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mx-auto text-white mt-1">
+            <app-icon name="cart" [size]="24" color="#FFFFFF"></app-icon>
+          </div>
+
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-white">Sign In to Continue</h3>
+            <p class="text-xs text-[#8E8E93] leading-relaxed">
+              You are currently browsing as a guest. Please create an account or sign in to add items to your cart and place orders.
+            </p>
+          </div>
+
+          <div class="space-y-2.5 pt-2">
+            <button 
+              (click)="goToSignUp()"
+              class="w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all cursor-pointer">
+              Create Free Account
+            </button>
+
+            <button 
+              (click)="goToLogin()"
+              class="w-full py-3.5 rounded-full bg-[#27272C] text-white font-bold text-xs tracking-wide border border-white/10 hover:bg-[#34343A] active:scale-95 transition-all cursor-pointer">
+              Sign In with Email
+            </button>
+
+            <button 
+              (click)="showGuestAuthModal.set(false)"
+              class="w-full py-2 text-xs text-[#8E8E93] hover:text-white transition-colors cursor-pointer">
+              Continue Browsing
+            </button>
+          </div>
+
+        </div>
+      </div>
+    }
 
   </div>
 } @else {

@@ -1,10 +1,12 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { CartItem, Product, ProductColor } from '../models';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  private auth = inject(AuthService);
   readonly items = signal<CartItem[]>([]);
   readonly promoCode = signal<string>('');
   readonly discountPercent = signal<number>(0);
@@ -72,7 +74,12 @@ export class CartService {
     return Math.max(0, this.subtotal() - this.discountAmount() + this.deliveryFee());
   });
 
-  addItem(product: Product, color?: ProductColor, quantity: number = 1) {
+  addItem(product: Product, color?: ProductColor, quantity: number = 1): boolean {
+    if (this.auth.isGuest()) {
+      this.showToast('Please sign in or create an account to add items to cart');
+      return false;
+    }
+
     const selectedColor = color || product.colors[0];
     const current = [...this.items()];
     const index = current.findIndex(
@@ -94,6 +101,7 @@ export class CartService {
 
     this.items.set(current);
     this.showToast(`Added ${product.name} to cart`);
+    return true;
   }
 
   updateQuantity(productId: string, colorName: string, delta: number) {

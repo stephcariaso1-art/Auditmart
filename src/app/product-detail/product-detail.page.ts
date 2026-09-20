@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
+import { AuthService } from '../services/auth.service';
 import { Product, ProductColor } from '../models';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
@@ -19,10 +20,12 @@ export class ProductDetailPage implements OnInit {
   private router = inject(Router);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  auth = inject(AuthService);
 
   product?: Product;
   selectedColor = signal<ProductColor | null>(null);
   activeImage = signal<string>('');
+  showGuestAuthModal = signal<boolean>(false);
   activeImageIndex = signal<number>(0);
   private touchStartX = 0;
   private touchStartY = 0;
@@ -133,6 +136,10 @@ export class ProductDetailPage implements OnInit {
   }
 
   addToCart() {
+    if (this.auth.isGuest()) {
+      this.showGuestAuthModal.set(true);
+      return;
+    }
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
       this.router.navigate(['/cart']);
@@ -140,10 +147,24 @@ export class ProductDetailPage implements OnInit {
   }
 
   buyNow() {
+    if (this.auth.isGuest()) {
+      this.showGuestAuthModal.set(true);
+      return;
+    }
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
       this.router.navigate(['/checkout']);
     }
+  }
+
+  goToLogin() {
+    this.showGuestAuthModal.set(false);
+    this.router.navigate(['/login']);
+  }
+
+  goToSignUp() {
+    this.showGuestAuthModal.set(false);
+    this.router.navigate(['/signup']);
   }
 
   goHome() {
