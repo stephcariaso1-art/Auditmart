@@ -118,21 +118,10 @@ export class CartService {
   }
 
   applyPromoCode(code: string): boolean {
-    const normalized = code.trim().toUpperCase();
-    if (normalized === 'VIBRA15' || normalized === 'AUDI15') {
-      this.discountPercent.set(15);
-      this.promoCode.set(normalized);
-      this.showToast('15% discount applied!');
-      return true;
-    } else if (normalized === 'VIP20') {
-      this.discountPercent.set(20);
-      this.promoCode.set(normalized);
-      this.showToast('20% VIP discount applied!');
-      return true;
-    } else {
-      this.showToast('Invalid promo code');
-      return false;
-    }
+    this.discountPercent.set(0);
+    this.promoCode.set('');
+    this.showToast('Coupon validation disabled (backend pending)');
+    return false;
   }
 
   clearCart() {

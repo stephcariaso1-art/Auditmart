@@ -81,27 +81,6 @@ import { IconComponent } from '../../components/icon/icon.component';
 
         </form>
 
-        <!-- Social login pills -->
-        <div class="w-full max-w-sm pt-2">
-          <div class="relative flex items-center justify-center my-4">
-            <div class="border-t border-white/10 w-full"></div>
-            <span class="bg-[#141416] px-3 text-[11px] text-white/40 uppercase tracking-wider font-semibold">Or continue with</span>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <button 
-              (click)="quickDemoLogin('Apple')"
-              class="py-3 px-4 rounded-2xl bg-[#232328] border border-white/10 text-xs font-semibold text-white/90 hover:text-white hover:bg-[#2A2A30] flex items-center justify-center gap-2 transition-colors">
-              <span>Apple ID</span>
-            </button>
-            <button 
-              (click)="quickDemoLogin('Google')"
-              class="py-3 px-4 rounded-2xl bg-[#232328] border border-white/10 text-xs font-semibold text-white/90 hover:text-white hover:bg-[#2A2A30] flex items-center justify-center gap-2 transition-colors">
-              <span>Google</span>
-            </button>
-          </div>
-        </div>
-
       </div>
 
       <!-- Bottom Register Link -->
@@ -127,11 +106,6 @@ export class LoginPage {
       return;
     }
     this.auth.login(this.email, this.password);
-    this.router.navigate(['/home']);
-  }
-
-  quickDemoLogin(provider: string) {
-    this.auth.login(`demo.${provider.toLowerCase()}@audiomart.io`, 'demo');
     this.router.navigate(['/home']);
   }
 

@@ -21,6 +21,7 @@ export class AppComponent {
   shouldShowTabBar(): boolean {
     const url = this.router.url;
     if (
+      url.includes('/cart') ||
       url.includes('/product/') ||
       url.includes('/checkout') ||
       url.includes('/receipt') ||
