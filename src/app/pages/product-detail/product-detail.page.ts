@@ -13,9 +13,9 @@ import { IconComponent } from '../../components/icon/icon.component';
   imports: [CommonModule, NavbarComponent, IconComponent],
   template: `
     @if (product) {
-      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in relative pb-32">
+      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in relative pb-36">
         
-        <!-- Top Navbar with Details Title (matches cZDul4ky.jpg) -->
+        <!-- Top Navbar with Details Title & Back Arrow (matches cZDul4ky.jpg) -->
         <app-navbar 
           [title]="'Details'" 
           [showBack]="true"
@@ -44,7 +44,7 @@ import { IconComponent } from '../../components/icon/icon.component';
               <button 
                 (click)="selectColor(color)"
                 [title]="color.name"
-                class="group relative flex items-center justify-center p-1 rounded-full transition-transform active:scale-90"
+                class="group relative flex items-center justify-center p-1 rounded-full transition-transform active:scale-90 cursor-pointer"
                 [ngClass]="selectedColor()?.name === color.name ? 'scale-110' : 'opacity-70 hover:opacity-100'">
                 
                 <!-- Ring for active -->
@@ -80,7 +80,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           <!-- Product Title & Tagline -->
           <div class="space-y-1.5">
             <div class="flex items-baseline gap-2">
-              <span class="text-xl font-extrabold tracking-tight text-black font-sans">{{ product.brand }}</span>
+              <span class="text-xl font-black tracking-tight text-black font-sans">{{ product.brand }}</span>
               <span class="text-lg font-bold text-[#1C1C1E]">{{ getModel(product) }}</span>
             </div>
             <p class="text-xs text-[#55555B] leading-relaxed font-normal">
@@ -124,30 +124,34 @@ import { IconComponent } from '../../components/icon/icon.component';
 
         </div>
 
-        <!-- Sticky Floating Bottom CTA Action Bar (matches cZDul4ky.jpg: dark container, $75, Buy Now) -->
+        <!-- Sticky Floating Bottom Dock: Price, Add & Buy Now (matches bottom nav dock style and navigates properly) -->
         <div class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none">
-          <div class="rounded-full bg-[#141416] p-2 pl-6 flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-xl">
+          <div class="glass-dock rounded-[32px] px-5 py-3 flex items-center justify-between shadow-dock border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
             
             <!-- Price Display -->
             <div class="flex flex-col">
-              <span class="text-[10px] text-white/50 font-medium uppercase tracking-wider">Price</span>
+              <span class="text-[10px] text-white/50 font-bold uppercase tracking-wider">Price</span>
               <span class="text-xl font-black text-white tracking-tight">
                 \${{ product.price }}
               </span>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2">
+            <!-- Action Buttons: Add & Buy Now behaving like bottom nav -->
+            <div class="flex items-center gap-2.5">
+              <!-- Add to Cart (adds and navigates to cart tab like bottom nav) -->
               <button 
                 (click)="addToCart()"
-                class="px-4 py-3 rounded-full bg-[#27272C] hover:bg-[#323238] text-white text-xs font-bold transition-all active:scale-95 border border-white/10 flex items-center gap-1.5">
+                title="Add to Cart"
+                class="px-4 py-3 rounded-full bg-[#27272C] hover:bg-[#34343A] active:scale-95 text-white text-xs font-bold transition-all border border-white/10 flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <app-icon name="cart" [size]="16" color="#FFFFFF"></app-icon>
                 <span>Add</span>
               </button>
 
+              <!-- Buy Now (proceeds directly to checkout) -->
               <button 
                 (click)="buyNow()"
-                class="px-6 py-3 rounded-full bg-white text-black text-xs font-extrabold tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all">
+                title="Buy Now"
+                class="px-6 py-3 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
                 Buy Now
               </button>
             </div>
@@ -160,7 +164,7 @@ import { IconComponent } from '../../components/icon/icon.component';
       <!-- Not Found Fallback -->
       <div class="w-full min-h-screen bg-[#141416] text-white p-6 flex flex-col items-center justify-center space-y-4">
         <p class="text-base font-bold">Product not found</p>
-        <button (click)="goHome()" class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold">
+        <button (click)="goHome()" class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold cursor-pointer">
           Back to Home
         </button>
       </div>
@@ -199,13 +203,16 @@ export class ProductDetailPage implements OnInit {
   addToCart() {
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
+      // Navigates directly to cart just like clicking the cart tab in the bottom nav
+      this.router.navigate(['/cart']);
     }
   }
 
   buyNow() {
     if (this.product) {
       this.cartService.addItem(this.product, this.selectedColor() || undefined, 1);
-      this.router.navigate(['/cart']);
+      // Directly proceeds to checkout for seamless payment flow
+      this.router.navigate(['/checkout']);
     }
   }
 
