@@ -167,10 +167,11 @@ export class OrdersPage {
   }
 
   reorder(order: Order) {
+    this.cartService.clearCart();
     for (const item of order.items) {
       this.cartService.addItem(item.product, item.selectedColor, item.quantity);
     }
-    this.cartService.showToast('Reordered items added to cart');
-    this.router.navigate(['/cart']);
+    this.cartService.showToast(`Reordering ${order.items[0].product.name}...`);
+    this.router.navigate(['/checkout']);
   }
 }

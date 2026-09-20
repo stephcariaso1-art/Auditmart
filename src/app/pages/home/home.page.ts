@@ -16,12 +16,12 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
   template: `
     <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
       
-      <!-- Top Brand Navbar: Menu, audiMart, Notification Bell -->
+      <!-- Top Brand Navbar: audiMart, Notification Bell (NO top-left icon) -->
       <app-navbar></app-navbar>
 
       <div class="px-5 space-y-4 pt-1">
         
-        <!-- Search Bar with Working Sort/Filter Icon (matches video script & user request) -->
+        <!-- Search Bar with Highly Visible & Clickable Sort/Filter Button -->
         <div class="relative flex items-center">
           <div class="absolute left-4 flex items-center pointer-events-none text-[#7E7E88]">
             <app-icon name="search" [size]="17" color="#7E7E88"></app-icon>
@@ -32,34 +32,44 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
             [ngModel]="productService.searchQuery()" 
             (ngModelChange)="productService.setSearchQuery($event)"
             placeholder="Search audio products..." 
-            class="w-full pl-11 pr-12 py-3.5 rounded-2xl bg-[#222226] border border-white/[0.06] text-white placeholder-[#6E6E78] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full pl-11 pr-14 py-3.5 rounded-2xl bg-[#222226] border border-white/[0.06] text-white placeholder-[#6E6E78] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
 
-          <!-- Working Sort & Filter Icon on Far Right -->
+          <!-- Highly Clickable Sort & Filter Button (fixed hit area & high z-index) -->
           <button 
-            (click)="showFilterModal.set(true)"
+            type="button"
+            (click)="toggleFilterModal($event)"
             title="Sort and filter products"
-            class="absolute right-2.5 w-8 h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer"
-            [ngClass]="isSortActive() ? 'bg-white text-black shadow-md' : 'text-[#8E8E93] hover:text-white bg-transparent'">
-            <app-icon name="sliders" [size]="16" [color]="isSortActive() ? '#000000' : '#8E8E93'"></app-icon>
+            class="absolute right-1.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer pointer-events-auto border active:scale-90"
+            [ngClass]="isSortActive() ? 'bg-white text-black border-white shadow-md' : 'bg-[#2A2A30] hover:bg-[#35353D] text-white border-white/10'">
+            <app-icon name="sliders" [size]="18" [color]="isSortActive() ? '#000000' : '#FFFFFF'" classNames="pointer-events-none"></app-icon>
             @if (isSortActive()) {
-              <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#222226]"></span>
+              <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#222226]"></span>
             }
           </button>
         </div>
 
-        <!-- Active Sort Pill Banner (visible when sort is applied) -->
-        @if (sortBy() !== 'default') {
-          <div class="flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#222226] border border-white/10 text-xs">
-            <span class="text-[#8E8E93] text-[11px]">
-              Sorted by: <strong class="text-white">{{ getSortLabel(sortBy()) }}</strong>
-            </span>
+        <!-- Quick Sort Pills Bar -->
+        <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-0.5 text-xs">
+          <div class="flex items-center gap-2">
             <button 
-              (click)="setSort('default')" 
-              class="text-[11px] text-white/60 hover:text-white underline cursor-pointer">
-              Reset Sort
+              type="button"
+              (click)="toggleFilterModal($event)"
+              class="px-3 py-1.5 rounded-xl border flex items-center gap-1.5 text-[11px] font-semibold transition-all cursor-pointer"
+              [ngClass]="isSortActive() ? 'bg-white text-black border-white' : 'bg-[#222226] text-[#8E8E93] hover:text-white border-white/5'">
+              <app-icon name="sliders" [size]="13" [color]="isSortActive() ? '#000000' : '#8E8E93'"></app-icon>
+              <span>{{ sortBy() === 'default' ? 'Sort Products' : getSortLabel(sortBy()) }}</span>
             </button>
           </div>
-        }
+
+          @if (sortBy() !== 'default') {
+            <button 
+              type="button"
+              (click)="setSort('default')"
+              class="text-[10px] text-white/50 hover:text-white underline cursor-pointer">
+              Reset Sort
+            </button>
+          }
+        </div>
 
         <!-- Product Categories (matches video script: All, Headphones, Earphones, Speakers) -->
         <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-1 text-xs">
@@ -67,6 +77,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
             @if (productService.selectedCategory() === cat) {
               <!-- Active Category: Solid White Pill -->
               <button 
+                type="button"
                 (click)="productService.setCategory(cat)"
                 class="px-5 py-2 rounded-full bg-white text-black font-extrabold whitespace-nowrap shadow-sm transition-all cursor-pointer">
                 {{ cat }}
@@ -74,6 +85,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
             } @else {
               <!-- Inactive Category: Clean text link with hover feedback -->
               <button 
+                type="button"
                 (click)="productService.setCategory(cat)"
                 class="px-4 py-2 rounded-full bg-[#222226] text-[#8E8E93] hover:text-white whitespace-nowrap transition-colors font-medium border border-white/[0.04] cursor-pointer">
                 {{ cat }}
@@ -94,6 +106,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
               <p class="text-sm font-bold text-white">No products found</p>
               <p class="text-xs text-[#7E7E88]">Try changing your sort or category filter</p>
               <button 
+                type="button"
                 (click)="resetFilters()" 
                 class="mt-2 px-5 py-2 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors cursor-pointer">
                 Reset All Filters
@@ -104,12 +117,13 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
 
       </div>
 
-      <!-- Working Sort & Filter Drawer / Modal -->
+      <!-- Guaranteed-Visible Sort & Filter Drawer / Modal -->
       @if (showFilterModal()) {
-        <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/80 backdrop-blur-xs animate-fade-in"
-             (click)="showFilterModal.set(false)">
+        <div class="fixed inset-0 z-[9999] flex items-end justify-center bg-black/80 backdrop-blur-sm animate-fade-in"
+             style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;"
+             (click)="closeFilterModal()">
           <div 
-            class="w-full max-w-[430px] bg-[#1E1E22] rounded-t-[32px] p-6 space-y-5 border-t border-white/10 shadow-2xl"
+            class="w-full max-w-[430px] bg-[#1E1E22] rounded-t-[32px] p-6 space-y-5 border-t border-white/10 shadow-2xl pb-10"
             (click)="$event.stopPropagation()">
             
             <div class="w-10 h-1 rounded-full bg-white/20 mx-auto -mt-1"></div>
@@ -120,6 +134,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
                 <p class="text-[11px] text-[#7E7E88]">Arrange products according to your preference</p>
               </div>
               <button 
+                type="button"
                 (click)="resetFilters()" 
                 class="text-xs text-[#8E8E93] hover:text-white underline cursor-pointer">
                 Reset All
@@ -133,6 +148,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
               <div class="grid grid-cols-2 gap-2">
                 <!-- Option 1: Featured / Default -->
                 <button 
+                  type="button"
                   (click)="setSort('default')"
                   class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
                   [ngClass]="sortBy() === 'default' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
@@ -144,6 +160,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
 
                 <!-- Option 2: Price Low to High -->
                 <button 
+                  type="button"
                   (click)="setSort('price-asc')"
                   class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
                   [ngClass]="sortBy() === 'price-asc' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
@@ -155,6 +172,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
 
                 <!-- Option 3: Price High to Low -->
                 <button 
+                  type="button"
                   (click)="setSort('price-desc')"
                   class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
                   [ngClass]="sortBy() === 'price-desc' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
@@ -166,6 +184,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
 
                 <!-- Option 4: Top Rated -->
                 <button 
+                  type="button"
                   (click)="setSort('rating')"
                   class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
                   [ngClass]="sortBy() === 'rating' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
@@ -201,7 +220,8 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
             <!-- Apply Button -->
             <div class="pt-2">
               <button 
-                (click)="showFilterModal.set(false)"
+                type="button"
+                (click)="closeFilterModal()"
                 class="w-full py-3.5 rounded-full bg-white text-black text-xs font-extrabold shadow-xl hover:bg-neutral-200 transition-colors cursor-pointer">
                 Apply Sort & Filters ({{ filteredProducts().length }} items)
               </button>
@@ -224,6 +244,18 @@ export class HomePage {
 
   isSortActive(): boolean {
     return this.sortBy() !== 'default' || this.maxPrice() < 250;
+  }
+
+  toggleFilterModal(e?: Event) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    this.showFilterModal.update(v => !v);
+  }
+
+  closeFilterModal() {
+    this.showFilterModal.set(false);
   }
 
   getSortLabel(option: SortOption): string {

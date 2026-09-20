@@ -10,21 +10,14 @@ import { NotificationService } from '../../services/notification.service';
   imports: [CommonModule, IconComponent],
   template: `
     <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
-      <!-- Left Action: Back button (ONLY if showBack is true), Menu on Home, or Empty spacer for main tabs -->
+      <!-- Left Action: Back button (ONLY if showBack is true), otherwise empty spacer to keep audiMart centered -->
       @if (showBack) {
         <button 
           (click)="onBack()" 
           class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer">
           <app-icon name="arrow-left" [size]="20" color="#FFFFFF"></app-icon>
         </button>
-      } @else if (!title) {
-        <button 
-          (click)="leftAction.emit()" 
-          class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer">
-          <app-icon name="menu" [size]="20" color="#FFFFFF"></app-icon>
-        </button>
       } @else {
-        <!-- Main tabs (Cart, Orders, etc.) have NO back button; spacer balances the notification icon -->
         <div class="w-10 h-10"></div>
       }
 
