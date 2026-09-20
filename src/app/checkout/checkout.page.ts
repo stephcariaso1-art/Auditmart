@@ -25,6 +25,14 @@ export class CheckoutPage {
   selectedPayment: 'apple_pay' | 'card' = 'apple_pay';
   isSubmitting = signal<boolean>(false);
 
+  get defaultAddress() {
+    return this.auth.shippingAddresses().find(a => a.isDefault) || this.auth.shippingAddresses()[0];
+  }
+
+  get defaultCard() {
+    return this.auth.paymentCards().find(c => c.isDefault) || this.auth.paymentCards()[0];
+  }
+
   get shippingCost(): number {
     return this.selectedShipping === 'express' ? 15 : this.cart.deliveryFee();
   }
@@ -34,7 +42,11 @@ export class CheckoutPage {
   }
 
   openAddressEdit() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/shipping-addresses']);
+  }
+
+  openPaymentEdit() {
+    this.router.navigate(['/payment-methods']);
   }
 
   placeOrder() {
@@ -43,8 +55,14 @@ export class CheckoutPage {
     this.isSubmitting.set(true);
 
     setTimeout(() => {
-      const shippingAddress = this.auth.currentUser()?.address || '742 Evergreen Terrace, Springfield, OR';
-      const paymentMethod = this.selectedPayment === 'apple_pay' ? 'Apple Pay' : 'Mastercard •••• 4242';
+      const addr = this.defaultAddress;
+      const shippingAddress = addr 
+        ? `${addr.streetAddress}, ${addr.city}, ${addr.state} ${addr.postalCode}`
+        : '742 Evergreen Terrace, Springfield, OR 97477';
+      
+      const paymentMethod = this.selectedPayment === 'apple_pay' 
+        ? 'Apple Pay' 
+        : `${this.defaultCard?.type || 'Card'} •••• ${this.defaultCard?.last4 || '4242'}`;
 
       this.orderService.createOrder(
         this.cart.items(),
@@ -59,6 +77,6 @@ export class CheckoutPage {
       this.cart.clearCart();
       this.isSubmitting.set(false);
       this.router.navigate(['/receipt']);
-    }, 1200);
+    }, 1000);
   }
 }

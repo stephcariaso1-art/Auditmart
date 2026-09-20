@@ -11,16 +11,20 @@
     <!-- Orders Cards Feed (matches video script: thumbnail, title, status, track, reorder) -->
     <div class="space-y-4 pt-1">
       @for (order of orderService.orders(); track order.id) {
-        <div class="bg-[#222226] rounded-[26px] p-4.5 space-y-3.5 border border-white/[0.05] shadow-md">
+        <div class="bg-[#222226] rounded-[24px] p-4 space-y-3.5 border border-white/[0.06] shadow-md">
           
-          <!-- 1. Top Header: audiMart Store Name & Status Badge -->
-          <div class="flex items-center justify-between text-xs pb-1 border-b border-white/[0.04]">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-white tracking-wide text-xs">audiMart Official Store</span>
+          <!-- 1. Top Header: audiMart Store Name & Status Badge (Cleanly Aligned) -->
+          <div class="flex items-center justify-between pb-2.5 border-b border-white/[0.06]">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span class="font-bold text-white text-xs tracking-tight truncate">audiMart Official Store</span>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                  [ngClass]="order.status === 'Delivered' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'">
-              {{ order.status }}
+            
+            <!-- Delivered Mark / Status Badge -->
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 flex items-center gap-1.5"
+                  [ngClass]="order.status === 'Delivered' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-blue-500/15 text-blue-400 border border-blue-500/30'">
+              <span class="w-1.5 h-1.5 rounded-full" [ngClass]="order.status === 'Delivered' ? 'bg-emerald-400' : 'bg-blue-400 animate-pulse'"></span>
+              <span>{{ order.status }}</span>
             </span>
           </div>
 
@@ -38,38 +42,40 @@
             <div class="flex-1 min-w-0 flex flex-col justify-between h-20 py-0.5">
               <div>
                 <h4 class="text-sm font-bold text-white truncate">{{ order.items[0].product.name }}</h4>
-                <p class="text-[11px] text-[#8E8E93] mt-0.5">
+                <p class="text-xs text-[#8E8E93] mt-0.5">
                   {{ order.items[0].selectedColor.name }} · {{ order.items.length }} {{ order.items.length === 1 ? 'Item' : 'Items' }}
                 </p>
               </div>
 
               <div class="flex items-baseline justify-between pt-1">
-                <span class="text-[11px] text-[#8E8E93]">Total Amount</span>
-                <span class="text-xs font-black text-white tracking-tight">${{ order.total }}</span>
+                <span class="text-xs text-[#8E8E93]">Total Amount</span>
+                <span class="text-sm font-black text-white tracking-tight">${{ order.total }}</span>
               </div>
             </div>
           </div>
 
-          <!-- 3. Bottom Pill: Delivery Status, Reorder & Track (matches video script) -->
-          <div class="rounded-2xl bg-[#1A1A1E] border border-white/5 px-3.5 py-2.5 flex items-center justify-between text-xs flex-wrap gap-2">
-            <span class="text-xs font-medium text-white/90">
-              {{ order.status === 'Delivered' ? 'Delivered: ' + order.date : 'Expected: Friday, Sep 25' }}
-            </span>
+          <!-- 3. Bottom Pill: Delivery Status, Reorder & Track -->
+          <div class="rounded-2xl bg-[#1A1A1E] border border-white/5 p-3 flex items-center justify-between text-xs gap-2">
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span class="text-xs text-white/80 font-medium truncate">
+                {{ order.status === 'Delivered' ? 'Delivered: ' + order.date : 'Expected: Friday, Sep 25' }}
+              </span>
+            </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 shrink-0">
               <button 
                 (click)="reorder(order)"
-                class="px-3 py-1 rounded-full bg-white/10 hover:bg-white text-white hover:text-black text-[11px] font-semibold transition-all cursor-pointer">
+                class="px-3.5 py-1.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs font-bold transition-all active:scale-95 shadow-xs cursor-pointer">
                 Reorder
               </button>
               <button 
                 (click)="openTrackingModal(order)"
-                class="px-3 py-1 rounded-full bg-white/15 hover:bg-white text-white hover:text-black text-[11px] font-bold transition-all active:scale-95 shadow-xs cursor-pointer">
+                class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer">
                 Track
               </button>
               <button 
                 (click)="viewReceipt(order)"
-                class="px-2 py-1 rounded-full text-[11px] text-white/50 hover:text-white transition-colors cursor-pointer">
+                class="px-2 py-1.5 rounded-full text-xs text-white/50 hover:text-white transition-colors cursor-pointer">
                 Receipt
               </button>
             </div>

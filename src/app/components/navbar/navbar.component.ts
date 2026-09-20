@@ -37,7 +37,7 @@ export class NavbarComponent {
     if (this.rightAction.observed) {
       this.rightAction.emit();
     } else {
-      this.notifService.open();
+      this.router.navigate(['/notifications']);
     }
   }
 }

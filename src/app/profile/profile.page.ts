@@ -61,23 +61,28 @@ export class ProfilePage implements OnInit {
     this.cart.showToast('Avatar updated');
   }
 
-  openModal(type: 'address' | 'payment' | 'equalizer') {
+  navigateToShipping() {
+    this.router.navigate(['/shipping-addresses']);
+  }
+
+  navigateToPayment() {
+    this.router.navigate(['/payment-methods']);
+  }
+
+  goToSignUp() {
+    this.router.navigate(['/signup']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  openModal(type: 'equalizer') {
     this.activeModal.set(type);
   }
 
   closeModal() {
     this.activeModal.set(null);
-  }
-
-  saveAddress() {
-    this.auth.updateAddress(this.editAddress);
-    this.cart.showToast('Shipping address saved');
-    this.closeModal();
-  }
-
-  addNewDemoCard() {
-    this.auth.addPaymentCard('Visa', '5521', '08/29');
-    this.cart.showToast('Added Visa •••• 5521');
   }
 
   applyPreset(preset: string, b: number, m: number, t: number) {

@@ -33,6 +33,7 @@ export class LoginPage {
   }
 
   goHome() {
+    this.auth.setGuestMode(true);
     this.router.navigate(['/home']);
   }
 }

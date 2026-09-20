@@ -39,6 +39,18 @@ export const routes: Routes = [
     loadComponent: () => import('./profile/profile.page').then(m => m.ProfilePage),
   },
   {
+    path: 'notifications',
+    loadComponent: () => import('./notifications/notifications.page').then(m => m.NotificationsPage),
+  },
+  {
+    path: 'payment-methods',
+    loadComponent: () => import('./payment-methods/payment-methods.page').then(m => m.PaymentMethodsPage),
+  },
+  {
+    path: 'shipping-addresses',
+    loadComponent: () => import('./shipping-addresses/shipping-addresses.page').then(m => m.ShippingAddressesPage),
+  },
+  {
     path: 'login',
     loadComponent: () => import('./auth/login/login.page').then(m => m.LoginPage),
   },

@@ -1,0 +1,145 @@
+<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-24 select-none animate-fade-in relative">
+  
+  <!-- Top Navbar with Back Arrow & Mark All Read action -->
+  <app-navbar 
+    [title]="'Notifications'" 
+    [showBack]="true"
+    [hasNotification]="false"
+    rightIcon="check"
+    (rightAction)="markAllRead()">
+  </app-navbar>
+
+  <div class="px-5 space-y-4 pt-1 flex-1">
+
+    <!-- Header Actions Bar: Unread summary & Clear all -->
+    <div class="flex items-center justify-between pt-1">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-[#8E8E93]">Status</span>
+        @if (notifService.unreadCount() > 0) {
+          <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-[10px] font-bold border border-blue-500/30">
+            {{ notifService.unreadCount() }} Unread
+          </span>
+        } @else {
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-bold border border-emerald-500/25">
+            All Caught Up
+          </span>
+        }
+      </div>
+
+      @if (notifService.unreadCount() > 0) {
+        <button 
+          (click)="markAllRead()"
+          class="text-xs text-white/70 hover:text-white font-medium transition-colors cursor-pointer flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-white/5">
+          <app-icon name="check" [size]="12" color="#FFFFFF"></app-icon>
+          <span>Mark all read</span>
+        </button>
+      }
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+      <button 
+        (click)="setFilter('all')"
+        class="px-4 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer"
+        [ngClass]="activeFilter() === 'all' ? 'bg-white text-black shadow-md' : 'bg-[#222226] text-white/60 hover:text-white border border-white/5'">
+        All
+      </button>
+      <button 
+        (click)="setFilter('orders')"
+        class="px-4 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer"
+        [ngClass]="activeFilter() === 'orders' ? 'bg-white text-black shadow-md' : 'bg-[#222226] text-white/60 hover:text-white border border-white/5'">
+        Orders
+      </button>
+      <button 
+        (click)="setFilter('deals')"
+        class="px-4 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer"
+        [ngClass]="activeFilter() === 'deals' ? 'bg-white text-black shadow-md' : 'bg-[#222226] text-white/60 hover:text-white border border-white/5'">
+        Offers & VIP
+      </button>
+      <button 
+        (click)="setFilter('system')"
+        class="px-4 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer"
+        [ngClass]="activeFilter() === 'system' ? 'bg-white text-black shadow-md' : 'bg-[#222226] text-white/60 hover:text-white border border-white/5'">
+        Audio & Updates
+      </button>
+    </div>
+
+    <!-- Notifications List -->
+    <div class="space-y-3 pt-1">
+      @for (notif of filteredNotifications(); track notif.id) {
+        <div 
+          (click)="handleNotificationClick(notif)"
+          class="p-4 rounded-2xl border transition-all duration-200 relative group cursor-pointer"
+          [ngClass]="notif.isUnread ? 'bg-[#222228] border-white/20 shadow-md ring-1 ring-white/10' : 'bg-[#1C1C20] border-white/5 opacity-85 hover:opacity-100 hover:bg-[#202024]'">
+          
+          <div class="flex items-start gap-3.5">
+            
+            <!-- Category Icon Badge -->
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
+                 [ngClass]="{
+                   'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400': notif.icon === 'truck',
+                   'bg-purple-500/20 border border-purple-500/30 text-purple-400': notif.icon === 'gift',
+                   'bg-sky-500/20 border border-sky-500/30 text-sky-400': notif.icon === 'sliders' || (notif.icon !== 'truck' && notif.icon !== 'gift')
+                 }">
+              @if (notif.icon === 'truck') {
+                <app-icon name="truck" [size]="18" color="#34D399"></app-icon>
+              } @else if (notif.icon === 'gift') {
+                <app-icon name="gift" [size]="18" color="#C084FC"></app-icon>
+              } @else {
+                <app-icon name="sliders" [size]="18" color="#38BDF8"></app-icon>
+              }
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 min-w-0 space-y-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-xs font-bold text-white tracking-wide truncate">{{ notif.title }}</span>
+                <span class="text-[10px] text-white/40 whitespace-nowrap font-medium">{{ notif.time }}</span>
+              </div>
+              
+              <p class="text-xs text-[#9E9EA8] leading-relaxed">{{ notif.message }}</p>
+
+              <!-- Action Link -->
+              <div class="pt-1.5 flex items-center gap-1 text-[11px] font-semibold"
+                   [ngClass]="notif.icon === 'truck' ? 'text-emerald-400' : (notif.icon === 'gift' ? 'text-purple-400' : 'text-sky-400')">
+                <span>
+                  {{ notif.icon === 'truck' ? 'Track order status' : (notif.icon === 'gift' ? 'Redeem offer' : 'Configure sound') }}
+                </span>
+                <app-icon name="arrow-right" [size]="10" [color]="notif.icon === 'truck' ? '#34D399' : (notif.icon === 'gift' ? '#C084FC' : '#38BDF8')"></app-icon>
+              </div>
+            </div>
+
+            <!-- Dismiss Button -->
+            <button 
+              (click)="dismissNotification(notif.id, $event)"
+              title="Dismiss notification"
+              class="p-1.5 rounded-full text-white/30 hover:text-white hover:bg-white/10 transition-colors shrink-0 cursor-pointer">
+              <app-icon name="close" [size]="14" color="#FFFFFF"></app-icon>
+            </button>
+
+          </div>
+
+          <!-- Unread Dot -->
+          @if (notif.isUnread) {
+            <span class="absolute top-3 right-3 w-2 h-2 rounded-full bg-blue-500 ring-2 ring-[#222228] animate-pulse"></span>
+          }
+
+        </div>
+      } @empty {
+        <div class="py-16 flex flex-col items-center justify-center text-center space-y-3">
+          <div class="w-16 h-16 rounded-full bg-[#222226] border border-white/10 flex items-center justify-center shadow-inner">
+            <app-icon name="bell" [size]="24" color="#7E7E88"></app-icon>
+          </div>
+          <div class="space-y-1">
+            <h4 class="text-sm font-bold text-white">No notifications here</h4>
+            <p class="text-xs text-[#7E7E88] max-w-[220px]">
+              You're completely up to date. We'll alert you when there are new order updates or VIP drops!
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+
+</div>

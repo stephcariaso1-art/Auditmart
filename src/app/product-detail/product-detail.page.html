@@ -9,6 +9,7 @@
     </app-navbar>
 
     <!-- Product Hero Showcase (snug, proportional spacing matching cZDul4ky.jpg) -->
+    <!-- Product Hero Showcase with Touch & Pointer Swipe Gestures -->
     <div class="relative w-full pt-1 pb-3 flex flex-col items-center justify-center">
       
       <!-- Radial Backdrop Spotlight for Headphone Hero -->
@@ -16,16 +17,50 @@
         <div class="w-56 h-56 rounded-full bg-white/[0.04] blur-2xl"></div>
       </div>
 
-      <!-- Headphone Image (Real Photography Hero) -->
-      <div class="relative w-56 h-56 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center z-10 bg-[#1A1A1E]">
+      <!-- Headphone Image (Swipeable with finger / cursor drag) -->
+      <div 
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd($event)"
+        (pointerdown)="onPointerDown($event)"
+        (pointermove)="onPointerMove($event)"
+        (pointerup)="onPointerUp($event)"
+        (pointercancel)="onPointerCancel($event)"
+        style="touch-action: pan-y; cursor: grab;"
+        class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center z-10 bg-[#1A1A1E] select-none active:cursor-grabbing group">
+        
         <img 
           [src]="activeImage()" 
           [alt]="product.name" 
-          class="w-full h-full object-cover transition-all duration-300" />
+          draggable="false"
+          class="w-full h-full object-cover transition-transform duration-300 pointer-events-none group-hover:scale-105" />
+
+        <!-- Swipe Left/Right Arrow Overlays for effortless navigation -->
+        @if (product.images.length > 1) {
+          <button 
+            (click)="prevImage(); $event.stopPropagation()"
+            type="button"
+            class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
+            <app-icon name="chevron-left" [size]="16" color="#FFFFFF"></app-icon>
+          </button>
+          <button 
+            (click)="nextImage(); $event.stopPropagation()"
+            type="button"
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
+            <app-icon name="chevron-right" [size]="16" color="#FFFFFF"></app-icon>
+          </button>
+        }
+
+        <!-- Swipe Pill Indicator -->
+        <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] text-white/80 font-medium border border-white/10 pointer-events-none flex items-center gap-1.5 z-20">
+          <span>{{ activeImageIndex() + 1 }} / {{ product.images.length }}</span>
+          <span class="text-white/40">·</span>
+          <span>Swipe</span>
+        </div>
       </div>
 
       <!-- Vertical Color Swatches on Right (matches cZDul4ky.jpg) -->
-      <div class="absolute right-6 top-4 flex flex-col items-center gap-3 z-20">
+      <div class="absolute right-4 sm:right-6 top-4 flex flex-col items-center gap-3 z-20">
         @for (color of product.colors; track color.name) {
           <button 
             (click)="selectColor(color)"
@@ -48,13 +83,16 @@
         }
       </div>
 
-      <!-- Carousel Pagination Dots (dynamic match for cZDul4ky.jpg) -->
-      <div class="flex items-center gap-1.5 mt-2 z-10">
+      <!-- Carousel Pagination Dots (interactive clickable) -->
+      <div class="flex items-center gap-2 mt-3 z-10">
         @for (img of product.images; track img; let i = $index) {
-          <span 
-            class="h-1.5 rounded-full transition-all"
-            [ngClass]="activeImage() === img ? 'w-6 bg-white' : 'w-1.5 bg-white/30'">
-          </span>
+          <button 
+            (click)="setImageIndex(i)"
+            type="button"
+            [title]="'View photo ' + (i + 1)"
+            class="h-2 rounded-full transition-all duration-300 cursor-pointer p-0 border-0"
+            [ngClass]="activeImageIndex() === i ? 'w-6 bg-white shadow-xs' : 'w-2 bg-white/30 hover:bg-white/50'">
+          </button>
         }
       </div>
 

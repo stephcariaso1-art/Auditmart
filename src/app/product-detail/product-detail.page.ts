@@ -23,6 +23,11 @@ export class ProductDetailPage implements OnInit {
   product?: Product;
   selectedColor = signal<ProductColor | null>(null);
   activeImage = signal<string>('');
+  activeImageIndex = signal<number>(0);
+  private touchStartX = 0;
+  private touchStartY = 0;
+  private touchEndX = 0;
+  private isPointerDown = false;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -30,6 +35,7 @@ export class ProductDetailPage implements OnInit {
       this.product = this.productService.getProductById(id) || this.productService.products()[0];
       if (this.product) {
         this.selectedColor.set(this.product.colors[0]);
+        this.activeImageIndex.set(0);
         this.activeImage.set(this.product.images[0]);
       }
     });
@@ -39,13 +45,88 @@ export class ProductDetailPage implements OnInit {
     return product.name.replace(product.brand, '').trim();
   }
 
+  setImageIndex(idx: number) {
+    if (!this.product || !this.product.images.length) return;
+    const bounded = (idx + this.product.images.length) % this.product.images.length;
+    this.activeImageIndex.set(bounded);
+    this.activeImage.set(this.product.images[bounded]);
+
+    if (this.product.colors && this.product.colors[bounded]) {
+      this.selectedColor.set(this.product.colors[bounded]);
+    }
+  }
+
+  prevImage() {
+    this.setImageIndex(this.activeImageIndex() - 1);
+  }
+
+  nextImage() {
+    this.setImageIndex(this.activeImageIndex() + 1);
+  }
+
+  onTouchStart(e: TouchEvent) {
+    if (e.touches.length > 0) {
+      this.touchStartX = e.touches[0].clientX;
+      this.touchStartY = e.touches[0].clientY;
+      this.touchEndX = this.touchStartX;
+    }
+  }
+
+  onTouchMove(e: TouchEvent) {
+    if (e.touches.length > 0) {
+      this.touchEndX = e.touches[0].clientX;
+    }
+  }
+
+  onTouchEnd(e: TouchEvent) {
+    const deltaX = this.touchEndX - this.touchStartX;
+    if (Math.abs(deltaX) > 35) {
+      if (deltaX < 0) {
+        this.nextImage();
+      } else {
+        this.prevImage();
+      }
+    }
+  }
+
+  onPointerDown(e: PointerEvent) {
+    this.isPointerDown = true;
+    this.touchStartX = e.clientX;
+    this.touchEndX = e.clientX;
+  }
+
+  onPointerMove(e: PointerEvent) {
+    if (this.isPointerDown) {
+      this.touchEndX = e.clientX;
+    }
+  }
+
+  onPointerUp(e: PointerEvent) {
+    if (!this.isPointerDown) return;
+    this.isPointerDown = false;
+    const deltaX = this.touchEndX - this.touchStartX;
+    if (Math.abs(deltaX) > 35) {
+      if (deltaX < 0) {
+        this.nextImage();
+      } else {
+        this.prevImage();
+      }
+    }
+  }
+
+  onPointerCancel(e: PointerEvent) {
+    this.isPointerDown = false;
+  }
+
   selectColor(color: ProductColor) {
     this.selectedColor.set(color);
     if (this.product && this.product.images.length > 1) {
       const idx = this.product.colors.findIndex(c => c.name === color.name);
       if (idx !== -1 && idx < this.product.images.length) {
+        this.activeImageIndex.set(idx);
         this.activeImage.set(this.product.images[idx]);
       } else {
+        this.activeImageIndex.set(0);
         this.activeImage.set(this.product.images[0]);
       }
     }
