@@ -13,7 +13,7 @@ import { IconComponent } from '../../components/icon/icon.component';
   standalone: true,
   imports: [CommonModule, FormsModule, NavbarComponent, IconComponent],
   template: `
-    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in">
+    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-36 select-none animate-fade-in">
       
       <!-- Top Navbar (matches Figma 67:2 check out wireframe) -->
       <app-navbar 
@@ -25,10 +25,10 @@ import { IconComponent } from '../../components/icon/icon.component';
       <div class="px-5 space-y-4 pt-1 flex-1">
         
         <!-- Section 1: Delivery Address (matches top card in 67:2 wireframe) -->
-        <div class="bg-[#232328] rounded-[24px] p-5 space-y-2 border border-white/[0.06] shadow-card">
+        <div class="bg-[#222226] rounded-[24px] p-5 space-y-2.5 border border-white/[0.06] shadow-md">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Shipping Address</span>
-            <button class="text-xs text-white underline font-semibold hover:text-white/80">Change</button>
+            <button (click)="openAddressEdit()" class="text-xs text-white underline font-semibold hover:text-white/80">Edit</button>
           </div>
           <div class="flex items-start gap-3 pt-1">
             <div class="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 text-white mt-0.5">
@@ -43,7 +43,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
 
         <!-- Section 2: Delivery Speed Option (matches middle pill 1) -->
-        <div class="bg-[#232328] rounded-[24px] p-5 space-y-3 border border-white/[0.06]">
+        <div class="bg-[#222226] rounded-[24px] p-5 space-y-3 border border-white/[0.06] shadow-md">
           <span class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Delivery Speed</span>
           
           <div class="grid grid-cols-2 gap-3">
@@ -68,7 +68,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
 
         <!-- Section 3: Payment Method (matches middle pill 2) -->
-        <div class="bg-[#232328] rounded-[24px] p-5 space-y-3 border border-white/[0.06]">
+        <div class="bg-[#222226] rounded-[24px] p-5 space-y-3 border border-white/[0.06] shadow-md">
           <span class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Payment Method</span>
 
           <div class="space-y-2">
@@ -114,13 +114,13 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
 
         <!-- Section 4: Order Items Preview & Cost (matches large bottom card in 67:2 wireframe) -->
-        <div class="bg-[#232328] rounded-[24px] p-5 space-y-3 border border-white/[0.06]">
+        <div class="bg-[#222226] rounded-[24px] p-5 space-y-3 border border-white/[0.06] shadow-md">
           <span class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Order Items ({{ cart.totalCount() }})</span>
 
           <div class="space-y-2">
             @for (item of cart.items(); track item.product.id) {
               <div class="flex items-center justify-between text-xs py-1">
-                <span class="text-white/80 truncate max-w-[200px]">{{ item.product.name }} × {{ item.quantity }}</span>
+                <span class="text-white/85 truncate max-w-[200px]">{{ item.product.name }} × {{ item.quantity }}</span>
                 <span class="font-bold text-white">\${{ item.product.price * item.quantity }}</span>
               </div>
             }
@@ -131,12 +131,6 @@ import { IconComponent } from '../../components/icon/icon.component';
               <span>Subtotal</span>
               <span class="text-white font-medium">\${{ cart.subtotal() }}</span>
             </div>
-            @if (cart.discountAmount() > 0) {
-              <div class="flex justify-between text-emerald-400 font-medium">
-                <span>Discount</span>
-                <span>-\${{ cart.discountAmount() }}</span>
-              </div>
-            }
             <div class="flex justify-between">
               <span>Delivery</span>
               <span class="text-white font-medium">{{ shippingCost === 0 ? 'FREE' : '\$' + shippingCost }}</span>
@@ -155,7 +149,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         <button 
           (click)="placeOrder()"
           [disabled]="isSubmitting()"
-          class="w-full py-4 rounded-full bg-white text-black font-extrabold text-sm tracking-wide shadow-xl hover:bg-neutral-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+          class="w-full py-4 rounded-full bg-white text-black font-extrabold text-sm tracking-wide shadow-xl hover:bg-neutral-200 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer">
           @if (isSubmitting()) {
             <span class="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
             <span>Processing Payment...</span>
@@ -184,6 +178,10 @@ export class CheckoutPage {
 
   get calculatedTotal(): number {
     return Math.max(0, this.cart.subtotal() - this.cart.discountAmount() + this.shippingCost);
+  }
+
+  openAddressEdit() {
+    this.router.navigate(['/profile']);
   }
 
   placeOrder() {

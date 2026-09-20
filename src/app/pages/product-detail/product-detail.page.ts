@@ -13,7 +13,7 @@ import { IconComponent } from '../../components/icon/icon.component';
   imports: [CommonModule, NavbarComponent, IconComponent],
   template: `
     @if (product) {
-      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in relative pb-28">
+      <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between select-none animate-fade-in relative pb-32">
         
         <!-- Top Navbar with Details Title (matches cZDul4ky.jpg) -->
         <app-navbar 
@@ -23,7 +23,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </app-navbar>
 
         <!-- Product Hero Showcase (matches cZDul4ky.jpg) -->
-        <div class="relative w-full pt-4 pb-8 flex flex-col items-center justify-center">
+        <div class="relative w-full pt-2 pb-6 flex flex-col items-center justify-center">
           
           <!-- Radial Backdrop Spotlight for Headphone Hero -->
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -39,7 +39,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           </div>
 
           <!-- Vertical Color Swatches on Right (matches cZDul4ky.jpg) -->
-          <div class="absolute right-6 top-8 flex flex-col items-center gap-3.5 z-20">
+          <div class="absolute right-6 top-6 flex flex-col items-center gap-3.5 z-20">
             @for (color of product.colors; track color.name) {
               <button 
                 (click)="selectColor(color)"
@@ -49,13 +49,13 @@ import { IconComponent } from '../../components/icon/icon.component';
                 
                 <!-- Ring for active -->
                 <div 
-                  class="w-6 h-6 rounded-full border-2 transition-all"
+                  class="w-6 h-6 rounded-full border-2 transition-all shadow-xs"
                   [ngClass]="selectedColor()?.name === color.name ? 'border-white ring-2 ring-white/30' : 'border-white/20'"
                   [style.backgroundColor]="color.hex">
                 </div>
 
                 <!-- Label tooltip -->
-                <span class="absolute right-8 px-2 py-0.5 rounded bg-black/80 text-[10px] text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <span class="absolute right-8 px-2 py-0.5 rounded bg-black/90 text-[10px] text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                   {{ color.name }}
                 </span>
               </button>
@@ -63,7 +63,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           </div>
 
           <!-- Carousel Pagination Dots (matches cZDul4ky.jpg: [● ○ ○]) -->
-          <div class="flex items-center gap-1.5 mt-4 z-10">
+          <div class="flex items-center gap-1.5 mt-3 z-10">
             <span class="w-6 h-1.5 rounded-full bg-white transition-all"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
@@ -72,7 +72,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
 
         <!-- Details White Card Overlay (matches cZDul4ky.jpg sheet) -->
-        <div class="w-full bg-white text-[#141416] rounded-t-[36px] p-6 pb-28 shadow-2xl space-y-5 animate-fade-in relative z-20">
+        <div class="w-full bg-white text-[#141416] rounded-t-[36px] p-6 pb-36 shadow-2xl space-y-5 animate-fade-in relative z-20">
           
           <!-- Top indicator bar -->
           <div class="w-10 h-1 bg-black/10 rounded-full mx-auto -mt-2"></div>
@@ -81,7 +81,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           <div class="space-y-1.5">
             <div class="flex items-baseline gap-2">
               <span class="text-xl font-extrabold tracking-tight text-black font-sans">{{ product.brand }}</span>
-              <span class="text-lg font-bold text-[#1C1C1E]">{{ product.name.replace(product.brand, '').trim() }}</span>
+              <span class="text-lg font-bold text-[#1C1C1E]">{{ getModel(product) }}</span>
             </div>
             <p class="text-xs text-[#55555B] leading-relaxed font-normal">
               {{ product.description }}
@@ -130,7 +130,7 @@ import { IconComponent } from '../../components/icon/icon.component';
             
             <!-- Price Display -->
             <div class="flex flex-col">
-              <span class="text-xs text-white/50 font-medium">Total Price</span>
+              <span class="text-[10px] text-white/50 font-medium uppercase tracking-wider">Price</span>
               <span class="text-xl font-black text-white tracking-tight">
                 \${{ product.price }}
               </span>
@@ -147,7 +147,7 @@ import { IconComponent } from '../../components/icon/icon.component';
 
               <button 
                 (click)="buyNow()"
-                class="px-6 py-3 rounded-full bg-white text-black text-xs font-bold tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all">
+                class="px-6 py-3 rounded-full bg-white text-black text-xs font-extrabold tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all">
                 Buy Now
               </button>
             </div>
@@ -186,6 +186,10 @@ export class ProductDetailPage implements OnInit {
         this.activeImage.set(this.product.images[0]);
       }
     });
+  }
+
+  getModel(product: Product): string {
+    return product.name.replace(product.brand, '').trim();
   }
 
   selectColor(color: ProductColor) {

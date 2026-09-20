@@ -21,61 +21,66 @@ import { Order } from '../../models';
 
       <div class="px-5 space-y-4 pt-1 flex-1">
         
-        <!-- Orders Cards List -->
+        <!-- Orders Cards List (Spot-on match for Figma 71:22 wireframe) -->
         <div class="space-y-4 pt-1">
           @for (order of orderService.orders(); track order.id) {
-            <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-3 border border-white/[0.05] shadow-md">
+            <div class="bg-[#222226] rounded-[26px] p-4.5 space-y-3.5 border border-white/[0.05] shadow-md">
               
-              <!-- 1. Top Header: Clean Date and Status Badge (no raw VM text) -->
+              <!-- 1. Top Header: Store Name & Status Badge (matches "name of the store" in Figma 71:22) -->
               <div class="flex items-center justify-between text-xs pb-1 border-b border-white/[0.04]">
                 <div class="flex items-center gap-2">
-                  <span class="font-medium text-white/90 text-xs">Placed on {{ order.date }}</span>
-                  <span class="text-[10px] text-[#7E7E88] font-mono">#{{ order.orderNumber.replace('VM-', '') }}</span>
+                  <span class="font-bold text-white tracking-wide text-xs">VibraTune Official Store</span>
                 </div>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                      [ngClass]="order.status === 'Delivered' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'">
+                      [ngClass]="order.status === 'Delivered' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'">
                   {{ order.status }}
                 </span>
               </div>
 
-              <!-- 2. Main Row: Left Square Thumbnail + Right Info & Price -->
+              <!-- 2. Main Row: Left Square Thumbnail + Right Info & Price (matches Figma 71:22) -->
               <div class="flex items-center gap-3.5">
-                <!-- Square Thumbnail -->
-                <div class="w-16 h-16 rounded-2xl bg-[#2D2D33] p-2 flex items-center justify-center flex-shrink-0">
+                <!-- Square Thumbnail (matches 99x93 image of product in 71:22) -->
+                <div class="w-20 h-20 rounded-2xl bg-[#2D2D33] p-2 flex items-center justify-center flex-shrink-0">
                   <img 
                     [src]="order.items[0].product.images[0]" 
                     [alt]="order.items[0].product.name" 
                     class="w-full h-full object-contain filter drop-shadow-sm" />
                 </div>
 
-                <!-- Right Info & Price -->
-                <div class="flex-1 min-w-0 flex flex-col justify-between h-16 py-0.5">
+                <!-- Right Info & Price (matches "name of order" & "total item and price" in 71:22) -->
+                <div class="flex-1 min-w-0 flex flex-col justify-between h-20 py-0.5">
                   <div>
-                    <h4 class="text-xs font-bold text-white truncate">{{ order.items[0].product.name }}</h4>
-                    <p class="text-[11px] text-[#7E7E88] mt-0.5">
+                    <h4 class="text-sm font-bold text-white truncate">{{ order.items[0].product.name }}</h4>
+                    <p class="text-[11px] text-[#8E8E93] mt-0.5">
                       {{ order.items[0].selectedColor.name }} · {{ order.items.length }} {{ order.items.length === 1 ? 'Item' : 'Items' }}
                     </p>
                   </div>
 
-                  <div class="flex items-center justify-between">
-                    <span class="text-[11px] text-[#7E7E88]">Total</span>
+                  <div class="flex items-baseline justify-between pt-1">
+                    <span class="text-[11px] text-[#8E8E93]">Total Amount</span>
                     <span class="text-xs font-black text-white tracking-tight">\${{ order.total }}</span>
                   </div>
                 </div>
               </div>
 
-              <!-- 3. Compact Action Buttons (appropriately sized) -->
-              <div class="pt-1 flex items-center justify-end gap-2 border-t border-white/[0.04]">
-                <button 
-                  (click)="viewReceipt(order)"
-                  class="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/15 text-white/80 hover:text-white text-[11px] font-medium transition-colors border border-white/5">
-                  Receipt
-                </button>
-                <button 
-                  (click)="openTrackingModal(order)"
-                  class="px-4 py-1.5 rounded-full bg-[#2E2E34] hover:bg-[#3A3A42] text-white text-[11px] font-bold tracking-wide transition-colors active:scale-95 border border-white/10 shadow-xs">
-                  Track Order
-                </button>
+              <!-- 3. Bottom Full-Width Pill: Expected Delivery Date & Compact Action (matches "expected delivery dater" in 71:22) -->
+              <div class="rounded-2xl bg-[#1A1A1E] border border-white/5 px-3.5 py-2.5 flex items-center justify-between text-xs">
+                <span class="text-xs font-medium text-white/90">
+                  {{ order.status === 'Delivered' ? 'Delivered: ' + order.date : 'Expected: Friday, Sep 25' }}
+                </span>
+
+                <div class="flex items-center gap-1.5">
+                  <button 
+                    (click)="viewReceipt(order)"
+                    class="px-2.5 py-1 rounded-full text-[11px] text-white/60 hover:text-white hover:bg-white/5 transition-colors">
+                    Receipt
+                  </button>
+                  <button 
+                    (click)="openTrackingModal(order)"
+                    class="px-3 py-1 rounded-full bg-white/10 hover:bg-white text-white hover:text-black text-[11px] font-bold transition-all active:scale-95 shadow-xs">
+                    Track
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -94,8 +99,8 @@ import { Order } from '../../models';
             
             <div class="flex items-center justify-between">
               <div>
-                <h3 class="text-sm font-bold text-white">Live Tracking #{{ activeTrackOrder()?.orderNumber?.replace('VM-', '') }}</h3>
-                <p class="text-[11px] text-[#7E7E88] mt-0.5">Acoustic Air Express Courier</p>
+                <h3 class="text-sm font-bold text-white">Live Tracking Details</h3>
+                <p class="text-[11px] text-[#7E7E88]">Acoustic Air Express Courier</p>
               </div>
               <button (click)="activeTrackOrder.set(null)" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</button>
             </div>

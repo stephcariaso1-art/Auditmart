@@ -43,8 +43,8 @@ import { IconComponent } from '../../components/icon/icon.component';
           <!-- Order meta box (matches top rounded container in 90:2 wireframe) -->
           <div class="bg-[#F5F5F7] rounded-2xl p-3.5 space-y-1.5 text-xs">
             <div class="flex justify-between">
-              <span class="text-[#8E8E93] font-medium">Order Reference</span>
-              <span class="font-bold text-black">{{ order.orderNumber }}</span>
+              <span class="text-[#8E8E93] font-medium">Order Number</span>
+              <span class="font-bold text-black font-mono">#{{ order.orderNumber.replace('VM-', '') }}</span>
             </div>
             <div class="flex justify-between">
               <span class="text-[#8E8E93] font-medium">Order Date</span>
@@ -98,7 +98,7 @@ import { IconComponent } from '../../components/icon/icon.component';
           <div class="pt-2">
             <button 
               (click)="goHome()"
-              class="w-full py-3.5 rounded-full bg-[#141416] text-white text-xs font-extrabold tracking-wide hover:bg-black active:scale-[0.98] transition-all shadow-md">
+              class="w-full py-3.5 rounded-full bg-[#141416] text-white text-xs font-extrabold tracking-wide hover:bg-black active:scale-[0.98] transition-all shadow-md cursor-pointer">
               Back to Home
             </button>
           </div>
@@ -111,7 +111,7 @@ import { IconComponent } from '../../components/icon/icon.component';
       <div class="text-center pt-4">
         <button 
           (click)="viewOrders()" 
-          class="text-xs text-white/70 hover:text-white font-semibold underline">
+          class="text-xs text-white/70 hover:text-white font-semibold underline cursor-pointer">
           View All Orders & Tracking
         </button>
       </div>

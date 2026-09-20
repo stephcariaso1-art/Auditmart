@@ -30,8 +30,9 @@ export class AppComponent {
 
   shouldShowTabBar(): boolean {
     const url = this.currentUrl();
-    // Hide tabbar on checkout flow, product detail, auth, and splash screens
+    // Hide tabbar on cart, checkout flow, product detail, auth, and splash screens
     if (
+      url.includes('/cart') ||
       url.includes('/product/') ||
       url.includes('/checkout') ||
       url.includes('/receipt') ||

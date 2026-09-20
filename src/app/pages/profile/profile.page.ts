@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,104 +10,146 @@ import { IconComponent } from '../../components/icon/icon.component';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent, IconComponent],
+  imports: [CommonModule, FormsModule, IconComponent],
   template: `
     <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
       
-      <!-- Top Navbar (matches Figma 71:6 Profile wireframe) -->
-      <app-navbar 
-        [title]="'Profile'" 
-        [showBack]="true"
-        backUrl="/home">
-      </app-navbar>
+      <!-- Top Navbar with Back and Save Pill Button (matches Figma 71:6 Profile wireframe) -->
+      <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
+        <!-- Back Arrow to Home -->
+        <button 
+          (click)="goHome()" 
+          class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all">
+          <app-icon name="arrow-left" [size]="20" color="#FFFFFF"></app-icon>
+        </button>
 
-      <div class="px-5 space-y-5 pt-2 flex-1">
+        <!-- Center Title -->
+        <h1 class="text-base font-semibold tracking-wide text-white">Profile</h1>
+
+        <!-- Save Button (matches the top right pill in Figma 71:6) -->
+        <button 
+          (click)="saveProfile()"
+          class="px-4 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all">
+          Save
+        </button>
+      </header>
+
+      <div class="px-5 space-y-4 pt-2 flex-1">
         
-        <!-- User Avatar & Header (matches top circle in 71:6 wireframe) -->
-        <div class="flex flex-col items-center text-center space-y-3 pt-2">
-          
+        <!-- User Avatar (matches top circle Logo ELLIPSE in 71:6 wireframe) -->
+        <div class="flex flex-col items-center text-center space-y-2.5 pt-1">
           <div class="relative w-22 h-22 rounded-full p-1 border-2 border-white/20">
             <img 
               [src]="user()?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'" 
               alt="Profile" 
               class="w-20 h-20 object-cover rounded-full shadow-lg" />
-            <div class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white text-black flex items-center justify-center shadow-md">
+            <button 
+              (click)="changeAvatarPrompt()"
+              title="Change Photo"
+              class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white text-black flex items-center justify-center shadow-md active:scale-90 transition-transform">
               <app-icon name="check" [size]="12" color="#000000" [strokeWidth]="3"></app-icon>
-            </div>
+            </button>
           </div>
 
-          <div class="space-y-1">
-            <h2 class="text-base font-bold tracking-tight text-white">{{ user()?.name || 'Alex Rivera' }}</h2>
-            <p class="text-xs text-[#8E8E93]">{{ user()?.email || 'alex.rivera@audiomart.io' }}</p>
-            <span class="inline-block mt-0.5 px-3 py-0.5 rounded-full bg-white/10 text-[10px] font-extrabold uppercase tracking-wider text-white border border-white/10">
+          <div class="space-y-0.5">
+            <h2 class="text-sm font-bold tracking-tight text-white">{{ firstName }} {{ lastName }}</h2>
+            <span class="inline-block px-3 py-0.5 rounded-full bg-white/10 text-[10px] font-extrabold uppercase tracking-wider text-white/90 border border-white/10">
               {{ user()?.memberTier || 'Audiophile VIP Club' }}
             </span>
+          </div>
+        </div>
+
+        <!-- 4 Form Inputs matching Figma 71:6: first name, lastname, email, cp number -->
+        <div class="space-y-3 pt-1">
+          
+          <!-- Field 1: First Name -->
+          <div class="space-y-1">
+            <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">First Name</label>
+            <input 
+              type="text" 
+              [(ngModel)]="firstName" 
+              placeholder="First Name" 
+              class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+          </div>
+
+          <!-- Field 2: Last Name -->
+          <div class="space-y-1">
+            <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">Last Name</label>
+            <input 
+              type="text" 
+              [(ngModel)]="lastName" 
+              placeholder="Last Name" 
+              class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+          </div>
+
+          <!-- Field 3: Email -->
+          <div class="space-y-1">
+            <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">Email Address</label>
+            <input 
+              type="email" 
+              [(ngModel)]="email" 
+              placeholder="Email Address" 
+              class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+          </div>
+
+          <!-- Field 4: CP Number -->
+          <div class="space-y-1">
+            <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">CP Number (Phone)</label>
+            <input 
+              type="tel" 
+              [(ngModel)]="cpNumber" 
+              placeholder="Cellphone Number" 
+              class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
           </div>
 
         </div>
 
-        <!-- Settings Options Pills (matches vertical pill containers in 71:6 wireframe) -->
+        <!-- Usable Management Cards: Shipping, Payment, Equalizer -->
         <div class="space-y-2.5 pt-2">
           
-          <!-- Option 1: Personal Information -->
-          <button 
-            (click)="openModal('personal')"
-            class="w-full p-4 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
-                <app-icon name="profile" [size]="16" color="#FFFFFF"></app-icon>
-              </div>
-              <div class="text-left">
-                <span class="text-xs font-bold text-white block">Personal Information</span>
-                <span class="text-[10px] text-[#7E7E88]">Name, Email, Phone</span>
-              </div>
-            </div>
-            <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
-          </button>
-
-          <!-- Option 2: Shipping Addresses -->
+          <!-- Shipping Address -->
           <button 
             (click)="openModal('address')"
-            class="w-full p-4 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
+            class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
                 <app-icon name="map-pin" [size]="16" color="#FFFFFF"></app-icon>
               </div>
               <div class="text-left">
                 <span class="text-xs font-bold text-white block">Shipping Address</span>
-                <span class="text-[10px] text-[#7E7E88] truncate max-w-[200px] block">{{ user()?.address || '742 Evergreen Terrace' }}</span>
+                <span class="text-[10px] text-[#8E8E93] truncate max-w-[200px] block">{{ editAddress }}</span>
               </div>
             </div>
             <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
           </button>
 
-          <!-- Option 3: Payment Cards & Wallets -->
+          <!-- Payment Cards -->
           <button 
             (click)="openModal('payment')"
-            class="w-full p-4 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
+            class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
                 <app-icon name="credit-card" [size]="16" color="#FFFFFF"></app-icon>
               </div>
               <div class="text-left">
                 <span class="text-xs font-bold text-white block">Payment Cards & Wallets</span>
-                <span class="text-[10px] text-[#7E7E88]">Mastercard •••• 4242, Apple Pay</span>
+                <span class="text-[10px] text-[#8E8E93]">Mastercard •••• 4242, Apple Pay</span>
               </div>
             </div>
             <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
           </button>
 
-          <!-- Option 4: Equalizer & Audio Preferences -->
+          <!-- Equalizer & DSP Audio -->
           <button 
             (click)="openModal('equalizer')"
-            class="w-full p-4 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
+            class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99]">
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
                 <app-icon name="sliders" [size]="16" color="#FFFFFF"></app-icon>
               </div>
               <div class="text-left">
                 <span class="text-xs font-bold text-white block">Equalizer & Audio Profiles</span>
-                <span class="text-[10px] text-[#7E7E88]">Bass, Mids, Treble, Spatial 360°</span>
+                <span class="text-[10px] text-[#8E8E93]">{{ activePreset }} Profile</span>
               </div>
             </div>
             <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
@@ -115,8 +157,8 @@ import { IconComponent } from '../../components/icon/icon.component';
 
         </div>
 
-        <!-- Working Logout Button (matches bottom pill in 71:6 wireframe) -->
-        <div class="pt-2">
+        <!-- Log Out Button (matches bottom pill button in Figma 71:6) -->
+        <div class="pt-3">
           <button 
             (click)="logout()"
             class="w-full py-3.5 rounded-full bg-[#222226] hover:bg-red-500/20 text-red-400 font-bold text-xs tracking-wider uppercase border border-red-500/30 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-sm">
@@ -127,55 +169,7 @@ import { IconComponent } from '../../components/icon/icon.component';
 
       </div>
 
-      <!-- ================= MODAL 1: PERSONAL INFORMATION ================= -->
-      @if (activeModal() === 'personal') {
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
-             (click)="closeModal()">
-          <div class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl"
-               (click)="$event.stopPropagation()">
-            <div class="flex items-center justify-between">
-              <h3 class="text-sm font-bold text-white">Personal Information</h3>
-              <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</button>
-            </div>
-
-            <div class="space-y-3 pt-1">
-              <div>
-                <label class="text-[11px] font-semibold text-[#8E8E93] block mb-1">Full Name</label>
-                <input 
-                  type="text" 
-                  [(ngModel)]="editName" 
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-xs text-white focus:outline-none focus:border-white/40" />
-              </div>
-
-              <div>
-                <label class="text-[11px] font-semibold text-[#8E8E93] block mb-1">Email</label>
-                <input 
-                  type="email" 
-                  [(ngModel)]="editEmail" 
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-xs text-white focus:outline-none focus:border-white/40" />
-              </div>
-
-              <div>
-                <label class="text-[11px] font-semibold text-[#8E8E93] block mb-1">Phone</label>
-                <input 
-                  type="text" 
-                  [(ngModel)]="editPhone" 
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-xs text-white focus:outline-none focus:border-white/40" />
-              </div>
-            </div>
-
-            <div class="pt-2">
-              <button 
-                (click)="savePersonalInfo()"
-                class="w-full py-3 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors">
-                Save Changes
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-
-      <!-- ================= MODAL 2: SHIPPING ADDRESS ================= -->
+      <!-- ================= MODAL: SHIPPING ADDRESS ================= -->
       @if (activeModal() === 'address') {
         <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
              (click)="closeModal()">
@@ -188,7 +182,7 @@ import { IconComponent } from '../../components/icon/icon.component';
 
             <div class="space-y-3 pt-1">
               <div>
-                <label class="text-[11px] font-semibold text-[#8E8E93] block mb-1">Street Address</label>
+                <label class="text-[11px] font-semibold text-[#8E8E93] block mb-1">Street Address & City</label>
                 <textarea 
                   [(ngModel)]="editAddress" 
                   rows="3"
@@ -207,7 +201,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
       }
 
-      <!-- ================= MODAL 3: PAYMENT CARDS ================= -->
+      <!-- ================= MODAL: PAYMENT CARDS ================= -->
       @if (activeModal() === 'payment') {
         <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
              (click)="closeModal()">
@@ -218,7 +212,6 @@ import { IconComponent } from '../../components/icon/icon.component';
               <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- Existing Cards -->
             <div class="space-y-2.5 pt-1">
               @for (card of auth.paymentCards(); track card.id) {
                 <div class="p-3 rounded-2xl bg-[#28282E] border border-white/10 flex items-center justify-between">
@@ -228,7 +221,7 @@ import { IconComponent } from '../../components/icon/icon.component';
                     </div>
                     <div>
                       <p class="text-xs font-bold text-white">{{ card.type }} •••• {{ card.last4 }}</p>
-                      <p class="text-[10px] text-[#7E7E88]">Expires {{ card.exp }}</p>
+                      <p class="text-[10px] text-[#8E8E93]">Expires {{ card.exp }}</p>
                     </div>
                   </div>
                   @if (card.isDefault) {
@@ -255,7 +248,7 @@ import { IconComponent } from '../../components/icon/icon.component';
         </div>
       }
 
-      <!-- ================= MODAL 4: EQUALIZER & AUDIO PROFILES ================= -->
+      <!-- ================= MODAL: EQUALIZER ================= -->
       @if (activeModal() === 'equalizer') {
         <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
              (click)="closeModal()">
@@ -263,20 +256,20 @@ import { IconComponent } from '../../components/icon/icon.component';
                (click)="$event.stopPropagation()">
             <div class="flex items-center justify-between">
               <div>
-                <h3 class="text-sm font-bold text-white">Equalizer & Audio EQ</h3>
-                <p class="text-[11px] text-[#7E7E88]">VibraTune DSP Acoustic Engine</p>
+                <h3 class="text-sm font-bold text-white">Equalizer & Audio Profiles</h3>
+                <p class="text-[11px] text-[#7E7E88]">DSP Acoustic Tuning</p>
               </div>
               <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- EQ Presets -->
+            <!-- Presets -->
             <div class="grid grid-cols-2 gap-2 pt-1">
               <button 
                 (click)="applyPreset('Bass Boost', 8, 2, -1)"
                 class="p-2.5 rounded-xl border text-left transition-colors"
                 [ngClass]="activePreset === 'Bass Boost' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white border-white/5'">
                 <span class="text-xs font-bold block">Bass Boost</span>
-                <span class="text-[10px] opacity-75">+8dB Deep Bass</span>
+                <span class="text-[10px] opacity-75">+8dB Punch</span>
               </button>
 
               <button 
@@ -288,7 +281,7 @@ import { IconComponent } from '../../components/icon/icon.component';
               </button>
             </div>
 
-            <!-- EQ Sliders -->
+            <!-- Sliders -->
             <div class="space-y-3 pt-2">
               <div class="space-y-1">
                 <div class="flex justify-between text-[11px]">
@@ -329,45 +322,59 @@ import { IconComponent } from '../../components/icon/icon.component';
     </div>
   `
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
   auth = inject(AuthService);
   private cart = inject(CartService);
   private router = inject(Router);
 
   user = this.auth.currentUser;
-  activeModal = signal<'personal' | 'address' | 'payment' | 'equalizer' | null>(null);
+  activeModal = signal<'address' | 'payment' | 'equalizer' | null>(null);
 
-  // Edit fields
-  editName = '';
-  editEmail = '';
-  editPhone = '';
-  editAddress = '';
+  // 4 Form fields matching Figma 71:6
+  firstName = 'Alex';
+  lastName = 'Rivera';
+  email = 'alex.rivera@audiomart.io';
+  cpNumber = '+1 (555) 234-8921';
+  editAddress = '742 Evergreen Terrace, Springfield, OR 97477';
 
-  // Equalizer fields
+  // Equalizer
   activePreset = 'Bass Boost';
   bassLevel = 8;
   midsLevel = 2;
   trebleLevel = -1;
 
-  openModal(type: 'personal' | 'address' | 'payment' | 'equalizer') {
+  ngOnInit() {
     const u = this.user();
     if (u) {
-      this.editName = u.name;
-      this.editEmail = u.email;
-      this.editPhone = u.phone;
-      this.editAddress = u.address;
+      const parts = (u.name || 'Alex Rivera').split(' ');
+      this.firstName = parts[0] || 'Alex';
+      this.lastName = parts.slice(1).join(' ') || 'Rivera';
+      this.email = u.email || 'alex.rivera@audiomart.io';
+      this.cpNumber = u.phone || '+1 (555) 234-8921';
+      this.editAddress = u.address || '742 Evergreen Terrace, Springfield, OR 97477';
     }
+  }
+
+  goHome() {
+    this.router.navigate(['/home']);
+  }
+
+  saveProfile() {
+    const fullName = `${this.firstName.trim()} ${this.lastName.trim()}`.trim();
+    this.auth.updateProfile(fullName, this.email.trim(), this.cpNumber.trim());
+    this.cart.showToast('Profile saved successfully');
+  }
+
+  changeAvatarPrompt() {
+    this.cart.showToast('Avatar updated');
+  }
+
+  openModal(type: 'address' | 'payment' | 'equalizer') {
     this.activeModal.set(type);
   }
 
   closeModal() {
     this.activeModal.set(null);
-  }
-
-  savePersonalInfo() {
-    this.auth.updateProfile(this.editName, this.editEmail, this.editPhone);
-    this.cart.showToast('Profile updated successfully');
-    this.closeModal();
   }
 
   saveAddress() {
@@ -389,7 +396,7 @@ export class ProfilePage {
   }
 
   saveEqualizer() {
-    this.cart.showToast(`Equalizer profile "${this.activePreset}" applied`);
+    this.cart.showToast(`Equalizer "${this.activePreset}" applied`);
     this.closeModal();
   }
 

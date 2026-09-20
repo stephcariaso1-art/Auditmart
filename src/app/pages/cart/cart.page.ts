@@ -10,9 +10,9 @@ import { IconComponent } from '../../components/icon/icon.component';
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, IconComponent],
   template: `
-    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative">
+    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative pb-12">
       
-      <!-- Top Navbar (matches Figma 58:2 cart back arrow) -->
+      <!-- Top Navbar (matches Figma 58:2 cart back arrow & title) -->
       <app-navbar 
         [title]="'Cart'" 
         [showBack]="true"
@@ -23,11 +23,11 @@ import { IconComponent } from '../../components/icon/icon.component';
         
         <!-- Cart Items Feed (Spot-on match for Figma 58:2 wireframe) -->
         @if (cart.items().length > 0) {
-          <div class="space-y-3.5">
+          <div class="space-y-3.5 pt-1">
             @for (item of cart.items(); track item.product.id + item.selectedColor.name) {
-              <div class="w-full bg-[#222226] rounded-[24px] p-4 flex items-center gap-4 border border-white/[0.05] shadow-md">
+              <div class="w-full bg-[#222226] rounded-[26px] p-4 flex items-start gap-4 border border-white/[0.05] shadow-md">
                 
-                <!-- Left: Large Square Thumbnail (matches Item ordered RECTANGLE 140x142 in 58:2) -->
+                <!-- Left: Square Thumbnail (matches Item ordered RECTANGLE 140x142 in Figma 58:2) -->
                 <div class="w-24 h-24 rounded-2xl bg-[#2D2D33] p-2 flex items-center justify-center flex-shrink-0">
                   <img 
                     [src]="item.product.images[0]" 
@@ -35,51 +35,50 @@ import { IconComponent } from '../../components/icon/icon.component';
                     class="w-full h-full object-contain filter drop-shadow-md" />
                 </div>
 
-                <!-- Right: Details + 3 Circles for Quantity (matches 58:2 wireframe) -->
+                <!-- Right Details Stack (Title, Edition, Price, and 3 Quantity Circles matching Figma 58:2) -->
                 <div class="flex-1 min-w-0 flex flex-col justify-between h-24 py-0.5">
                   
+                  <!-- Row 1: Title & Delete Trash -->
                   <div class="flex items-start justify-between gap-1">
-                    <div>
+                    <div class="min-w-0 flex-1">
                       <h4 class="text-sm font-bold text-white tracking-tight truncate">{{ item.product.name }}</h4>
-                      <p class="text-[11px] text-[#7E7E88] mt-0.5">{{ item.selectedColor.name }} Edition</p>
+                      <p class="text-[11px] text-[#8E8E93] mt-0.5 font-medium">{{ item.selectedColor.name }} Edition</p>
                     </div>
 
                     <!-- Delete button -->
                     <button 
                       (click)="cart.removeItem(item.product.id, item.selectedColor.name)"
-                      class="text-white/30 hover:text-white/90 p-1 transition-colors">
-                      <app-icon name="trash" [size]="14" color="#7E7E88"></app-icon>
+                      class="text-white/40 hover:text-white/90 p-1 transition-colors active:scale-90"
+                      title="Remove item">
+                      <app-icon name="trash" [size]="14" color="#8E8E93"></app-icon>
                     </button>
                   </div>
 
-                  <!-- Price & 3 Quantity Circles (matches Quantity VECTOR 58:41, 58:45, 58:47 in 58:2) -->
-                  <div class="flex items-center justify-between">
-                    <span class="text-sm font-extrabold text-white">
-                      \${{ item.product.price * item.quantity }}
-                    </span>
+                  <!-- Row 2: Total Item Price -->
+                  <div class="text-sm font-extrabold text-white">
+                    \${{ item.product.price * item.quantity }}
+                  </div>
 
-                    <!-- The 3 Circular Buttons from Figma 58:2 -->
-                    <div class="flex items-center gap-1.5">
-                      <!-- Circle 1: Minus -->
-                      <button 
-                        (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, -1)"
-                        class="w-8 h-8 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
-                        -
-                      </button>
+                  <!-- Row 3: The 3 Circular Buttons from Figma 58:2 (Quantity VECTOR 58:41, 58:45, 58:47) -->
+                  <div class="flex items-center gap-2">
+                    <!-- Circle 1: Minus -->
+                    <button 
+                      (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, -1)"
+                      class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
+                      -
+                    </button>
 
-                      <!-- Circle 2: Current Quantity -->
-                      <div class="w-8 h-8 rounded-full bg-[#18181B] text-white flex items-center justify-center font-bold text-xs border border-white/10">
-                        {{ item.quantity }}
-                      </div>
-
-                      <!-- Circle 3: Plus -->
-                      <button 
-                        (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, 1)"
-                        class="w-8 h-8 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
-                        +
-                      </button>
+                    <!-- Circle 2: Current Quantity -->
+                    <div class="w-7 h-7 rounded-full bg-[#18181B] text-white flex items-center justify-center font-bold text-xs border border-white/10">
+                      {{ item.quantity }}
                     </div>
 
+                    <!-- Circle 3: Plus -->
+                    <button 
+                      (click)="cart.updateQuantity(item.product.id, item.selectedColor.name, 1)"
+                      class="w-7 h-7 rounded-full bg-[#2E2E34] hover:bg-[#383840] text-white flex items-center justify-center font-bold text-xs active:scale-90 border border-white/5 transition-all">
+                      +
+                    </button>
                   </div>
 
                 </div>
@@ -88,31 +87,31 @@ import { IconComponent } from '../../components/icon/icon.component';
             }
           </div>
 
-          <!-- Bottom Section in Normal Document Flow (matches the 3 bottom pills in 58:2) -->
-          <div class="space-y-3 pt-3 pb-28">
+          <!-- Bottom Summary Section (Matches the 3 stacked pills in Figma 58:2) -->
+          <div class="space-y-3 pt-4">
             
             <!-- Pill 1: Subtotal & Express Shipping (matches Total RECTANGLE 76:130) -->
             <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-2 border border-white/[0.05] shadow-xs">
               <div class="flex justify-between text-xs text-[#8E8E93]">
-                <span>Subtotal ({{ cart.totalCount() }} items)</span>
-                <span class="text-white font-medium">\${{ cart.subtotal() }}</span>
+                <span>Subtotal ({{ cart.totalCount() }} {{ cart.totalCount() === 1 ? 'item' : 'items' }})</span>
+                <span class="text-white font-semibold">\${{ cart.subtotal() }}</span>
               </div>
               <div class="flex justify-between text-xs text-[#8E8E93]">
                 <span>Standard Express Shipping</span>
-                <span class="text-white font-medium">{{ cart.deliveryFee() === 0 ? 'FREE' : '\$' + cart.deliveryFee() }}</span>
+                <span class="text-white font-semibold">{{ cart.deliveryFee() === 0 ? 'FREE' : '\$' + cart.deliveryFee() }}</span>
               </div>
             </div>
 
-            <!-- Pill 2: Total Amount & Courier (matches Total RECTANGLE 58:35) -->
-            <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-1.5 border border-white/[0.05] shadow-xs">
+            <!-- Pill 2: Total Amount & Priority Dispatch (matches Total RECTANGLE 58:35) -->
+            <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-1 border border-white/[0.05] shadow-xs">
               <div class="flex justify-between items-baseline">
                 <span class="text-xs font-bold text-[#8E8E93] uppercase tracking-wider">Total Amount</span>
-                <span class="text-lg font-black text-white tracking-tight">\${{ cart.total() }}</span>
+                <span class="text-xl font-black text-white tracking-tight">\${{ cart.total() }}</span>
               </div>
               <p class="text-[11px] text-[#7E7E88]">Fast priority dispatch with Acoustic Air Courier</p>
             </div>
 
-            <!-- Pill 3: In-Flow Checkout Action Button (matches Total RECTANGLE 76:132) -->
+            <!-- Pill 3: In-Flow Checkout Button (matches Total RECTANGLE 76:132) -->
             <div class="pt-1">
               <button 
                 (click)="proceedToCheckout()"
