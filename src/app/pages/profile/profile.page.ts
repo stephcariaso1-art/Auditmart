@@ -14,24 +14,22 @@ import { IconComponent } from '../../components/icon/icon.component';
   template: `
     <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
       
-      <!-- Top Navbar with Back and Save Pill Button (matches Figma 71:6 Profile wireframe) -->
+      <!-- Top Navbar with Save Pill Button (NO back button on main Profile tab) -->
       <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
-        <!-- Back Arrow to Home -->
-        <button 
-          (click)="goHome()" 
-          class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all">
-          <app-icon name="arrow-left" [size]="20" color="#FFFFFF"></app-icon>
-        </button>
+        <!-- Spacer to balance Save button and keep Profile centered -->
+        <div class="w-16"></div>
 
         <!-- Center Title -->
-        <h1 class="text-base font-semibold tracking-wide text-white">Profile</h1>
+        <h1 class="text-base font-bold tracking-wide text-white">Profile</h1>
 
         <!-- Save Button (matches the top right pill in Figma 71:6) -->
-        <button 
-          (click)="saveProfile()"
-          class="px-4 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all">
-          Save
-        </button>
+        <div class="w-16 flex justify-end">
+          <button 
+            (click)="saveProfile()"
+            class="px-4 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all cursor-pointer">
+            Save
+          </button>
+        </div>
       </header>
 
       <div class="px-5 space-y-4 pt-2 flex-1">

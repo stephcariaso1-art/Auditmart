@@ -10,13 +10,12 @@ import { IconComponent } from '../../components/icon/icon.component';
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, IconComponent],
   template: `
-    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative pb-12">
+    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative pb-48">
       
-      <!-- Top Navbar (matches Figma 58:2 cart back arrow & title) -->
+      <!-- Top Navbar: Cart Title (NO back button on main Cart tab) -->
       <app-navbar 
         [title]="'Cart'" 
-        [showBack]="true"
-        backUrl="/home">
+        [showBack]="false">
       </app-navbar>
 
       <div class="px-5 space-y-4 pt-1 flex-1 flex flex-col justify-between">

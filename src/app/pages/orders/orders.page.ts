@@ -11,13 +11,12 @@ import { Order } from '../../models';
   standalone: true,
   imports: [CommonModule, NavbarComponent],
   template: `
-    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-28 select-none animate-fade-in relative">
+    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-36 select-none animate-fade-in relative">
       
-      <!-- Top Navbar: Back & Orders Title -->
+      <!-- Top Navbar: Orders Title (NO back button on main Orders tab) -->
       <app-navbar 
         [title]="'Orders'" 
-        [showBack]="true"
-        backUrl="/home">
+        [showBack]="false">
       </app-navbar>
 
       <div class="px-5 space-y-4 pt-1 flex-1">
