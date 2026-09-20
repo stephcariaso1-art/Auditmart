@@ -2,7 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { TabbarComponent } from './components/tabbar/tabbar.component';
+import { IconComponent } from './components/icon/icon.component';
 import { CartService } from './services/cart.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +16,10 @@ import { CartService } from './services/cart.service';
 export class AppComponent {
   private router = inject(Router);
   cart = inject(CartService);
+  notifService = inject(NotificationService);
 
   shouldShowTabBar(): boolean {
     const url = this.router.url;
-    // Show tabbar on main browsing screens, hide on details, checkout, receipt, auth, and splash
     if (
       url.includes('/product/') ||
       url.includes('/checkout') ||

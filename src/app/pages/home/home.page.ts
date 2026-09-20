@@ -12,12 +12,12 @@ import { CartService } from '../../services/cart.service';
   standalone: true,
   imports: [CommonModule, FormsModule, NavbarComponent, ProductCardComponent, IconComponent],
   template: `
-    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-28 select-none animate-fade-in relative">
+    <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
       
       <!-- Top Brand Navbar (matches xwCBv8L_.jpg: menu, VibraTune, bell) -->
       <app-navbar></app-navbar>
 
-      <div class="px-5 space-y-4 pt-1">
+      <div class="px-5 space-y-5 pt-2">
         
         <!-- Search Bar with Sliders Icon (matches xwCBv8L_.jpg) -->
         <div class="relative flex items-center">
@@ -30,12 +30,12 @@ import { CartService } from '../../services/cart.service';
             [ngModel]="productService.searchQuery()" 
             (ngModelChange)="productService.setSearchQuery($event)"
             placeholder="Search your ear..." 
-            class="w-full pl-11 pr-11 py-3 rounded-2xl bg-[#222226] border border-white/[0.05] text-white placeholder-[#5E5E68] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[#222226] border border-white/[0.05] text-white placeholder-[#5E5E68] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
 
           <!-- Sliders Filter Icon on Far Right -->
           <button 
             (click)="showFilterModal.set(true)"
-            class="absolute right-3.5 flex items-center text-[#7E7E88] hover:text-white transition-colors">
+            class="absolute right-3.5 flex items-center text-[#7E7E88] hover:text-white transition-colors p-1">
             <app-icon name="sliders" [size]="16" color="#7E7E88"></app-icon>
           </button>
         </div>
@@ -61,8 +61,8 @@ import { CartService } from '../../services/cart.service';
           }
         </div>
 
-        <!-- Product Cards Feed (matches stacked cards in xwCBv8L_.jpg) -->
-        <div class="space-y-3 pt-1">
+        <!-- Product Cards Feed (Generous spacing so cards NEVER touch) -->
+        <div class="pt-2 flex flex-col">
           @for (product of filteredProducts(); track product.id) {
             <app-product-card [product]="product"></app-product-card>
           } @empty {
