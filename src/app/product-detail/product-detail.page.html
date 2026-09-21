@@ -1,24 +1,19 @@
 @if (product) {
   <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative">
-    
-    <!-- Top Navbar with Details Title & Back Arrow (matches cZDul4ky.jpg) -->
-    <app-navbar 
-      [title]="'Details'" 
+
+    <app-navbar
+      [title]="'Details'"
       [showBack]="true"
       backUrl="/home">
     </app-navbar>
 
-    <!-- Product Hero Showcase (snug, proportional spacing matching cZDul4ky.jpg) -->
-    <!-- Product Hero Showcase with Touch & Pointer Swipe Gestures -->
     <div class="relative w-full pt-1 pb-3 flex flex-col items-center justify-center">
-      
-      <!-- Radial Backdrop Spotlight for Headphone Hero -->
+
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div class="w-56 h-56 rounded-full bg-white/[0.04] blur-2xl"></div>
       </div>
 
-      <!-- Headphone Image (Swipeable with finger / cursor drag) -->
-      <div 
+      <div
         (touchstart)="onTouchStart($event)"
         (touchmove)="onTouchMove($event)"
         (touchend)="onTouchEnd($event)"
@@ -28,22 +23,21 @@
         (pointercancel)="onPointerCancel($event)"
         style="touch-action: pan-y; cursor: grab;"
         class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center z-10 bg-[#1A1A1E] select-none active:cursor-grabbing group">
-        
-        <img 
-          [src]="activeImage()" 
-          [alt]="product.name" 
+
+        <img
+          [src]="activeImage()"
+          [alt]="product.name"
           draggable="false"
           class="w-full h-full object-cover transition-transform duration-300 pointer-events-none group-hover:scale-105" />
 
-        <!-- Swipe Left/Right Arrow Overlays for effortless navigation -->
         @if (product.images.length > 1) {
-          <button 
+          <button
             (click)="prevImage(); $event.stopPropagation()"
             type="button"
             class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
             <app-icon name="chevron-left" [size]="16" color="#FFFFFF"></app-icon>
           </button>
-          <button 
+          <button
             (click)="nextImage(); $event.stopPropagation()"
             type="button"
             class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
@@ -51,7 +45,6 @@
           </button>
         }
 
-        <!-- Swipe Pill Indicator -->
         <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] text-white/80 font-medium border border-white/10 pointer-events-none flex items-center gap-1.5 z-20">
           <span>{{ activeImageIndex() + 1 }} / {{ product.images.length }}</span>
           <span class="text-white/40">·</span>
@@ -59,23 +52,20 @@
         </div>
       </div>
 
-      <!-- Vertical Color Swatches on Right (matches cZDul4ky.jpg) -->
       <div class="absolute right-4 sm:right-6 top-4 flex flex-col items-center gap-3 z-20">
         @for (color of product.colors; track color.name) {
-          <button 
+          <button
             (click)="selectColor(color)"
             [title]="color.name"
             class="group relative flex items-center justify-center p-1 rounded-full transition-transform active:scale-90 cursor-pointer"
             [ngClass]="selectedColor()?.name === color.name ? 'scale-110' : 'opacity-70 hover:opacity-100'">
-            
-            <!-- Ring for active -->
-            <div 
+
+            <div
               class="w-6 h-6 rounded-full border-2 transition-all shadow-xs"
               [ngClass]="selectedColor()?.name === color.name ? 'border-white ring-2 ring-white/30' : 'border-white/20'"
               [style.backgroundColor]="color.hex">
             </div>
 
-            <!-- Label tooltip -->
             <span class="absolute right-8 px-2 py-0.5 rounded bg-black/90 text-[10px] text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
               {{ color.name }}
             </span>
@@ -83,10 +73,9 @@
         }
       </div>
 
-      <!-- Carousel Pagination Dots (interactive clickable) -->
       <div class="flex items-center gap-2 mt-3 z-10">
         @for (img of product.images; track img; let i = $index) {
-          <button 
+          <button
             (click)="setImageIndex(i)"
             type="button"
             [title]="'View photo ' + (i + 1)"
@@ -98,13 +87,10 @@
 
     </div>
 
-    <!-- Details White Card Overlay (fills bottom smoothly without massive extra space) -->
     <div class="w-full flex-1 bg-white text-[#141416] rounded-t-[36px] p-6 pb-24 shadow-2xl space-y-4 relative z-20">
-      
-      <!-- Top indicator bar -->
+
       <div class="w-10 h-1 bg-black/10 rounded-full mx-auto -mt-2"></div>
 
-      <!-- Product Title & Tagline -->
       <div class="space-y-1">
         <div class="flex items-baseline gap-2">
           <span class="text-xl font-black tracking-tight text-black font-sans">{{ product.brand }}</span>
@@ -115,7 +101,6 @@
         </p>
       </div>
 
-      <!-- Feature Chips (matches cZDul4ky.jpg: Adaptive Noise Cancelling, Battery Life) -->
       <div class="space-y-2">
         @for (feat of product.features; track feat; let i = $index) {
           <div class="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#F5F5F7] border border-black/[0.04] text-xs font-medium text-[#1C1C1E]">
@@ -133,7 +118,6 @@
         }
       </div>
 
-      <!-- Audio Specs Mini Grid -->
       <div class="grid grid-cols-3 gap-2.5 pt-1">
         <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
           <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Driver</p>
@@ -151,11 +135,9 @@
 
     </div>
 
-    <!-- Sticky Floating Bottom Dock: Price, Add & Buy Now (matches bottom nav dock style) -->
     <div class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none">
       <div class="glass-dock rounded-[32px] px-5 py-2.5 flex items-center justify-between shadow-dock border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
-        
-        <!-- Price Display -->
+
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5">
             <span class="text-[10px] text-white/50 font-bold uppercase tracking-wider">Price</span>
@@ -168,10 +150,9 @@
           </span>
         </div>
 
-        <!-- Action Buttons: Add & Buy Now behaving like bottom nav -->
         <div class="flex items-center gap-2">
-          <!-- Add to Cart (adds and navigates to cart tab like bottom nav) -->
-          <button 
+
+          <button
             (click)="addToCart()"
             title="Add to Cart"
             class="px-4 py-2.5 rounded-full bg-[#27272C] hover:bg-[#34343A] active:scale-95 text-white text-xs font-bold transition-all border border-white/10 flex items-center gap-1.5 cursor-pointer shadow-sm">
@@ -179,8 +160,7 @@
             <span>Add</span>
           </button>
 
-          <!-- Buy Now (proceeds directly to checkout) -->
-          <button 
+          <button
             (click)="buyNow()"
             title="Buy Now"
             class="px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
@@ -191,22 +171,19 @@
       </div>
     </div>
 
-    <!-- ================= MODAL: GUEST AUTH REQUIRED ================= -->
     @if (showGuestAuthModal()) {
       <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
            (click)="showGuestAuthModal.set(false)">
-        <div 
+        <div
           class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl text-center relative"
           (click)="$event.stopPropagation()">
-          
-          <!-- Close Icon -->
-          <button 
+
+          <button
             (click)="showGuestAuthModal.set(false)"
             class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
             ✕
           </button>
 
-          <!-- Icon Emblem -->
           <div class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mx-auto text-white mt-1">
             <app-icon name="cart" [size]="24" color="#FFFFFF"></app-icon>
           </div>
@@ -219,19 +196,19 @@
           </div>
 
           <div class="space-y-2.5 pt-2">
-            <button 
+            <button
               (click)="goToSignUp()"
               class="w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all cursor-pointer">
               Create Free Account
             </button>
 
-            <button 
+            <button
               (click)="goToLogin()"
               class="w-full py-3.5 rounded-full bg-[#27272C] text-white font-bold text-xs tracking-wide border border-white/10 hover:bg-[#34343A] active:scale-95 transition-all cursor-pointer">
               Sign In with Email
             </button>
 
-            <button 
+            <button
               (click)="showGuestAuthModal.set(false)"
               class="w-full py-2 text-xs text-[#8E8E93] hover:text-white transition-colors cursor-pointer">
               Continue Browsing
@@ -244,7 +221,7 @@
 
   </div>
 } @else {
-  <!-- Not Found Fallback -->
+
   <div class="w-full min-h-screen bg-[#141416] text-white p-6 flex flex-col items-center justify-center space-y-4">
     <p class="text-base font-bold">Product not found</p>
     <button (click)="goHome()" class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold cursor-pointer">

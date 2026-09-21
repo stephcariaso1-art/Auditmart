@@ -1,15 +1,15 @@
-<svg 
-  [attr.width]="size" 
-  [attr.height]="size" 
-  viewBox="0 0 24 24" 
-  fill="none" 
-  [attr.stroke]="color" 
-  [attr.stroke-width]="strokeWidth" 
-  stroke-linecap="round" 
+<svg
+  [attr.width]="size"
+  [attr.height]="size"
+  viewBox="0 0 24 24"
+  fill="none"
+  [attr.stroke]="color"
+  [attr.stroke-width]="strokeWidth"
+  stroke-linecap="round"
   stroke-linejoin="round"
   class="inline-block transition-colors select-none"
   [ngClass]="classNames">
-  
+
   @switch (name) {
     @case ('menu') {
       <line x1="3" y1="12" x2="21" y2="12"></line>

@@ -1,18 +1,15 @@
 <div class="app-viewport-wrapper">
-  
+
   <div class="mobile-stage-frame">
-    
-    <!-- Router Outlet for Main Pages -->
+
     <main class="w-full flex-1 relative overflow-x-hidden">
       <router-outlet></router-outlet>
     </main>
 
-    <!-- Floating Bottom Navigation Dock -->
     @if (shouldShowTabBar()) {
       <app-tabbar></app-tabbar>
     }
 
-    <!-- Global Toast Notification Banner -->
     @if (cart.toastMessage()) {
       <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-white text-black font-bold text-xs shadow-2xl flex items-center gap-2 animate-fade-in border border-black/10 select-none">
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>

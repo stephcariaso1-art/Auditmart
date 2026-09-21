@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ==========================================================
-   RESET & SCROLLBAR SUPPRESSION (100% Hidden Scrollbars)
-   ========================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -45,9 +42,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   height: 0 !important;
 }
 
-/* ==========================================================
-   CLEAN RESPONSIVE STAGE FRAME (Optimized for Mobile View)
-   ========================================================== */
 .app-viewport-wrapper {
   min-height: 100vh;
   min-height: 100dvh;
@@ -70,9 +64,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   margin: 0 auto;
 }
 
-/* ==========================================================
-   DESIGN TOKENS & UTILITIES (Matching VibraTune & Figma)
-   ========================================================== */
 .glass-dock {
   background: rgba(30, 30, 35, 0.92);
   backdrop-filter: blur(24px);
@@ -88,7 +79,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   scrollbar-width: none !important;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

@@ -21,7 +21,6 @@ export class ShippingAddressesPage {
 
   showAddModal = signal<boolean>(false);
 
-  // New Address Form State
   label: 'Home' | 'Office' | 'Studio' | 'Other' = 'Home';
   recipientName = 'Alex Rivera';
   streetAddress = '';

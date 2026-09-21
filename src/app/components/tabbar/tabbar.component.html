@@ -1,27 +1,24 @@
 <nav class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none pointer-events-none">
   <div class="glass-dock rounded-[32px] px-4 py-2 flex items-center justify-around shadow-dock pointer-events-auto border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
-    
-    <!-- Tab 1: Home (matches script) -->
-    <button 
-      (click)="navigateTo('/home')" 
+
+    <button
+      (click)="navigateTo('/home')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
       [ngClass]="isActive('/home') ? 'text-white' : 'text-white/40 hover:text-white/70'">
       <app-icon name="home" [size]="20" [color]="isActive('/home') ? '#FFFFFF' : '#8E8E93'"></app-icon>
       <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/home') ? 'text-white' : 'text-white/40'">Home</span>
     </button>
 
-    <!-- Tab 2: Order (matches script) -->
-    <button 
-      (click)="navigateTo('/orders')" 
+    <button
+      (click)="navigateTo('/orders')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
       [ngClass]="isActive('/orders') ? 'text-white' : 'text-white/40 hover:text-white/70'">
       <app-icon name="categories" [size]="20" [color]="isActive('/orders') ? '#FFFFFF' : '#8E8E93'"></app-icon>
       <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/orders') ? 'text-white' : 'text-white/40'">Order</span>
     </button>
 
-    <!-- Tab 3: Cart (matches script) -->
-    <button 
-      (click)="navigateTo('/cart')" 
+    <button
+      (click)="navigateTo('/cart')"
       class="relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
       [ngClass]="isActive('/cart') ? 'text-white' : 'text-white/40 hover:text-white/70'">
       <div class="relative">
@@ -35,9 +32,8 @@
       <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/cart') ? 'text-white' : 'text-white/40'">Cart</span>
     </button>
 
-    <!-- Tab 4: Profile (matches script) -->
-    <button 
-      (click)="navigateTo('/profile')" 
+    <button
+      (click)="navigateTo('/profile')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
       [ngClass]="isActive('/profile') ? 'text-white' : 'text-white/40 hover:text-white/70'">
       <app-icon name="profile" [size]="20" [color]="isActive('/profile') ? '#FFFFFF' : '#8E8E93'"></app-icon>

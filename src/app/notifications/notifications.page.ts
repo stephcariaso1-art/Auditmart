@@ -38,7 +38,6 @@ export class NotificationsPage {
   }
 
   handleNotificationClick(notif: AppNotification) {
-    // Mark as read
     if (notif.isUnread) {
       this.notifService.notifications.update(list =>
         list.map(n => n.id === notif.id ? { ...n, isUnread: false } : n)

@@ -69,12 +69,12 @@ export class CheckoutPage implements OnInit {
 
     setTimeout(() => {
       const addr = this.defaultAddress;
-      const shippingAddress = addr 
+      const shippingAddress = addr
         ? `${addr.streetAddress}, ${addr.city}, ${addr.state} ${addr.postalCode}`
         : '742 Evergreen Terrace, Springfield, OR 97477';
-      
-      const paymentMethod = this.selectedPayment === 'apple_pay' 
-        ? 'Apple Pay' 
+
+      const paymentMethod = this.selectedPayment === 'apple_pay'
+        ? 'Apple Pay'
         : `${this.defaultCard?.type || 'Card'} •••• ${this.defaultCard?.last4 || '4242'}`;
 
       this.orderService.createOrder(

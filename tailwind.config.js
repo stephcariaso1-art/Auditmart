@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{html,ts,scss}",
@@ -7,21 +6,21 @@ module.exports = {
     extend: {
       colors: {
         dark: {
-          900: '#121214', // deepest backdrop
-          800: '#1A1A1D', // app background
-          700: '#232327', // cards & nav dock
-          600: '#2C2C31', // elevated elements
-          500: '#3A3A40', // borders / dividers
+          900: '#121214',
+          800: '#1A1A1D',
+          700: '#232327',
+          600: '#2C2C31',
+          500: '#3A3A40',
           400: '#54545C',
-          300: '#8E8E93', // muted text
-          200: '#C7C7CC', // secondary text
+          300: '#8E8E93',
+          200: '#C7C7CC',
           100: '#E5E5EA',
           50: '#F2F2F7',
         },
         brand: {
           DEFAULT: '#FFFFFF',
           dark: '#000000',
-          accent: '#FF4D4D', // subtle notification badge
+          accent: '#FF4D4D',
         }
       },
       fontFamily: {

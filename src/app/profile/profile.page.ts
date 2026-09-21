@@ -22,14 +22,12 @@ export class ProfilePage implements OnInit {
   user = this.auth.currentUser;
   activeModal = signal<'address' | 'payment' | 'equalizer' | null>(null);
 
-  // 4 Form fields matching Figma 71:6
   firstName = 'Alex';
   lastName = 'Rivera';
   email = 'alex.rivera@audiomart.io';
   cpNumber = '+1 (555) 234-8921';
   editAddress = '742 Evergreen Terrace, Springfield, OR 97477';
 
-  // Equalizer
   activePreset = 'Bass Boost';
   bassLevel = 8;
   midsLevel = 2;

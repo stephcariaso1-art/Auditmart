@@ -173,7 +173,6 @@ export class AuthService {
     }
     this.shippingAddresses.update(list => [...list, newAddress]);
 
-    // Update currentUser address if default
     if (newAddress.isDefault) {
       const formatted = `${newAddress.streetAddress}, ${newAddress.city}, ${newAddress.state} ${newAddress.postalCode}`;
       this.updateAddress(formatted);

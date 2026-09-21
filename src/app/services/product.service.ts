@@ -225,7 +225,6 @@ export class ProductService {
     }
   ];
 
-  // Script categories: All, Headphones, Earphones, Speakers
   readonly categories = ['All', 'Headphones', 'Earphones', 'Speakers'] as const;
 
   readonly selectedCategory = signal<string>('All');
@@ -237,7 +236,7 @@ export class ProductService {
 
     return this.productsData.filter(p => {
       const matchCategory = category === 'All' || p.category.toLowerCase() === category.toLowerCase();
-      const matchQuery = !query || 
+      const matchQuery = !query ||
         p.name.toLowerCase().includes(query) ||
         p.brand.toLowerCase().includes(query) ||
         p.category.toLowerCase().includes(query) ||

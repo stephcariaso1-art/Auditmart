@@ -25,7 +25,6 @@ export class PaymentMethodsPage {
     return this.auth.paymentCards().find(c => c.isDefault) || this.auth.paymentCards()[0];
   }
 
-  // New Card Form state
   cardholderName = 'Alex Rivera';
   cardType: 'Mastercard' | 'Visa' | 'Amex' = 'Mastercard';
   cardNumber = '';

@@ -30,7 +30,6 @@ export class AppComponent {
 
   shouldShowTabBar(): boolean {
     const url = this.currentUrl();
-    // Hide tabbar on detail, checkout, receipt, auth/splash, and dedicated sub-pages
     if (
       url.includes('/product/') ||
       url.includes('/checkout') ||

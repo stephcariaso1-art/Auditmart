@@ -13,7 +13,6 @@ export class CartService {
   readonly toastMessage = signal<string | null>(null);
 
   constructor() {
-    // Initial mock item for instant live showcase matching Figma cart wireframe
     this.items.set([
       {
         product: {
