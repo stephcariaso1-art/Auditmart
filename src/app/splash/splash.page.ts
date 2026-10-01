@@ -31,6 +31,6 @@ export class SplashPage implements OnInit, OnDestroy {
       clearTimeout(this.timerRef);
       this.timerRef = null;
     }
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 }

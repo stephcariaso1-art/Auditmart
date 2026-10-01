@@ -31,7 +31,7 @@ export class LoginPage {
   }
 
   goBack() {
-    this.router.navigate(['/splash']);
+    this.router.navigate(['/home']);
   }
 
   goHome() {

@@ -4,11 +4,12 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'splash',
+    redirectTo: 'home',
   },
   {
     path: 'splash',
-    loadComponent: () => import('./splash/splash.page').then(m => m.SplashPage),
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: 'home',
