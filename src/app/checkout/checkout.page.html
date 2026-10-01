@@ -58,7 +58,7 @@
             <p class="text-xs font-bold">audiMart Priority</p>
             <p class="text-[11px] text-[#8E8E93] mt-0.5">Next Day Priority</p>
           </div>
-          <p class="text-xs font-bold text-white mt-2.5">+$15</p>
+          <p class="text-xs font-bold text-white mt-2.5">+₱15</p>
         </button>
       </div>
     </div>
@@ -131,7 +131,7 @@
                 <span class="text-[10px] text-[#8E8E93]">Qty: {{ item.quantity }} · {{ item.selectedColor.name }}</span>
               </div>
             </div>
-            <span class="font-bold text-white tabular-nums shrink-0">${{ item.product.price * item.quantity }}</span>
+            <span class="font-bold text-white tabular-nums shrink-0">₱{{ item.product.price * item.quantity }}</span>
           </div>
         } @empty {
           <div class="text-xs text-[#8E8E93] py-2 text-center">No items currently in cart</div>
@@ -141,23 +141,23 @@
       <div class="border-t border-white/10 pt-3 space-y-2 text-xs">
         <div class="flex items-center justify-between text-[#8E8E93]">
           <span>Subtotal</span>
-          <span class="text-white font-medium tabular-nums">${{ cart.subtotal() }}</span>
+          <span class="text-white font-medium tabular-nums">₱{{ cart.subtotal() }}</span>
         </div>
         <div class="flex items-center justify-between text-[#8E8E93]">
           <span>Delivery</span>
           <span class="font-medium tabular-nums" [ngClass]="shippingCost === 0 ? 'text-emerald-400 font-bold' : 'text-white'">
-            {{ shippingCost === 0 ? 'FREE' : '$' + shippingCost }}
+            {{ shippingCost === 0 ? 'FREE' : '₱' + shippingCost }}
           </span>
         </div>
         @if (cart.discountAmount() > 0) {
           <div class="flex items-center justify-between text-emerald-400">
             <span>VIP Promo Discount</span>
-            <span class="font-bold tabular-nums">-${{ cart.discountAmount() }}</span>
+            <span class="font-bold tabular-nums">-₱{{ cart.discountAmount() }}</span>
           </div>
         }
         <div class="flex items-center justify-between pt-3 border-t border-white/10">
           <span class="text-sm font-bold text-white">Grand Total</span>
-          <span class="text-lg font-black text-white tabular-nums">${{ calculatedTotal }}</span>
+          <span class="text-lg font-black text-white tabular-nums">₱{{ calculatedTotal }}</span>
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@
         <span class="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
         <span>Processing Payment...</span>
       } @else {
-        <span>Confirm & Pay ${{ calculatedTotal }}</span>
+        <span>Confirm & Pay ₱{{ calculatedTotal }}</span>
       }
     </button>
   </div>

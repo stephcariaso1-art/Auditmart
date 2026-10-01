@@ -109,7 +109,7 @@
           <div class="space-y-1.5 pt-2 border-t border-white/10">
             <div class="flex justify-between items-center text-xs">
               <span class="text-[#8E8E93] font-semibold text-[11px]">Maximum Price</span>
-              <span class="font-extrabold text-white font-mono text-sm">${{ maxPrice() }}</span>
+              <span class="font-extrabold text-white font-mono text-sm">₱{{ maxPrice() }}</span>
             </div>
             <input
               type="range"
@@ -120,9 +120,9 @@
               (ngModelChange)="maxPrice.set($event)"
               class="w-full accent-white cursor-pointer" />
             <div class="flex justify-between text-[10px] text-[#7E7E88]">
-              <span>$50</span>
-              <span>$150</span>
-              <span>$250+</span>
+              <span>₱50</span>
+              <span>₱150</span>
+              <span>₱250+</span>
             </div>
           </div>
 
@@ -145,7 +145,7 @@
 
           <button
             type="button"
-            (click)="productService.setCategory(cat)"
+            (click)="setCategory(cat)"
             class="px-5 py-2 rounded-full bg-white text-black font-extrabold whitespace-nowrap shadow-sm transition-all cursor-pointer">
             {{ cat }}
           </button>
@@ -153,7 +153,7 @@
 
           <button
             type="button"
-            (click)="productService.setCategory(cat)"
+            (click)="setCategory(cat)"
             class="px-4 py-2 rounded-full bg-[#222226] text-[#8E8E93] hover:text-white whitespace-nowrap transition-colors font-medium border border-white/[0.04] cursor-pointer">
             {{ cat }}
           </button>
@@ -162,22 +162,39 @@
     </div>
 
     <div class="pt-1 flex flex-col gap-4">
-      @for (product of filteredProducts(); track product.id) {
-        <app-product-card [product]="product"></app-product-card>
-      } @empty {
-        <div class="py-16 text-center space-y-3">
-          <div class="w-12 h-12 rounded-full bg-[#222226] flex items-center justify-center mx-auto text-white/30">
-            <app-icon name="search" [size]="20" color="#7E7E88"></app-icon>
+      @if (isLoading()) {
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="w-full min-h-[140px] bg-[#222226] rounded-[28px] px-5 py-4 flex items-center justify-between border border-white/[0.06] shadow-md select-none animate-fade-in">
+            <div class="flex flex-col justify-between h-full flex-1 pr-3 py-1 space-y-3">
+              <div>
+                <div class="w-32 h-4 rounded-md shimmer-wireframe"></div>
+                <div class="w-44 h-3 rounded-md mt-2 shimmer-wireframe"></div>
+              </div>
+              <div class="pt-2">
+                <div class="w-16 h-7 rounded-full shimmer-wireframe"></div>
+              </div>
+            </div>
+            <div class="w-28 h-28 rounded-2xl shrink-0 -mr-1 shimmer-wireframe"></div>
           </div>
-          <p class="text-sm font-bold text-white">No products found</p>
-          <p class="text-xs text-[#7E7E88]">Try changing your sort or category filter</p>
-          <button
-            type="button"
-            (click)="resetFilters()"
-            class="mt-2 px-5 py-2 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors cursor-pointer">
-            Reset All Filters
-          </button>
-        </div>
+        }
+      } @else {
+        @for (product of filteredProducts(); track product.id) {
+          <app-product-card [product]="product"></app-product-card>
+        } @empty {
+          <div class="py-16 text-center space-y-3">
+            <div class="w-12 h-12 rounded-full bg-[#222226] flex items-center justify-center mx-auto text-white/30">
+              <app-icon name="search" [size]="20" color="#7E7E88"></app-icon>
+            </div>
+            <p class="text-sm font-bold text-white">No products found</p>
+            <p class="text-xs text-[#7E7E88]">Try changing your sort or category filter</p>
+            <button
+              type="button"
+              (click)="resetFilters()"
+              class="mt-2 px-5 py-2 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors cursor-pointer">
+              Reset All Filters
+            </button>
+          </div>
+        }
       }
     </div>
 

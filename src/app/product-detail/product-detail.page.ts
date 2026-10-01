@@ -23,6 +23,7 @@ export class ProductDetailPage implements OnInit {
   auth = inject(AuthService);
 
   product?: Product;
+  isLoading = signal<boolean>(true);
   selectedColor = signal<ProductColor | null>(null);
   activeImage = signal<string>('');
   showGuestAuthModal = signal<boolean>(false);
@@ -34,6 +35,7 @@ export class ProductDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      this.isLoading.set(true);
       const id = params.get('id') || 'jbl-live-660nc';
       this.product = this.productService.getProductById(id) || this.productService.products()[0];
       if (this.product) {
@@ -41,6 +43,9 @@ export class ProductDetailPage implements OnInit {
         this.activeImageIndex.set(0);
         this.activeImage.set(this.product.images[0]);
       }
+      setTimeout(() => {
+        this.isLoading.set(false);
+      }, 450);
     });
   }
 

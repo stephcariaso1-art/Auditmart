@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../services/product.service';
@@ -16,13 +16,30 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
   productService = inject(ProductService);
   cartService = inject(CartService);
 
+  isLoading = signal<boolean>(true);
   showFilterModal = signal<boolean>(false);
   sortBy = signal<SortOption>('default');
   maxPrice = signal<number>(250);
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 600);
+  }
+
+  setCategory(cat: string) {
+    if (this.productService.selectedCategory() !== cat) {
+      this.productService.setCategory(cat);
+      this.isLoading.set(true);
+      setTimeout(() => {
+        this.isLoading.set(false);
+      }, 350);
+    }
+  }
 
   isSortActive(): boolean {
     return this.sortBy() !== 'default' || this.maxPrice() < 250;

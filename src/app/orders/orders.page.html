@@ -32,8 +32,31 @@
     } @else {
 
       <div class="space-y-4 pt-1">
-        @for (order of orderService.orders(); track order.id) {
-          <div class="bg-[#222226] rounded-[24px] p-4 space-y-3.5 border border-white/[0.06] shadow-md">
+        @if (isLoading()) {
+          @for (i of [1, 2]; track i) {
+            <div class="bg-[#222226] rounded-[24px] p-4 space-y-3.5 border border-white/[0.06] shadow-md animate-fade-in">
+              <div class="flex items-center justify-between pb-2.5 border-b border-white/[0.06]">
+                <div class="w-36 h-4 rounded-md shimmer-wireframe"></div>
+                <div class="w-20 h-4 rounded-full shimmer-wireframe"></div>
+              </div>
+              <div class="flex items-center gap-3.5">
+                <div class="w-20 h-20 rounded-2xl shrink-0 shimmer-wireframe"></div>
+                <div class="flex-1 space-y-2">
+                  <div class="w-36 h-4 rounded-md shimmer-wireframe"></div>
+                  <div class="w-24 h-3 rounded-md shimmer-wireframe"></div>
+                  <div class="w-28 h-4 rounded-md shimmer-wireframe mt-1"></div>
+                </div>
+              </div>
+              <div class="h-10 rounded-2xl shimmer-wireframe border border-white/5"></div>
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <div class="h-10 rounded-full shimmer-wireframe"></div>
+                <div class="h-10 rounded-full shimmer-wireframe"></div>
+              </div>
+            </div>
+          }
+        } @else {
+          @for (order of orderService.orders(); track order.id) {
+            <div class="bg-[#222226] rounded-[24px] p-4 space-y-3.5 border border-white/[0.06] shadow-md">
 
             <div class="flex items-center justify-between pb-2.5 border-b border-white/[0.06]">
               <div class="flex items-center gap-2 min-w-0">
@@ -67,7 +90,7 @@
 
                 <div class="flex items-baseline justify-between pt-1">
                   <span class="text-xs text-[#8E8E93]">Total Amount</span>
-                  <span class="text-sm font-black text-white tracking-tight">${{ order.total }}</span>
+                  <span class="text-sm font-black text-white tracking-tight">₱{{ order.total }}</span>
                 </div>
               </div>
             </div>
@@ -99,6 +122,7 @@
             </div>
 
           </div>
+        }
         }
       </div>
     }

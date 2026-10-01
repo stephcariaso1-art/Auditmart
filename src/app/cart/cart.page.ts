@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart.service';
@@ -13,12 +13,19 @@ import { IconComponent } from '../components/icon/icon.component';
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.scss']
 })
-export class CartPage {
+export class CartPage implements OnInit {
   cart = inject(CartService);
   auth = inject(AuthService);
   private router = inject(Router);
 
+  isLoading = signal<boolean>(true);
   showGuestAuthModal = signal<boolean>(false);
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 400);
+  }
 
   proceedToCheckout() {
     if (this.auth.isGuest()) {

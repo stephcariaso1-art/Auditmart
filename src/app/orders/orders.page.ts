@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
@@ -15,13 +15,20 @@ import { Order } from '../models';
   templateUrl: './orders.page.html',
   styleUrls: ['./orders.page.scss']
 })
-export class OrdersPage {
+export class OrdersPage implements OnInit {
   orderService = inject(OrderService);
   auth = inject(AuthService);
   private cartService = inject(CartService);
   private router = inject(Router);
 
+  isLoading = signal<boolean>(true);
   activeTrackOrder = signal<Order | null>(null);
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 450);
+  }
 
   openTrackingModal(order: Order) {
     this.activeTrackOrder.set(order);
