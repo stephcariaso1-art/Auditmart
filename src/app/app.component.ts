@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.closeSplash();
-    }, 2400);
+    }, 1800);
   }
 
   closeSplash() {
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     this.isSplashFading.set(true);
     setTimeout(() => {
       this.showSplash.set(false);
-    }, 350);
+    }, 250);
   }
 
   shouldShowTabBar(): boolean {
