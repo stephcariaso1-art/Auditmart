@@ -50,3 +50,14 @@ export interface UserProfile {
   avatar: string;
   memberTier: string;
 }
+
+export interface Review {
+  id: string;
+  productId: string;
+  authorName: string;
+  rating: number;
+  comment: string;
+  date: string;
+  verifiedPurchase?: boolean;
+}
+

@@ -102,7 +102,15 @@
                 </span>
               </div>
 
-              <div class="flex items-center gap-2 shrink-0">
+              <div class="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+                @if (order.status === 'Delivered') {
+                  <button
+                    (click)="openReviewModal(order)"
+                    class="px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-bold hover:bg-emerald-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1">
+                    <app-icon name="star" [size]="12" color="#34D399"></app-icon>
+                    <span>Write Review</span>
+                  </button>
+                }
                 <button
                   (click)="reorder(order)"
                   class="px-3.5 py-1.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs font-bold transition-all active:scale-95 shadow-xs cursor-pointer">
@@ -120,6 +128,7 @@
                 </button>
               </div>
             </div>
+
 
           </div>
         }
@@ -180,4 +189,104 @@
     </div>
   }
 
+  @if (activeReviewOrder()) {
+
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+         (click)="activeReviewOrder.set(null)">
+      <div
+        class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl relative"
+        (click)="$event.stopPropagation()">
+
+        <div class="flex items-center justify-between pb-2 border-b border-white/10">
+          <div>
+            <h3 class="text-sm font-bold text-white">Write a Review</h3>
+            <p class="text-[11px] text-[#7E7E88]">Rate your experience with this purchase</p>
+          </div>
+          <button
+            (click)="activeReviewOrder.set(null)"
+            class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs hover:bg-white/20 cursor-pointer">
+            ✕
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#141416] border border-white/5">
+          <div class="w-12 h-12 rounded-xl bg-[#2D2D33] overflow-hidden shrink-0 border border-white/5">
+            <img
+              [src]="activeReviewOrder()!.items[0].product.images[0]"
+              [alt]="activeReviewOrder()!.items[0].product.name"
+              class="w-full h-full object-cover" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-bold text-white truncate">{{ activeReviewOrder()!.items[0].product.name }}</p>
+            <p class="text-[11px] text-[#8E8E93] truncate">{{ activeReviewOrder()!.items[0].selectedColor.name }}</p>
+          </div>
+        </div>
+
+        <div class="space-y-2 text-center py-1">
+          <p class="text-xs font-semibold text-white/90">
+            Select Rating <span class="text-rose-400">*</span>
+          </p>
+
+          <div class="flex items-center justify-center gap-2">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <button
+                type="button"
+                (click)="selectStar(star)"
+                class="p-1 transition-transform active:scale-125 cursor-pointer">
+                <app-icon
+                  name="star"
+                  [size]="28"
+                  [color]="star <= selectedRating() ? '#FACC15' : '#3F3F46'">
+                </app-icon>
+              </button>
+            }
+          </div>
+
+          <p class="text-[11px] font-medium" [ngClass]="selectedRating() > 0 ? 'text-amber-400' : 'text-neutral-500'">
+            @if (selectedRating() === 5) { Excellent (5/5) }
+            @else if (selectedRating() === 4) { Good (4/5) }
+            @else if (selectedRating() === 3) { Average (3/5) }
+            @else if (selectedRating() === 2) { Poor (2/5) }
+            @else if (selectedRating() === 1) { Terrible (1/5) }
+            @else { Please select stars (Required) }
+          </p>
+
+          @if (ratingError()) {
+            <p class="text-xs text-rose-400 font-medium animate-pulse">{{ ratingError() }}</p>
+          }
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-white/80">Your Review</label>
+          <textarea
+            [value]="reviewComment()"
+            (input)="reviewComment.set($any($event.target).value)"
+            rows="3"
+            placeholder="Share your thoughts about sound quality, comfort, battery..."
+            class="w-full px-3.5 py-2.5 rounded-2xl bg-[#141416] border border-white/10 text-white placeholder-white/30 text-xs focus:outline-none focus:border-white/40 resize-none">
+          </textarea>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <button
+            type="button"
+            (click)="activeReviewOrder.set(null)"
+            class="flex-1 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button
+            type="button"
+            (click)="submitReview()"
+            [disabled]="selectedRating() === 0"
+            class="flex-1 py-3 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
+            [ngClass]="selectedRating() > 0 ? 'bg-white hover:bg-neutral-200 text-black active:scale-95' : 'bg-white/20 text-white/40 cursor-not-allowed'">
+            <span>Submit Review</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  }
+
 </div>
+

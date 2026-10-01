@@ -20,7 +20,12 @@ export const routes: Routes = [
     loadComponent: () => import('./product-detail/product-detail.page').then(m => m.ProductDetailPage),
   },
   {
+    path: 'product/:id/reviews',
+    loadComponent: () => import('./product-reviews/product-reviews.page').then(m => m.ProductReviewsPage),
+  },
+  {
     path: 'cart',
+
     loadComponent: () => import('./cart/cart.page').then(m => m.CartPage),
   },
   {

@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
-import { Product, ProductColor } from '../models';
+import { ReviewService } from '../services/review.service';
+import { Product, ProductColor, Review } from '../models';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -20,6 +21,7 @@ export class ProductDetailPage implements OnInit {
   private router = inject(Router);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private reviewService = inject(ReviewService);
   auth = inject(AuthService);
 
   product?: Product;
@@ -28,6 +30,7 @@ export class ProductDetailPage implements OnInit {
   activeImage = signal<string>('');
   showGuestAuthModal = signal<boolean>(false);
   activeImageIndex = signal<number>(0);
+
   private touchStartX = 0;
   private touchStartY = 0;
   private touchEndX = 0;
@@ -52,6 +55,28 @@ export class ProductDetailPage implements OnInit {
   getModel(product: Product): string {
     return product.name.replace(product.brand, '').trim();
   }
+
+  topReviews(): Review[] {
+    if (!this.product) return [];
+    return this.reviewService.getTopReviews(this.product.id, 3);
+  }
+
+  totalReviewsCount(): number {
+    if (!this.product) return 0;
+    return this.reviewService.getReviewsByProduct(this.product.id).length;
+  }
+
+  ratingSummary(): { average: number; count: number } {
+    if (!this.product) return { average: 5.0, count: 0 };
+    return this.reviewService.getAverageRating(this.product.id);
+  }
+
+  goToAllReviews() {
+    if (this.product) {
+      this.router.navigate(['/product', this.product.id, 'reviews']);
+    }
+  }
+
 
   setImageIndex(idx: number) {
     if (!this.product || !this.product.images.length) return;
