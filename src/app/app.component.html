@@ -4,24 +4,14 @@
 
     @if (showSplash()) {
       <div
-        class="fixed inset-0 z-[100] max-w-[430px] mx-auto bg-[#141416] text-white flex flex-col justify-between p-8 select-none overflow-hidden transition-opacity duration-300 cursor-pointer"
-        [ngClass]="isSplashFading() ? 'opacity-0 pointer-events-none' : 'opacity-100'"
-        (click)="closeSplash()">
+        class="fixed inset-0 z-[100] max-w-[430px] mx-auto bg-[#141416] text-white flex flex-col items-center justify-center p-8 select-none overflow-hidden transition-opacity duration-300"
+        [ngClass]="isSplashFading() ? 'opacity-0 pointer-events-none' : 'opacity-100'">
 
         <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
           <div class="w-80 h-80 rounded-full bg-white/[0.04] blur-3xl"></div>
         </div>
 
-        <div class="w-full flex justify-end pt-3 z-10">
-          <button
-            type="button"
-            (click)="closeSplash(); $event.stopPropagation()"
-            class="text-xs text-white/50 hover:text-white px-3.5 py-1.5 rounded-full border border-white/10 active:scale-95 transition-all cursor-pointer">
-            Skip
-          </button>
-        </div>
-
-        <div class="flex flex-col items-center justify-center text-center space-y-6 my-auto z-10">
+        <div class="flex flex-col items-center justify-center text-center space-y-6 z-10">
 
           <div class="relative w-44 h-44 flex items-center justify-center">
             <div class="absolute inset-0 rounded-full border border-white/20 animate-acoustic-1 pointer-events-none"></div>
@@ -62,8 +52,6 @@
           </div>
 
         </div>
-
-        <div class="pb-6"></div>
 
       </div>
     }
