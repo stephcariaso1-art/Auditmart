@@ -31,7 +31,7 @@
       <div class="space-y-2">
         <h2 class="text-xl font-black text-[#070706] dark:text-white tracking-tight">Create an Account</h2>
         <p class="text-xs text-[#363534] dark:text-[#C7C7C6] leading-relaxed max-w-xs">
-          You are currently browsing as a guest. Create an account to save your delivery addresses, manage payment cards, and enjoy personalized sound profiles.
+          You are currently browsing as a guest. Create an account to save your delivery addresses, manage payment cards, and track orders.
         </p>
       </div>
 
@@ -61,12 +61,6 @@
             <app-icon name="truck" [size]="12" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
           </div>
           <span>Live real-time courier order tracking</span>
-        </div>
-        <div class="flex items-center gap-3 text-xs text-[#363534] dark:text-[#C7C7C6]">
-          <div class="w-6 h-6 rounded-lg bg-white dark:bg-[#151413] text-[#070706] dark:text-white flex items-center justify-center shrink-0 border border-[#C7C7C6] dark:border-[#363534]">
-            <app-icon name="sliders" [size]="12" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
-          </div>
-          <span>Custom DSP Equalizer acoustic profiles</span>
         </div>
       </div>
 
@@ -169,21 +163,6 @@
           <app-icon name="arrow-right" [size]="14" [color]="themeService.isDark() ? '#A1A1A1' : '#575655'"></app-icon>
         </button>
 
-        <button
-          (click)="openModal('equalizer')"
-          class="w-full p-3.5 rounded-2xl titanium-card flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
-              <app-icon name="sliders" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
-            </div>
-            <div class="text-left">
-              <span class="text-xs font-bold text-[#070706] dark:text-white block">Equalizer & Audio Profiles</span>
-              <span class="text-[10px] text-[#575655] dark:text-[#C7C7C6]">{{ activePreset }} Profile</span>
-            </div>
-          </div>
-          <app-icon name="arrow-right" [size]="14" [color]="themeService.isDark() ? '#A1A1A1' : '#575655'"></app-icon>
-        </button>
-
         <!-- Appearance & Theme Selector -->
         <button
           (click)="themeService.toggleTheme()"
@@ -214,74 +193,6 @@
         </button>
       </div>
 
-    </div>
-  }
-
-  @if (activeModal() === 'equalizer') {
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
-         (click)="closeModal()">
-      <div class="w-full max-w-sm bg-white dark:bg-[#121110] rounded-[32px] p-6 space-y-4 border border-[#C7C7C6] dark:border-[#363534] shadow-2xl text-[#070706] dark:text-white"
-           (click)="$event.stopPropagation()">
-        <div class="flex items-center justify-between pb-2 border-b border-[#C7C7C6] dark:border-[#363534]">
-          <div>
-            <h3 class="text-sm font-bold text-[#070706] dark:text-white">Equalizer & Audio Profiles</h3>
-            <p class="text-[11px] text-[#575655] dark:text-[#C7C7C6]">DSP Acoustic Tuning</p>
-          </div>
-          <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#151413] text-[#070706] dark:text-white hover:bg-neutral-200 dark:hover:bg-[#363534] flex items-center justify-center text-xs cursor-pointer">✕</button>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 pt-1">
-          <button
-            (click)="applyPreset('Bass Boost', 8, 2, -1)"
-            class="p-2.5 rounded-xl border text-left transition-colors cursor-pointer"
-            [ngClass]="activePreset === 'Bass Boost' ? 'chrome-btn' : 'machined-pill'">
-            <span class="text-xs font-bold block">Bass Boost</span>
-            <span class="text-[10px] opacity-75">+8dB Punch</span>
-          </button>
-
-          <button
-            (click)="applyPreset('Studio Pure', 0, 0, 0)"
-            class="p-2.5 rounded-xl border text-left transition-colors cursor-pointer"
-            [ngClass]="activePreset === 'Studio Pure' ? 'chrome-btn' : 'machined-pill'">
-            <span class="text-xs font-bold block">Studio Pure</span>
-            <span class="text-[10px] opacity-75">Flat Response</span>
-          </button>
-        </div>
-
-        <div class="space-y-3 pt-2">
-          <div class="space-y-1">
-            <div class="flex justify-between text-[11px]">
-              <span class="text-[#363534] dark:text-[#C7C7C6]">Bass (60 Hz)</span>
-              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ bassLevel > 0 ? '+' : '' }}{{ bassLevel }} dB</span>
-            </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="bassLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-[11px]">
-              <span class="text-[#363534] dark:text-[#C7C7C6]">Mids (1 kHz)</span>
-              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ midsLevel > 0 ? '+' : '' }}{{ midsLevel }} dB</span>
-            </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="midsLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-[11px]">
-              <span class="text-[#363534] dark:text-[#C7C7C6]">Treble (16 kHz)</span>
-              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ trebleLevel > 0 ? '+' : '' }}{{ trebleLevel }} dB</span>
-            </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="trebleLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
-          </div>
-        </div>
-
-        <div class="pt-2">
-          <button
-            (click)="saveEqualizer()"
-            class="w-full py-3 rounded-full chrome-btn text-xs font-bold shadow-md cursor-pointer">
-            Apply & Save EQ
-          </button>
-        </div>
-      </div>
     </div>
   }
 

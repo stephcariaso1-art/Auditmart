@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,18 +22,12 @@ export class ProfilePage implements OnInit {
   private router = inject(Router);
 
   user = this.auth.currentUser;
-  activeModal = signal<'address' | 'payment' | 'equalizer' | null>(null);
 
   firstName = 'Alex';
   lastName = 'Rivera';
   email = 'alex.rivera@audiomart.io';
   cpNumber = '+1 (555) 234-8921';
   editAddress = '742 Evergreen Terrace, Springfield, OR 97477';
-
-  activePreset = 'Bass Boost';
-  bassLevel = 8;
-  midsLevel = 2;
-  trebleLevel = -1;
 
   ngOnInit() {
     const u = this.user();
@@ -75,26 +69,6 @@ export class ProfilePage implements OnInit {
 
   goToLogin() {
     this.router.navigate(['/login']);
-  }
-
-  openModal(type: 'equalizer') {
-    this.activeModal.set(type);
-  }
-
-  closeModal() {
-    this.activeModal.set(null);
-  }
-
-  applyPreset(preset: string, b: number, m: number, t: number) {
-    this.activePreset = preset;
-    this.bassLevel = b;
-    this.midsLevel = m;
-    this.trebleLevel = t;
-  }
-
-  saveEqualizer() {
-    this.cart.showToast(`Equalizer "${this.activePreset}" applied`);
-    this.closeModal();
   }
 
   logout() {

@@ -71,7 +71,7 @@ export class ProductService {
       originalPrice: 130,
       rating: 4.7,
       reviewsCount: 245,
-      description: 'Engineered with patented acoustic technology, delivering mind-blowing sensory bass and customizable sound profiles.',
+      description: 'Engineered with patented acoustic technology, delivering mind-blowing sensory bass and high-definition studio clarity.',
       features: [
         'Adjustable Sensory Bass control slider',
         'Personal Sound with the Companion App',

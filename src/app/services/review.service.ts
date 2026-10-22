@@ -29,7 +29,7 @@ export class ReviewService {
       productId: 'jbl-live-660nc',
       authorName: 'David Tan',
       rating: 4,
-      comment: 'Sound quality is great. Treble can be slightly sharp at maximum volume, but the companion app equalizer fixes it.',
+      comment: 'Sound quality is great. Treble is bright and clear, and bass punch is very satisfying right out of the box.',
       date: 'Sep 17, 2026',
       verifiedPurchase: true
     },
