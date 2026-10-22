@@ -6,6 +6,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { ProductCardComponent } from '../components/product-card/product-card.component';
 import { IconComponent } from '../components/icon/icon.component';
 import { CartService } from '../services/cart.service';
+import { ThemeService } from '../services/theme.service';
 
 export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'name';
 
@@ -19,11 +20,12 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'rating' | 'na
 export class HomePage implements OnInit {
   productService = inject(ProductService);
   cartService = inject(CartService);
+  themeService = inject(ThemeService);
 
   isLoading = signal<boolean>(true);
   showFilterModal = signal<boolean>(false);
   sortBy = signal<SortOption>('default');
-  maxPrice = signal<number>(250);
+  maxPrice = signal<number>(500);
 
   ngOnInit() {
     setTimeout(() => {
@@ -42,7 +44,7 @@ export class HomePage implements OnInit {
   }
 
   isSortActive(): boolean {
-    return this.sortBy() !== 'default' || this.maxPrice() < 250;
+    return this.sortBy() !== 'default' || this.maxPrice() < 500;
   }
 
   toggleFilterModal(e?: Event) {
@@ -94,7 +96,7 @@ export class HomePage implements OnInit {
     this.productService.setCategory('All');
     this.productService.setSearchQuery('');
     this.sortBy.set('default');
-    this.maxPrice.set(250);
+    this.maxPrice.set(500);
     this.cartService.showToast('Filters reset to default');
   }
 }

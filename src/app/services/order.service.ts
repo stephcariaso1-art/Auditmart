@@ -7,9 +7,42 @@ import { Order, CartItem } from '../models';
 export class OrderService {
   readonly orders = signal<Order[]>([
     {
+      id: 'ord-102',
+      orderNumber: 'AM-99412',
+      date: 'Today, Oct 15',
+      status: 'Shipped',
+      items: [
+        {
+          product: {
+            id: 'shure-sm7b',
+            brand: 'Shure',
+            name: 'Shure SM7B',
+            subtitle: 'Cardioid Studio Vocal Mic',
+            price: 399,
+            rating: 4.9,
+            reviewsCount: 420,
+            description: 'Legendary cardioid dynamic vocal mic.',
+            features: ['Flat, wide-range frequency response'],
+            colors: [{ name: 'Matte Obsidian', hex: '#070706', inStock: true }],
+            images: ['assets/products/shure-sm7b.jpg'],
+            category: 'Microphones'
+          },
+          selectedColor: { name: 'Matte Obsidian', hex: '#070706', inStock: true },
+          quantity: 1
+        }
+      ],
+      subtotal: 399,
+      discount: 0,
+      deliveryFee: 0,
+      total: 399,
+      shippingAddress: '742 Evergreen Terrace, Springfield, OR',
+      paymentMethod: 'Apple Pay',
+      deliveryEstimate: 'Estimated: Today, 4:30 PM (Live On Map)'
+    },
+    {
       id: 'ord-101',
       orderNumber: 'AM-98421',
-      date: 'Sep 18, 2026',
+      date: 'Oct 12, 2026',
       status: 'Delivered',
       items: [
         {

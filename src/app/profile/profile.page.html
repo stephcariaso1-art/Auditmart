@@ -1,15 +1,15 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
+<div class="w-full min-h-screen app-screen-bg flex flex-col pb-36 select-none animate-fade-in relative transition-colors">
 
-  <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
+  <header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none app-header-bg sticky top-0 transition-colors">
     <div class="w-16"></div>
 
-    <h1 class="text-base font-bold tracking-wide text-white">Profile</h1>
+    <h1 class="text-base font-bold tracking-wide text-inherit">Profile</h1>
 
     <div class="w-16 flex justify-end">
       @if (!auth.isGuest()) {
         <button
           (click)="saveProfile()"
-          class="px-4 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all cursor-pointer">
+          class="px-4 py-1.5 rounded-full chrome-btn font-extrabold text-xs active:scale-95 shadow-sm transition-all cursor-pointer">
           Save
         </button>
       }
@@ -19,18 +19,18 @@
   @if (auth.isGuest()) {
     <div class="flex flex-col items-center text-center my-auto py-8 px-5 space-y-6 max-w-sm mx-auto flex-1 justify-center">
 
-      <div class="relative w-24 h-24 rounded-full bg-[#232328] border border-white/10 flex items-center justify-center shadow-2xl">
-        <div class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-          <app-icon name="profile" [size]="32" color="#FFFFFF"></app-icon>
+      <div class="relative w-24 h-24 rounded-full bg-white dark:bg-[#151413] border border-[#C7C7C6] dark:border-[#363534] flex items-center justify-center shadow-xl">
+        <div class="w-16 h-16 rounded-full bg-neutral-200 dark:bg-[#363534] flex items-center justify-center">
+          <app-icon name="profile" [size]="32" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
         </div>
-        <span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-blue-500 text-[10px] font-bold text-white tracking-wider border-2 border-[#141416]">
+        <span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-[#070706] text-[10px] font-bold text-white dark:bg-[#C7C7C6] dark:text-[#070706] tracking-wider border-2 border-white dark:border-[#070706]">
           Guest
         </span>
       </div>
 
       <div class="space-y-2">
-        <h2 class="text-xl font-black text-white tracking-tight">Create an Account</h2>
-        <p class="text-xs text-[#8E8E93] leading-relaxed max-w-xs">
+        <h2 class="text-xl font-black text-[#070706] dark:text-white tracking-tight">Create an Account</h2>
+        <p class="text-xs text-[#363534] dark:text-[#C7C7C6] leading-relaxed max-w-xs">
           You are currently browsing as a guest. Create an account to save your delivery addresses, manage payment cards, and enjoy personalized sound profiles.
         </p>
       </div>
@@ -38,33 +38,33 @@
       <div class="w-full space-y-3 pt-2">
         <button
           (click)="goToSignUp()"
-          class="w-full py-4 rounded-full bg-white text-black font-black text-sm tracking-wide shadow-xl hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer">
+          class="w-full py-4 rounded-full chrome-btn font-black text-sm tracking-wide shadow-xl active:scale-[0.98] transition-all cursor-pointer">
           Create Account
         </button>
 
         <button
           (click)="goToLogin()"
-          class="w-full py-3.5 rounded-full bg-[#222226] hover:bg-[#2A2A30] text-white/90 text-xs font-bold border border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+          class="w-full py-3.5 rounded-full machined-pill text-xs font-bold active:scale-[0.98] transition-all cursor-pointer">
           Sign In to Existing Account
         </button>
       </div>
 
-      <div class="w-full pt-4 space-y-2.5 text-left border-t border-white/10">
-        <div class="flex items-center gap-3 text-xs text-white/70">
-          <div class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <div class="w-full pt-4 space-y-2.5 text-left border-t border-[#C7C7C6] dark:border-[#363534]">
+        <div class="flex items-center gap-3 text-xs text-[#363534] dark:text-[#C7C7C6]">
+          <div class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <app-icon name="check" [size]="12" color="#34D399"></app-icon>
           </div>
           <span>1-Tap Express Checkout with saved cards</span>
         </div>
-        <div class="flex items-center gap-3 text-xs text-white/70">
-          <div class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-            <app-icon name="truck" [size]="12" color="#60A5FA"></app-icon>
+        <div class="flex items-center gap-3 text-xs text-[#363534] dark:text-[#C7C7C6]">
+          <div class="w-6 h-6 rounded-lg bg-white dark:bg-[#151413] text-[#070706] dark:text-white flex items-center justify-center shrink-0 border border-[#C7C7C6] dark:border-[#363534]">
+            <app-icon name="truck" [size]="12" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
           </div>
           <span>Live real-time courier order tracking</span>
         </div>
-        <div class="flex items-center gap-3 text-xs text-white/70">
-          <div class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-            <app-icon name="sliders" [size]="12" color="#C084FC"></app-icon>
+        <div class="flex items-center gap-3 text-xs text-[#363534] dark:text-[#C7C7C6]">
+          <div class="w-6 h-6 rounded-lg bg-white dark:bg-[#151413] text-[#070706] dark:text-white flex items-center justify-center shrink-0 border border-[#C7C7C6] dark:border-[#363534]">
+            <app-icon name="sliders" [size]="12" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
           </div>
           <span>Custom DSP Equalizer acoustic profiles</span>
         </div>
@@ -76,22 +76,22 @@
     <div class="px-5 space-y-4 pt-2 flex-1">
 
       <div class="flex flex-col items-center text-center space-y-2.5 pt-1">
-        <div class="relative w-24 h-24 rounded-full p-1 border-2 border-white/20 flex items-center justify-center">
+        <div class="relative w-24 h-24 rounded-full p-1 border-2 border-[#C7C7C6] dark:border-[#363534] flex items-center justify-center">
           <img
-            [src]="user()?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'"
+            [src]="user()?.avatar || 'assets/avatar.jpg'"
             alt="Profile"
             class="w-20 h-20 object-cover rounded-full shadow-lg" />
           <button
             (click)="changeAvatarPrompt()"
             title="Change Photo"
-            class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-white text-black flex items-center justify-center shadow-md active:scale-90 transition-transform cursor-pointer">
-            <app-icon name="check" [size]="12" color="#000000" [strokeWidth]="3"></app-icon>
+            class="absolute bottom-0 right-0 w-6 h-6 rounded-full chrome-btn flex items-center justify-center shadow-md active:scale-90 transition-transform cursor-pointer">
+            <app-icon name="check" [size]="12" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'" [strokeWidth]="3"></app-icon>
           </button>
         </div>
 
         <div class="space-y-0.5">
-          <h2 class="text-sm font-bold tracking-tight text-white">{{ firstName }} {{ lastName }}</h2>
-          <span class="inline-block px-3 py-0.5 rounded-full bg-white/10 text-[10px] font-extrabold uppercase tracking-wider text-white/90 border border-white/10">
+          <h2 class="text-sm font-black tracking-tight text-[#070706] dark:text-white">{{ firstName }} {{ lastName }}</h2>
+          <span class="inline-block px-3 py-0.5 rounded-full bg-white dark:bg-[#363534] text-[10px] font-extrabold uppercase tracking-wider text-[#070706] dark:text-white border border-[#C7C7C6] dark:border-[#575655]">
             {{ user()?.memberTier || 'audiMart VIP Member' }}
           </span>
         </div>
@@ -100,39 +100,39 @@
       <div class="space-y-3 pt-1">
 
         <div class="space-y-1">
-          <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">First Name</label>
+          <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] pl-4 block">First Name</label>
           <input
             type="text"
             [(ngModel)]="firstName"
             placeholder="First Name"
-            class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full px-5 py-3 rounded-full bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6] transition-colors" />
         </div>
 
         <div class="space-y-1">
-          <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">Last Name</label>
+          <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] pl-4 block">Last Name</label>
           <input
             type="text"
             [(ngModel)]="lastName"
             placeholder="Last Name"
-            class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full px-5 py-3 rounded-full bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6] transition-colors" />
         </div>
 
         <div class="space-y-1">
-          <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">Email Address</label>
+          <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] pl-4 block">Email Address</label>
           <input
             type="email"
             [(ngModel)]="email"
             placeholder="Email Address"
-            class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full px-5 py-3 rounded-full bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6] transition-colors" />
         </div>
 
         <div class="space-y-1">
-          <label class="text-[11px] font-semibold text-[#8E8E93] pl-4 block">CP Number (Phone)</label>
+          <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] pl-4 block">CP Number (Phone)</label>
           <input
             type="tel"
             [(ngModel)]="cpNumber"
             placeholder="Cellphone Number"
-            class="w-full px-5 py-3 rounded-full bg-[#222226] border border-white/[0.06] text-white text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+            class="w-full px-5 py-3 rounded-full bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6] transition-colors" />
         </div>
 
       </div>
@@ -141,47 +141,66 @@
 
         <button
           (click)="navigateToShipping()"
-          class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
+          class="w-full p-3.5 rounded-2xl titanium-card flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
-              <app-icon name="map-pin" [size]="16" color="#FFFFFF"></app-icon>
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon name="map-pin" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             </div>
             <div class="text-left">
-              <span class="text-xs font-bold text-white block">Shipping Addresses</span>
-              <span class="text-[10px] text-[#8E8E93] truncate max-w-[200px] block">Manage saved addresses</span>
+              <span class="text-xs font-bold text-[#070706] dark:text-white block">Shipping Addresses</span>
+              <span class="text-[10px] text-[#575655] dark:text-[#C7C7C6] truncate max-w-[200px] block">Manage saved addresses</span>
             </div>
           </div>
-          <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
+          <app-icon name="arrow-right" [size]="14" [color]="themeService.isDark() ? '#A1A1A1' : '#575655'"></app-icon>
         </button>
 
         <button
           (click)="navigateToPayment()"
-          class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
+          class="w-full p-3.5 rounded-2xl titanium-card flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
-              <app-icon name="credit-card" [size]="16" color="#FFFFFF"></app-icon>
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon name="credit-card" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             </div>
             <div class="text-left">
-              <span class="text-xs font-bold text-white block">Payment Cards & Wallets</span>
-              <span class="text-[10px] text-[#8E8E93]">Manage credit cards, Apple Pay</span>
+              <span class="text-xs font-bold text-[#070706] dark:text-white block">Payment Cards & Wallets</span>
+              <span class="text-[10px] text-[#575655] dark:text-[#C7C7C6]">Manage credit cards, Apple Pay</span>
             </div>
           </div>
-          <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
+          <app-icon name="arrow-right" [size]="14" [color]="themeService.isDark() ? '#A1A1A1' : '#575655'"></app-icon>
         </button>
 
         <button
           (click)="openModal('equalizer')"
-          class="w-full p-3.5 rounded-2xl bg-[#222226] hover:bg-[#2A2A30] border border-white/[0.05] flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
+          class="w-full p-3.5 rounded-2xl titanium-card flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/80">
-              <app-icon name="sliders" [size]="16" color="#FFFFFF"></app-icon>
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon name="sliders" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             </div>
             <div class="text-left">
-              <span class="text-xs font-bold text-white block">Equalizer & Audio Profiles</span>
-              <span class="text-[10px] text-[#8E8E93]">{{ activePreset }} Profile</span>
+              <span class="text-xs font-bold text-[#070706] dark:text-white block">Equalizer & Audio Profiles</span>
+              <span class="text-[10px] text-[#575655] dark:text-[#C7C7C6]">{{ activePreset }} Profile</span>
             </div>
           </div>
-          <app-icon name="arrow-right" [size]="14" color="#8E8E93"></app-icon>
+          <app-icon name="arrow-right" [size]="14" [color]="themeService.isDark() ? '#A1A1A1' : '#575655'"></app-icon>
+        </button>
+
+        <!-- Appearance & Theme Selector -->
+        <button
+          (click)="themeService.toggleTheme()"
+          class="w-full p-3.5 rounded-2xl titanium-card flex items-center justify-between transition-colors shadow-xs active:scale-[0.99] cursor-pointer">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon [name]="themeService.isDark() ? 'sun' : 'moon'" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
+            </div>
+            <div class="text-left">
+              <span class="text-xs font-bold text-[#070706] dark:text-white block">Appearance & Mode</span>
+              <span class="text-[10px] text-[#575655] dark:text-[#C7C7C6]">{{ themeService.isDark() ? 'Dark Titanium (Active)' : 'Light Studio (Active)' }}</span>
+            </div>
+          </div>
+          <div class="px-3 py-1 rounded-full text-[10px] font-bold border"
+               [ngClass]="themeService.isDark() ? 'bg-[#363534] text-white border-[#575655]' : 'bg-white text-[#070706] border-[#C7C7C6]'">
+            {{ themeService.isDark() ? 'Dark 🌙' : 'Light ☀️' }}
+          </div>
         </button>
 
       </div>
@@ -189,7 +208,7 @@
       <div class="pt-3">
         <button
           (click)="logout()"
-          class="w-full py-3.5 rounded-full bg-[#222226] hover:bg-red-500/20 text-red-400 font-bold text-xs tracking-wider uppercase border border-red-500/30 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-sm cursor-pointer">
+          class="w-full py-3.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-bold text-xs tracking-wider uppercase border border-rose-500/30 transition-all flex items-center justify-center gap-2 active:scale-95 shadow-sm cursor-pointer">
           <app-icon name="log-out" [size]="16" color="#F87171"></app-icon>
           <span>Log Out</span>
         </button>
@@ -199,23 +218,23 @@
   }
 
   @if (activeModal() === 'equalizer') {
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
          (click)="closeModal()">
-      <div class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl"
+      <div class="w-full max-w-sm bg-white dark:bg-[#121110] rounded-[32px] p-6 space-y-4 border border-[#C7C7C6] dark:border-[#363534] shadow-2xl text-[#070706] dark:text-white"
            (click)="$event.stopPropagation()">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between pb-2 border-b border-[#C7C7C6] dark:border-[#363534]">
           <div>
-            <h3 class="text-sm font-bold text-white">Equalizer & Audio Profiles</h3>
-            <p class="text-[11px] text-[#7E7E88]">DSP Acoustic Tuning</p>
+            <h3 class="text-sm font-bold text-[#070706] dark:text-white">Equalizer & Audio Profiles</h3>
+            <p class="text-[11px] text-[#575655] dark:text-[#C7C7C6]">DSP Acoustic Tuning</p>
           </div>
-          <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs cursor-pointer">✕</button>
+          <button (click)="closeModal()" class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#151413] text-[#070706] dark:text-white hover:bg-neutral-200 dark:hover:bg-[#363534] flex items-center justify-center text-xs cursor-pointer">✕</button>
         </div>
 
         <div class="grid grid-cols-2 gap-2 pt-1">
           <button
             (click)="applyPreset('Bass Boost', 8, 2, -1)"
             class="p-2.5 rounded-xl border text-left transition-colors cursor-pointer"
-            [ngClass]="activePreset === 'Bass Boost' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white border-white/5'">
+            [ngClass]="activePreset === 'Bass Boost' ? 'chrome-btn' : 'machined-pill'">
             <span class="text-xs font-bold block">Bass Boost</span>
             <span class="text-[10px] opacity-75">+8dB Punch</span>
           </button>
@@ -223,7 +242,7 @@
           <button
             (click)="applyPreset('Studio Pure', 0, 0, 0)"
             class="p-2.5 rounded-xl border text-left transition-colors cursor-pointer"
-            [ngClass]="activePreset === 'Studio Pure' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white border-white/5'">
+            [ngClass]="activePreset === 'Studio Pure' ? 'chrome-btn' : 'machined-pill'">
             <span class="text-xs font-bold block">Studio Pure</span>
             <span class="text-[10px] opacity-75">Flat Response</span>
           </button>
@@ -232,33 +251,33 @@
         <div class="space-y-3 pt-2">
           <div class="space-y-1">
             <div class="flex justify-between text-[11px]">
-              <span class="text-[#8E8E93]">Bass (60 Hz)</span>
-              <span class="text-white font-mono font-bold">{{ bassLevel > 0 ? '+' : '' }}{{ bassLevel }} dB</span>
+              <span class="text-[#363534] dark:text-[#C7C7C6]">Bass (60 Hz)</span>
+              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ bassLevel > 0 ? '+' : '' }}{{ bassLevel }} dB</span>
             </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="bassLevel" class="w-full accent-white cursor-pointer" />
+            <input type="range" min="-12" max="12" [(ngModel)]="bassLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
           </div>
 
           <div class="space-y-1">
             <div class="flex justify-between text-[11px]">
-              <span class="text-[#8E8E93]">Mids (1 kHz)</span>
-              <span class="text-white font-mono font-bold">{{ midsLevel > 0 ? '+' : '' }}{{ midsLevel }} dB</span>
+              <span class="text-[#363534] dark:text-[#C7C7C6]">Mids (1 kHz)</span>
+              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ midsLevel > 0 ? '+' : '' }}{{ midsLevel }} dB</span>
             </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="midsLevel" class="w-full accent-white cursor-pointer" />
+            <input type="range" min="-12" max="12" [(ngModel)]="midsLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
           </div>
 
           <div class="space-y-1">
             <div class="flex justify-between text-[11px]">
-              <span class="text-[#8E8E93]">Treble (16 kHz)</span>
-              <span class="text-white font-mono font-bold">{{ trebleLevel > 0 ? '+' : '' }}{{ trebleLevel }} dB</span>
+              <span class="text-[#363534] dark:text-[#C7C7C6]">Treble (16 kHz)</span>
+              <span class="text-[#070706] dark:text-white font-mono font-bold">{{ trebleLevel > 0 ? '+' : '' }}{{ trebleLevel }} dB</span>
             </div>
-            <input type="range" min="-12" max="12" [(ngModel)]="trebleLevel" class="w-full accent-white cursor-pointer" />
+            <input type="range" min="-12" max="12" [(ngModel)]="trebleLevel" class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
           </div>
         </div>
 
         <div class="pt-2">
           <button
             (click)="saveEqualizer()"
-            class="w-full py-3 rounded-full bg-white text-black text-xs font-bold shadow-md hover:bg-neutral-200 transition-colors cursor-pointer">
+            class="w-full py-3 rounded-full chrome-btn text-xs font-bold shadow-md cursor-pointer">
             Apply & Save EQ
           </button>
         </div>

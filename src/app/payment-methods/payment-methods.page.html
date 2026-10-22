@@ -1,4 +1,4 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-28 select-none animate-fade-in relative">
+<div class="w-full min-h-screen app-screen-bg flex flex-col pb-28 select-none animate-fade-in relative transition-colors">
 
   <app-navbar
     [title]="'Payment Methods'"
@@ -10,33 +10,33 @@
 
     <div class="flex items-center justify-between pt-1">
       <div>
-        <h2 class="text-sm font-bold text-white">Your Payment Cards</h2>
-        <p class="text-xs text-[#8E8E93]">Manage credit, debit & digital cards</p>
+        <h2 class="text-sm font-bold text-[#070706] dark:text-white">Your Payment Cards</h2>
+        <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">Manage credit, debit & digital cards</p>
       </div>
 
       <button
         (click)="openAddModal()"
-        class="px-3.5 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
-        <app-icon name="plus" [size]="12" color="#000000" [strokeWidth]="3"></app-icon>
+        class="px-3.5 py-1.5 rounded-full chrome-btn font-extrabold text-xs active:scale-95 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+        <app-icon name="plus" [size]="12" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'" [strokeWidth]="3"></app-icon>
         <span>Add Card</span>
       </button>
     </div>
 
     @if (defaultCard; as card) {
-      <div class="relative w-full h-[180px] rounded-[24px] p-5 bg-gradient-to-br from-[#2D2D35] via-[#1F1F24] to-[#121215] border border-white/15 shadow-2xl overflow-hidden flex flex-col justify-between select-none">
+      <div class="relative w-full h-[180px] rounded-[24px] p-5 bg-[#151413] border border-[#363534] shadow-2xl overflow-hidden flex flex-col justify-between select-none">
 
         <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-white/[0.04] blur-xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-36 h-36 rounded-full bg-blue-500/[0.08] blur-xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-36 h-36 rounded-full bg-[#C7C7C6]/[0.08] blur-xl pointer-events-none"></div>
 
         <div class="flex items-center justify-between z-10">
           <div class="flex items-center gap-3">
 
-            <div class="w-9 h-7 rounded-md bg-gradient-to-tr from-[#D4AF37] to-[#F3E5AB] border border-black/30 p-1 flex flex-col justify-between shadow-xs">
-              <div class="w-full h-0.5 bg-black/20 rounded-full"></div>
-              <div class="w-full h-0.5 bg-black/20 rounded-full"></div>
+            <div class="w-9 h-7 rounded-md bg-gradient-to-tr from-[#C7C7C6] to-[#7C7B7B] border border-black/40 p-1 flex flex-col justify-between shadow-xs">
+              <div class="w-full h-0.5 bg-black/40 rounded-full"></div>
+              <div class="w-full h-0.5 bg-black/40 rounded-full"></div>
             </div>
 
-            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#C7C7C6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 16.5a5 5 0 010-7m3.5 9a8 8 0 000-11m3.5 13a11 11 0 000-15" />
             </svg>
           </div>
@@ -52,18 +52,18 @@
         </div>
 
         <div class="z-10 pt-2">
-          <p class="text-base sm:text-lg font-mono tracking-[0.2em] text-white/95 font-bold">
+          <p class="text-base sm:text-lg font-mono tracking-[0.2em] text-white font-bold">
             •••• •••• •••• {{ card.last4 }}
           </p>
         </div>
 
         <div class="flex items-end justify-between z-10 text-xs">
           <div>
-            <span class="text-[9px] uppercase tracking-wider text-[#8E8E93] block font-semibold">Cardholder</span>
+            <span class="text-[9px] uppercase tracking-wider text-[#A1A1A1] block font-semibold">Cardholder</span>
             <span class="font-bold text-white tracking-wide text-xs">{{ card.cardholderName || 'Alex Rivera' }}</span>
           </div>
           <div class="text-right">
-            <span class="text-[9px] uppercase tracking-wider text-[#8E8E93] block font-semibold">Expires</span>
+            <span class="text-[9px] uppercase tracking-wider text-[#A1A1A1] block font-semibold">Expires</span>
             <span class="font-mono font-bold text-white text-xs">{{ card.exp }}</span>
           </div>
         </div>
@@ -71,28 +71,28 @@
     }
 
     <div class="space-y-3 pt-2">
-      <h3 class="text-xs font-bold text-[#8E8E93] uppercase tracking-wider pl-1">Saved Cards</h3>
+      <h3 class="text-xs font-bold text-[#363534] dark:text-[#C7C7C6] uppercase tracking-wider pl-1">Saved Cards</h3>
 
       @for (card of auth.paymentCards(); track card.id) {
-        <div class="rounded-2xl p-4 border transition-all relative overflow-hidden"
-             [ngClass]="card.isDefault ? 'bg-[#222228] border-white/25 shadow-lg ring-1 ring-white/10' : 'bg-[#1C1C20] border-white/5'">
+        <div class="rounded-2xl p-4 border transition-all relative overflow-hidden titanium-card"
+             [ngClass]="card.isDefault ? 'border-[#070706] dark:border-white ring-1 ring-[#070706] dark:ring-white' : 'border-[#C7C7C6] dark:border-[#363534]'">
 
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0 flex-1">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0">
-                <app-icon name="credit-card" [size]="18" color="#60A5FA"></app-icon>
+              <div class="w-10 h-10 rounded-xl acoustic-chamber flex items-center justify-center shrink-0">
+                <app-icon name="credit-card" [size]="18" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
               </div>
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-white truncate">{{ card.type }}</span>
+                  <span class="text-xs font-bold text-[#070706] dark:text-white truncate">{{ card.type }}</span>
                   @if (card.isDefault) {
-                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[9px] font-bold border border-emerald-500/30 shrink-0">
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[9px] font-bold border border-emerald-500/30 shrink-0">
                       Default
                     </span>
                   }
                 </div>
-                <p class="text-xs font-mono tracking-wider text-white/90 mt-0.5">•••• •••• •••• {{ card.last4 }}</p>
-                <p class="text-[10px] text-[#8E8E93] mt-0.5 truncate">Expires {{ card.exp }} · {{ card.cardholderName || 'Alex Rivera' }}</p>
+                <p class="text-xs font-mono tracking-wider text-[#070706] dark:text-white mt-0.5">•••• •••• •••• {{ card.last4 }}</p>
+                <p class="text-[10px] text-[#575655] dark:text-[#C7C7C6] mt-0.5 truncate">Expires {{ card.exp }} · {{ card.cardholderName || 'Alex Rivera' }}</p>
               </div>
             </div>
 
@@ -100,14 +100,14 @@
               @if (!card.isDefault) {
                 <button
                   (click)="setDefault(card)"
-                  class="text-[11px] text-white/70 hover:text-white underline font-medium cursor-pointer">
+                  class="text-[11px] text-[#575655] hover:text-[#070706] dark:text-[#C7C7C6] dark:hover:text-white underline font-semibold cursor-pointer">
                   Set Default
                 </button>
               }
               <button
                 (click)="deleteCard(card)"
                 title="Remove Card"
-                class="p-1.5 rounded-full text-white/30 hover:text-red-400 transition-colors cursor-pointer">
+                class="p-1.5 rounded-full text-[#575655] hover:text-red-500 dark:text-[#A1A1A1] dark:hover:text-red-400 transition-colors cursor-pointer">
                 <app-icon name="trash" [size]="14" color="currentColor"></app-icon>
               </button>
             </div>
@@ -116,37 +116,37 @@
         </div>
       } @empty {
         <div class="py-12 flex flex-col items-center justify-center text-center space-y-3">
-          <div class="w-14 h-14 rounded-full bg-[#222226] border border-white/10 flex items-center justify-center">
-            <app-icon name="credit-card" [size]="22" color="#7E7E88"></app-icon>
+          <div class="w-14 h-14 rounded-full acoustic-chamber flex items-center justify-center">
+            <app-icon name="credit-card" [size]="22" [color]="themeService.isDark() ? '#FFFFFF' : '#7C7B7B'"></app-icon>
           </div>
-          <p class="text-xs font-bold text-white">No payment cards saved</p>
-          <p class="text-xs text-[#7E7E88]">Add a card for instant 1-tap checkout</p>
+          <p class="text-xs font-bold text-[#070706] dark:text-white">No payment cards saved</p>
+          <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">Add a card for instant 1-tap checkout</p>
         </div>
       }
     </div>
 
     <div class="space-y-2 pt-3">
-      <span class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider pl-1">Digital Wallets</span>
+      <span class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] uppercase tracking-wider pl-1">Digital Wallets</span>
 
-      <div class="p-3.5 rounded-2xl bg-[#1C1C20] border border-white/5 flex items-center justify-between">
+      <div class="p-3.5 rounded-2xl titanium-card flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center font-bold text-xs">
+          <div class="w-9 h-9 rounded-xl bg-[#070706] text-white dark:bg-white dark:text-[#070706] flex items-center justify-center font-bold text-xs">
             
           </div>
           <div>
-            <span class="text-xs font-bold text-white block">Apple Pay</span>
-            <span class="text-[10px] text-emerald-400 font-medium">Ready for Face ID / Touch ID</span>
+            <span class="text-xs font-bold text-[#070706] dark:text-white block">Apple Pay</span>
+            <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">Ready for Face ID / Touch ID</span>
           </div>
         </div>
-        <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-bold">Connected</span>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">Connected</span>
       </div>
     </div>
 
     <div class="pt-4">
       <button
         (click)="openAddModal()"
-        class="w-full py-3.5 rounded-full bg-[#222226] hover:bg-[#2C2C32] text-white text-xs font-bold border border-white/10 flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer">
-        <app-icon name="plus" [size]="14" color="#FFFFFF"></app-icon>
+        class="w-full py-3.5 rounded-full chrome-btn text-xs font-bold flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer">
+        <app-icon name="plus" [size]="14" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'"></app-icon>
         <span>Add New Payment Card</span>
       </button>
     </div>
@@ -154,110 +154,110 @@
   </div>
 
   @if (showAddModal()) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
          (click)="closeAddModal()">
       <div
-        class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl relative"
+        class="w-full max-w-sm bg-white dark:bg-[#121110] rounded-[32px] p-6 space-y-4 border border-[#C7C7C6] dark:border-[#363534] shadow-2xl relative text-[#070706] dark:text-white"
         (click)="$event.stopPropagation()">
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between pb-2 border-b border-[#C7C7C6] dark:border-[#363534]">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
-              <app-icon name="credit-card" [size]="16" color="#FFFFFF"></app-icon>
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon name="credit-card" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-white">Add Payment Card</h3>
-              <p class="text-[11px] text-[#8E8E93]">Encrypted 256-bit secure</p>
+              <h3 class="text-sm font-bold text-[#070706] dark:text-white">Add Payment Card</h3>
+              <p class="text-[11px] text-[#575655] dark:text-[#C7C7C6]">Encrypted 256-bit secure</p>
             </div>
           </div>
-          <button (click)="closeAddModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs hover:bg-white/20 cursor-pointer">✕</button>
+          <button (click)="closeAddModal()" class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#151413] text-[#070706] dark:text-white hover:bg-neutral-200 dark:hover:bg-[#363534] flex items-center justify-center text-xs cursor-pointer">✕</button>
         </div>
 
         <div class="space-y-3 pt-1">
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Cardholder Name</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Cardholder Name</label>
             <input
               type="text"
               [(ngModel)]="cardholderName"
               placeholder="Full Name on Card"
-              class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+              class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
           </div>
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Card Network</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Card Network</label>
             <div class="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 (click)="cardType = 'Mastercard'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="cardType === 'Mastercard' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="cardType === 'Mastercard' ? 'chrome-btn' : 'machined-pill'">
                 Mastercard
               </button>
               <button
                 type="button"
                 (click)="cardType = 'Visa'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="cardType === 'Visa' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="cardType === 'Visa' ? 'chrome-btn' : 'machined-pill'">
                 Visa
               </button>
               <button
                 type="button"
                 (click)="cardType = 'Amex'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="cardType === 'Amex' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="cardType === 'Amex' ? 'chrome-btn' : 'machined-pill'">
                 Amex
               </button>
             </div>
           </div>
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Card Number</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Card Number</label>
             <input
               type="text"
               [value]="cardNumber"
               (input)="formatCardNumber($event)"
               placeholder="1234 5678 9012 3456"
               maxlength="19"
-              class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white/40" />
+              class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-mono focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Expiry Date</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Expiry Date</label>
               <input
                 type="text"
                 [value]="expiryDate"
                 (input)="formatExpiry($event)"
                 placeholder="MM/YY"
                 maxlength="5"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-mono focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
 
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Security Code (CVV)</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Security Code (CVV)</label>
               <input
                 type="password"
                 [(ngModel)]="cvv"
                 placeholder="123"
                 maxlength="4"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-mono focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
           </div>
 
-          <label class="flex items-center gap-2 pt-1 text-xs text-white/80 cursor-pointer">
-            <input type="checkbox" [(ngModel)]="setAsDefault" class="rounded border-white/20 bg-[#28282E]" />
+          <label class="flex items-center gap-2 pt-1 text-xs text-[#363534] dark:text-[#C7C7C6] cursor-pointer">
+            <input type="checkbox" [(ngModel)]="setAsDefault" class="rounded border-[#C7C7C6] dark:border-[#363534] bg-white dark:bg-[#0F0E0D] accent-[#070706] dark:accent-[#C7C7C6]" />
             <span>Set as default payment card</span>
           </label>
 
           @if (errorMessage()) {
-            <p class="text-xs text-red-400 pl-1">{{ errorMessage() }}</p>
+            <p class="text-xs text-rose-500 pl-1">{{ errorMessage() }}</p>
           }
 
           <div class="pt-2">
             <button
               (click)="saveCard()"
-              class="w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs tracking-wide hover:bg-neutral-200 active:scale-95 transition-all shadow-md cursor-pointer">
+              class="w-full py-3.5 rounded-full chrome-btn font-extrabold text-xs tracking-wide shadow-md active:scale-95 transition-all cursor-pointer">
               Save Payment Card
             </button>
           </div>

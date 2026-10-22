@@ -222,10 +222,116 @@ export class ProductService {
         'assets/products/jbl-pulse.jpg'
       ],
       category: 'Speakers'
+    },
+    {
+      id: 'shure-sm7b',
+      brand: 'Shure',
+      name: 'Shure SM7B',
+      subtitle: 'Legendary Vocal Studio Microphone',
+      price: 399,
+      originalPrice: 449,
+      rating: 4.9,
+      reviewsCount: 420,
+      description: 'The definitive broadcast and vocal recording microphone with flat, wide-range frequency response for exceptionally clean and natural reproduction.',
+      features: [
+        'Cardioid polar pattern with uniform frequency',
+        'Built-in bass rolloff & mid-range emphasis controls',
+        'Internal air suspension shock isolation',
+        'Effective pop filter to eliminate breath noise'
+      ],
+      colors: [
+        { name: 'Dark Titanium', hex: '#0B0A0A', inStock: true },
+        { name: 'Silver Matte', hex: '#C7C7C6', inStock: true }
+      ],
+      images: [
+        'assets/products/shure-sm7b.jpg',
+        'assets/products/rode-podmic.jpg'
+      ],
+      category: 'Microphones',
+      isPopular: true
+    },
+    {
+      id: 'rode-podmic',
+      brand: 'Røde',
+      name: 'Røde PodMic',
+      subtitle: 'Broadcast-Grade Dynamic Podcasting Mic',
+      price: 99,
+      originalPrice: 129,
+      rating: 4.8,
+      reviewsCount: 310,
+      description: 'Optimized for podcasting and live streaming, the PodMic delivers rich, balanced sound with an integrated internal pop filter.',
+      features: [
+        'Broadcast-quality dynamic capsule',
+        'Internal pop shield & swing mount design',
+        'Solid all-metal brass construction',
+        'Optimized for speech and vocal presence'
+      ],
+      colors: [
+        { name: 'Matte Obsidian', hex: '#070706', inStock: true },
+        { name: 'Brushed Chrome', hex: '#C7C7C6', inStock: true }
+      ],
+      images: [
+        'assets/products/rode-podmic.jpg',
+        'assets/products/shure-sm7b.jpg'
+      ],
+      category: 'Microphones',
+      isPopular: true
+    },
+    {
+      id: 'blue-yeti-x',
+      brand: 'Logitech',
+      name: 'Blue Yeti X',
+      subtitle: 'Professional Multi-Pattern USB Mic',
+      price: 139,
+      originalPrice: 169,
+      rating: 4.7,
+      reviewsCount: 285,
+      description: 'Custom four-capsule condenser array for crystal-clear broadcasting, streaming, and podcasting with high-res LED metering.',
+      features: [
+        'Four-capsule condenser array for 4 pickup patterns',
+        'High-resolution multi-function LED metering',
+        'Blue VO!CE broadcast vocal effects integration',
+        'Zero-latency real-time headphone monitoring'
+      ],
+      colors: [
+        { name: 'Dark Shadow', hex: '#151413', inStock: true },
+        { name: 'Titanium Grey', hex: '#7C7B7B', inStock: true }
+      ],
+      images: [
+        'assets/products/blue-yeti.jpg',
+        'assets/products/at2020.jpg'
+      ],
+      category: 'Microphones'
+    },
+    {
+      id: 'audio-technica-at2020',
+      brand: 'Audio-Technica',
+      name: 'Audio-Technica AT2020',
+      subtitle: 'Cardioid Studio Condenser Microphone',
+      price: 99,
+      originalPrice: 119,
+      rating: 4.8,
+      reviewsCount: 350,
+      description: 'The price/performance standard in side-address studio condenser microphone technology, ideal for home and project studio applications.',
+      features: [
+        'Custom-engineered low-mass diaphragm',
+        'Extended frequency response and superior transient response',
+        'High SPL handling and wide dynamic range',
+        'Cardioid polar pattern reduces pickup of side sounds'
+      ],
+      colors: [
+        { name: 'Deep Space', hex: '#0B0A0A', inStock: true },
+        { name: 'Slate Chrome', hex: '#575655', inStock: true }
+      ],
+      images: [
+        'assets/products/at2020.jpg',
+        'assets/products/shure-sm7b.jpg'
+      ],
+      category: 'Microphones'
     }
   ];
 
-  readonly categories = ['All', 'Headphones', 'Earphones', 'Speakers'] as const;
+  readonly categories = ['All', 'Headphones', 'Earphones', 'Speakers', 'Microphones'] as const;
 
   readonly selectedCategory = signal<string>('All');
   readonly searchQuery = signal<string>('');

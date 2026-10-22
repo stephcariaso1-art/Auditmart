@@ -3,6 +3,7 @@ import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { IconComponent } from '../icon/icon.component';
 import { NotificationService } from '../../services/notification.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent {
   private location = inject(Location);
   private router = inject(Router);
   notifService = inject(NotificationService);
+  themeService = inject(ThemeService);
 
   @Input() title: string = '';
   @Input() showBack: boolean = false;

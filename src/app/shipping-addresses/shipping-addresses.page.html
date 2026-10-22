@@ -1,4 +1,4 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-28 select-none animate-fade-in relative">
+<div class="w-full min-h-screen app-screen-bg flex flex-col pb-28 select-none animate-fade-in relative transition-colors">
 
   <app-navbar
     [title]="'Shipping Addresses'"
@@ -10,47 +10,89 @@
 
     <div class="flex items-center justify-between pt-1">
       <div>
-        <h2 class="text-sm font-bold text-white">Saved Delivery Addresses</h2>
-        <p class="text-xs text-[#8E8E93]">Manage destinations for your audio gear</p>
+        <h2 class="text-sm font-bold text-[#070706] dark:text-white">Saved Delivery Addresses</h2>
+        <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">Manage destinations for your audio gear</p>
       </div>
 
       <button
         (click)="openAddModal()"
-        class="px-3.5 py-1.5 rounded-full bg-white text-black font-extrabold text-xs hover:bg-neutral-200 active:scale-95 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
-        <app-icon name="plus" [size]="12" color="#000000" [strokeWidth]="3"></app-icon>
+        class="px-3.5 py-1.5 rounded-full chrome-btn font-extrabold text-xs active:scale-95 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+        <app-icon name="plus" [size]="12" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'" [strokeWidth]="3"></app-icon>
         <span>Add Address</span>
       </button>
     </div>
 
+    <!-- Shipping Dispatch & Coverage Map (Temporary Placeholder) -->
+    <div class="relative w-full rounded-2xl overflow-hidden border border-[#C7C7C6] dark:border-[#363534] bg-[#F4F4F2] dark:bg-[#151413] p-4 shadow-xs">
+      <!-- Subtle Grid Pattern Background -->
+      <div class="absolute inset-0 opacity-15 dark:opacity-20 pointer-events-none">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="shipping-cov-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.8" class="text-[#7C7B7B]" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#shipping-cov-grid)" />
+        </svg>
+      </div>
+
+      <div class="relative z-10 flex items-start justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white dark:bg-[#0B0A0A] border border-[#C7C7C6] dark:border-[#363534] flex items-center justify-center shrink-0 shadow-xs">
+            <app-icon name="map-pin" [size]="18" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-[9px] font-mono font-bold tracking-wider uppercase text-[#575655] dark:text-[#A1A1A1]">
+                REGIONAL DISPATCH NETWORK
+              </span>
+            </div>
+            <h4 class="text-xs font-bold text-[#070706] dark:text-white mt-0.5">audiMart Express Dispatch Network</h4>
+          </div>
+        </div>
+        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-full shrink-0">
+          Active
+        </span>
+      </div>
+
+      <div class="relative z-10 flex items-center justify-between text-[10px] text-[#575655] dark:text-[#A1A1A1] pt-3 mt-3 border-t border-[#C7C7C6]/60 dark:border-[#363534]/60">
+        <span class="flex items-center gap-1">
+          📍 Serving Metro Manila, Rizal & Cavite
+        </span>
+        <span class="font-mono text-[#7C7B7B]">Hub: Pasay Central DC</span>
+      </div>
+    </div>
+
     <div class="space-y-3 pt-1">
       @for (addr of auth.shippingAddresses(); track addr.id) {
-        <div class="rounded-2xl p-4 border transition-all relative overflow-hidden"
-             [ngClass]="addr.isDefault ? 'bg-[#222228] border-white/25 shadow-lg ring-1 ring-white/10' : 'bg-[#1C1C20] border-white/5'">
+        <div class="rounded-2xl p-4 border transition-all relative overflow-hidden titanium-card"
+             [ngClass]="addr.isDefault ? 'border-[#070706] dark:border-white ring-1 ring-[#070706] dark:ring-white' : 'border-[#C7C7C6] dark:border-[#363534]'">
 
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-start gap-3 flex-1 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-white mt-0.5">
-                <app-icon name="map-pin" [size]="18" color="#FFFFFF"></app-icon>
+              <div class="w-10 h-10 rounded-xl acoustic-chamber flex items-center justify-center shrink-0 mt-0.5">
+                <app-icon name="map-pin" [size]="18" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
               </div>
               <div class="flex-1 min-w-0 space-y-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-white truncate">{{ addr.recipientName }}</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-white/80 shrink-0">
+                  <span class="text-xs font-bold text-[#070706] dark:text-white truncate">{{ addr.recipientName }}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-[#363534] text-[#070706] dark:text-white shrink-0 border border-[#C7C7C6] dark:border-[#575655]">
                     {{ addr.label }}
                   </span>
                   @if (addr.isDefault) {
-                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[9px] font-bold border border-emerald-500/30 shrink-0">
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[9px] font-bold border border-emerald-500/30 shrink-0">
                       Default
                     </span>
                   }
                 </div>
-                <p class="text-xs text-[#8E8E93] leading-relaxed">
+                <p class="text-xs text-[#070706] dark:text-white font-medium leading-relaxed">
                   {{ addr.streetAddress }}
                 </p>
-                <p class="text-xs text-[#8E8E93]">
+                <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">
                   {{ addr.city }}, {{ addr.state }} {{ addr.postalCode }}
                 </p>
-                <p class="text-[11px] text-white/40 pt-0.5">{{ addr.phone }}</p>
+                <p class="text-[11px] text-[#575655] dark:text-[#A1A1A1] pt-0.5 font-mono">{{ addr.phone }}</p>
               </div>
             </div>
 
@@ -58,7 +100,7 @@
               @if (!addr.isDefault) {
                 <button
                   (click)="setDefault(addr)"
-                  class="text-[11px] text-white/70 hover:text-white underline font-medium cursor-pointer">
+                  class="text-[11px] text-[#575655] hover:text-[#070706] dark:text-[#C7C7C6] dark:hover:text-white underline font-semibold cursor-pointer">
                   Set Default
                 </button>
               }
@@ -66,7 +108,7 @@
                 <button
                   (click)="deleteAddress(addr)"
                   title="Remove Address"
-                  class="p-1 rounded-full text-white/30 hover:text-red-400 transition-colors cursor-pointer">
+                  class="p-1 rounded-full text-[#575655] hover:text-red-500 dark:text-[#A1A1A1] dark:hover:text-red-400 transition-colors cursor-pointer">
                   <app-icon name="trash" [size]="14" color="currentColor"></app-icon>
                 </button>
               }
@@ -76,11 +118,11 @@
         </div>
       } @empty {
         <div class="py-12 flex flex-col items-center justify-center text-center space-y-3">
-          <div class="w-14 h-14 rounded-full bg-[#222226] border border-white/10 flex items-center justify-center">
-            <app-icon name="map-pin" [size]="22" color="#7E7E88"></app-icon>
+          <div class="w-14 h-14 rounded-full acoustic-chamber flex items-center justify-center">
+            <app-icon name="map-pin" [size]="22" [color]="themeService.isDark() ? '#FFFFFF' : '#7C7B7B'"></app-icon>
           </div>
-          <p class="text-xs font-bold text-white">No addresses saved</p>
-          <p class="text-xs text-[#7E7E88]">Add your first address for seamless checkout</p>
+          <p class="text-xs font-bold text-[#070706] dark:text-white">No addresses saved</p>
+          <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">Add your first address for seamless checkout</p>
         </div>
       }
     </div>
@@ -88,8 +130,8 @@
     <div class="pt-4">
       <button
         (click)="openAddModal()"
-        class="w-full py-3.5 rounded-full bg-[#222226] hover:bg-[#2C2C32] text-white text-xs font-bold border border-white/10 flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer">
-        <app-icon name="plus" [size]="14" color="#FFFFFF"></app-icon>
+        class="w-full py-3.5 rounded-full chrome-btn text-xs font-bold flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer">
+        <app-icon name="plus" [size]="14" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'"></app-icon>
         <span>Add New Shipping Address</span>
       </button>
     </div>
@@ -97,125 +139,125 @@
   </div>
 
   @if (showAddModal()) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
          (click)="closeAddModal()">
       <div
-        class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar"
+        class="w-full max-w-sm bg-white dark:bg-[#121110] rounded-[32px] p-6 space-y-4 border border-[#C7C7C6] dark:border-[#363534] shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar text-[#070706] dark:text-white"
         (click)="$event.stopPropagation()">
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between pb-2 border-b border-[#C7C7C6] dark:border-[#363534]">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
-              <app-icon name="map-pin" [size]="16" color="#FFFFFF"></app-icon>
+            <div class="w-8 h-8 rounded-xl acoustic-chamber flex items-center justify-center">
+              <app-icon name="map-pin" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-white">Add Shipping Address</h3>
-              <p class="text-[11px] text-[#8E8E93]">Fast & safe dispatch</p>
+              <h3 class="text-sm font-bold text-[#070706] dark:text-white">Add Shipping Address</h3>
+              <p class="text-[11px] text-[#575655] dark:text-[#C7C7C6]">Fast & safe dispatch</p>
             </div>
           </div>
-          <button (click)="closeAddModal()" class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs hover:bg-white/20 cursor-pointer">✕</button>
+          <button (click)="closeAddModal()" class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#151413] text-[#070706] dark:text-white hover:bg-neutral-200 dark:hover:bg-[#363534] flex items-center justify-center text-xs cursor-pointer">✕</button>
         </div>
 
         <div class="space-y-3 pt-1">
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Address Label</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Address Label</label>
             <div class="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 (click)="label = 'Home'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="label === 'Home' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="label === 'Home' ? 'chrome-btn' : 'machined-pill'">
                 Home
               </button>
               <button
                 type="button"
                 (click)="label = 'Office'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="label === 'Office' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="label === 'Office' ? 'chrome-btn' : 'machined-pill'">
                 Office
               </button>
               <button
                 type="button"
                 (click)="label = 'Studio'"
                 class="py-2 px-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer"
-                [ngClass]="label === 'Studio' ? 'bg-white text-black border-white' : 'bg-[#28282E] text-white/70 border-white/5'">
+                [ngClass]="label === 'Studio' ? 'chrome-btn' : 'machined-pill'">
                 Studio
               </button>
             </div>
           </div>
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Recipient Name</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Recipient Name</label>
             <input
               type="text"
               [(ngModel)]="recipientName"
               placeholder="Full Name"
-              class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+              class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
           </div>
 
           <div class="space-y-1">
-            <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Street Address</label>
+            <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Street Address</label>
             <input
               type="text"
               [(ngModel)]="streetAddress"
               placeholder="e.g. 742 Evergreen Terrace"
-              class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+              class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">City</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">City</label>
               <input
                 type="text"
                 [(ngModel)]="city"
                 placeholder="Springfield"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
 
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">State / Province</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">State / Province</label>
               <input
                 type="text"
                 [(ngModel)]="state"
                 placeholder="OR"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Postal Code</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Postal Code</label>
               <input
                 type="text"
                 [(ngModel)]="postalCode"
                 placeholder="97477"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-mono focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
 
             <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-[#8E8E93] block pl-1">Phone Number</label>
+              <label class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] block pl-1">Phone Number</label>
               <input
                 type="tel"
                 [(ngModel)]="phone"
                 placeholder="+1 (555) 000-0000"
-                class="w-full px-4 py-2.5 rounded-xl bg-[#28282E] border border-white/10 text-white text-xs font-medium focus:outline-none focus:border-white/40" />
+                class="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6]" />
             </div>
           </div>
 
-          <label class="flex items-center gap-2 pt-1 text-xs text-white/80 cursor-pointer">
-            <input type="checkbox" [(ngModel)]="setAsDefault" class="rounded border-white/20 bg-[#28282E]" />
+          <label class="flex items-center gap-2 pt-1 text-xs text-[#363534] dark:text-[#C7C7C6] cursor-pointer">
+            <input type="checkbox" [(ngModel)]="setAsDefault" class="rounded border-[#C7C7C6] dark:border-[#363534] bg-white dark:bg-[#0F0E0D] accent-[#070706] dark:accent-[#C7C7C6]" />
             <span>Set as default shipping address</span>
           </label>
 
           @if (errorMessage()) {
-            <p class="text-xs text-red-400 pl-1">{{ errorMessage() }}</p>
+            <p class="text-xs text-rose-500 pl-1">{{ errorMessage() }}</p>
           }
 
           <div class="pt-2">
             <button
               (click)="saveAddress()"
-              class="w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs tracking-wide hover:bg-neutral-200 active:scale-95 transition-all shadow-md cursor-pointer">
+              class="w-full py-3.5 rounded-full chrome-btn font-extrabold text-xs tracking-wide shadow-md active:scale-95 transition-all cursor-pointer">
               Save Shipping Address
             </button>
           </div>

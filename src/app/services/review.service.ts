@@ -194,6 +194,51 @@ export class ReviewService {
       comment: 'PositionIQ adjusts the EQ whether sitting upright or lying on its back. Outstanding engineering.',
       date: 'Sep 21, 2026',
       verifiedPurchase: true
+    },
+    {
+      id: 'rev-22',
+      productId: 'shure-sm7b',
+      authorName: 'Marcus Vance',
+      rating: 5,
+      comment: 'The gold standard for voiceover and podcasting. Warm, intimate vocal presence with zero plosive issues.',
+      date: 'Oct 02, 2026',
+      verifiedPurchase: true
+    },
+    {
+      id: 'rev-23',
+      productId: 'shure-sm7b',
+      authorName: 'Danielle Brooks',
+      rating: 5,
+      comment: 'Pair it with a decent preamp or interface like a Cloudlifter and it sounds like broadcast television.',
+      date: 'Sep 28, 2026',
+      verifiedPurchase: true
+    },
+    {
+      id: 'rev-24',
+      productId: 'rode-podmic',
+      authorName: 'Liam O\'Connor',
+      rating: 5,
+      comment: 'Unbeatable build quality for under $100. Heavy all-metal body and crisp vocal clarity out of the box.',
+      date: 'Oct 01, 2026',
+      verifiedPurchase: true
+    },
+    {
+      id: 'rev-25',
+      productId: 'blue-yeti-x',
+      authorName: 'Kelsey Reed',
+      rating: 5,
+      comment: 'The LED volume meter is super helpful during live streams to avoid clipping. Clear pickup.',
+      date: 'Sep 30, 2026',
+      verifiedPurchase: true
+    },
+    {
+      id: 'rev-26',
+      productId: 'audio-technica-at2020',
+      authorName: 'Gabriel Santos',
+      rating: 5,
+      comment: 'Crisp condenser clarity. Captures acoustic guitar and vocals with wonderful high-end sheen.',
+      date: 'Sep 29, 2026',
+      verifiedPurchase: true
     }
   ]);
 

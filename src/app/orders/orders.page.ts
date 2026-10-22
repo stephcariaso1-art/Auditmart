@@ -1,10 +1,12 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
 import { ReviewService } from '../services/review.service';
+import { ThemeService } from '../services/theme.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 import { Order } from '../models';
@@ -12,13 +14,14 @@ import { Order } from '../models';
 @Component({
   selector: 'app-orders-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, IconComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, IconComponent],
   templateUrl: './orders.page.html',
   styleUrls: ['./orders.page.scss']
 })
 export class OrdersPage implements OnInit {
   orderService = inject(OrderService);
   auth = inject(AuthService);
+  themeService = inject(ThemeService);
   private cartService = inject(CartService);
   private reviewService = inject(ReviewService);
   private router = inject(Router);
@@ -30,6 +33,13 @@ export class OrdersPage implements OnInit {
   reviewComment = signal<string>('');
   ratingError = signal<string>('');
   reviewedOrderIds = signal<string[]>([]);
+  mapZoomLevel = signal<number>(1);
+  driverPos = signal<{ x: number; y: number; etaMin: number; kmLeft: number }>({
+    x: 210,
+    y: 115,
+    etaMin: 8,
+    kmLeft: 2.3
+  });
 
   ngOnInit() {
     setTimeout(() => {
@@ -71,9 +81,52 @@ export class OrdersPage implements OnInit {
     this.activeReviewOrder.set(null);
   }
 
-
   openTrackingModal(order: Order) {
     this.activeTrackOrder.set(order);
+    this.mapZoomLevel.set(1);
+    if (order.status === 'Delivered') {
+      this.driverPos.set({ x: 295, y: 70, etaMin: 0, kmLeft: 0 });
+    } else if (order.status === 'Processing') {
+      this.driverPos.set({ x: 50, y: 180, etaMin: 35, kmLeft: 8.5 });
+    } else {
+      this.driverPos.set({ x: 210, y: 115, etaMin: 8, kmLeft: 2.3 });
+    }
+  }
+
+  zoomIn() {
+    this.mapZoomLevel.update(z => Math.min(1.4, Number((z + 0.15).toFixed(2))));
+  }
+
+  zoomOut() {
+    this.mapZoomLevel.update(z => Math.max(0.85, Number((z - 0.15).toFixed(2))));
+  }
+
+  resetZoom() {
+    this.mapZoomLevel.set(1);
+  }
+
+  refreshGPS() {
+    const order = this.activeTrackOrder();
+    if (order?.status === 'Delivered') {
+      this.cartService.showToast('Order delivered. Driver completed this route.');
+      return;
+    }
+    this.driverPos.update(pos => {
+      const nextX = Math.min(270, pos.x + 12);
+      const nextY = Math.max(80, pos.y - 6);
+      const nextEta = Math.max(2, pos.etaMin - 1);
+      const nextKm = Math.max(0.6, Number((pos.kmLeft - 0.4).toFixed(1)));
+      return { x: nextX, y: nextY, etaMin: nextEta, kmLeft: nextKm };
+    });
+    this.cartService.showToast(`GPS Refreshed: Driver moving along Ayala Ave (ETA: ${this.driverPos().etaMin} mins)`);
+  }
+
+  callCourier() {
+    this.cartService.showToast('Calling audiMart Courier (+63 917 552 4819)...');
+  }
+
+  messageCourier() {
+    this.cartService.showToast('Opening live chat with delivery driver...');
   }
 
   viewReceipt(order: Order) {

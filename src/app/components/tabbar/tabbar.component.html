@@ -1,43 +1,43 @@
 <nav class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none pointer-events-none">
-  <div class="glass-dock rounded-[32px] px-4 py-2 flex items-center justify-around shadow-dock pointer-events-auto border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
+  <div class="glass-dock rounded-[32px] px-4 py-2 flex items-center justify-around shadow-dock pointer-events-auto border border-[#C7C7C6] dark:border-[#363534] bg-white/95 dark:bg-[#0F0E0D]/95 backdrop-blur-xl transition-colors">
 
     <button
       (click)="navigateTo('/home')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
-      [ngClass]="isActive('/home') ? 'text-white' : 'text-white/40 hover:text-white/70'">
-      <app-icon name="home" [size]="20" [color]="isActive('/home') ? '#FFFFFF' : '#8E8E93'"></app-icon>
-      <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/home') ? 'text-white' : 'text-white/40'">Home</span>
+      [ngClass]="isActive('/home') ? 'font-bold' : 'opacity-70 hover:opacity-100'">
+      <app-icon name="home" [size]="20" [color]="isActive('/home') ? (themeService.isDark() ? '#FFFFFF' : '#070706') : (themeService.isDark() ? '#A1A1A1' : '#575655')"></app-icon>
+      <span class="text-[10px] mt-0.5" [ngClass]="isActive('/home') ? 'text-[#070706] dark:text-white font-bold' : 'text-[#575655] dark:text-[#A1A1A1] font-medium'">Home</span>
     </button>
 
     <button
       (click)="navigateTo('/orders')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
-      [ngClass]="isActive('/orders') ? 'text-white' : 'text-white/40 hover:text-white/70'">
-      <app-icon name="categories" [size]="20" [color]="isActive('/orders') ? '#FFFFFF' : '#8E8E93'"></app-icon>
-      <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/orders') ? 'text-white' : 'text-white/40'">Order</span>
+      [ngClass]="isActive('/orders') ? 'font-bold' : 'opacity-70 hover:opacity-100'">
+      <app-icon name="categories" [size]="20" [color]="isActive('/orders') ? (themeService.isDark() ? '#FFFFFF' : '#070706') : (themeService.isDark() ? '#A1A1A1' : '#575655')"></app-icon>
+      <span class="text-[10px] mt-0.5" [ngClass]="isActive('/orders') ? 'text-[#070706] dark:text-white font-bold' : 'text-[#575655] dark:text-[#A1A1A1] font-medium'">Order</span>
     </button>
 
     <button
       (click)="navigateTo('/cart')"
       class="relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
-      [ngClass]="isActive('/cart') ? 'text-white' : 'text-white/40 hover:text-white/70'">
+      [ngClass]="isActive('/cart') ? 'font-bold' : 'opacity-70 hover:opacity-100'">
       <div class="relative">
-        <app-icon name="cart" [size]="20" [color]="isActive('/cart') ? '#FFFFFF' : '#8E8E93'"></app-icon>
+        <app-icon name="cart" [size]="20" [color]="isActive('/cart') ? (themeService.isDark() ? '#FFFFFF' : '#070706') : (themeService.isDark() ? '#A1A1A1' : '#575655')"></app-icon>
         @if (cart.totalCount() > 0) {
-          <span class="absolute -top-1.5 -right-2.5 px-1.5 min-w-[16px] h-4 bg-white text-black text-[10px] font-black rounded-full flex items-center justify-center shadow-sm">
+          <span class="absolute -top-1.5 -right-2.5 px-1.5 min-w-[16px] h-4 bg-[#070706] dark:bg-white text-white dark:text-[#070706] text-[10px] font-black rounded-full flex items-center justify-center shadow-sm">
             {{ cart.totalCount() }}
           </span>
         }
       </div>
-      <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/cart') ? 'text-white' : 'text-white/40'">Cart</span>
+      <span class="text-[10px] mt-0.5" [ngClass]="isActive('/cart') ? 'text-[#070706] dark:text-white font-bold' : 'text-[#575655] dark:text-[#A1A1A1] font-medium'">Cart</span>
     </button>
 
     <button
       (click)="navigateTo('/profile')"
       class="flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all cursor-pointer group"
-      [ngClass]="isActive('/profile') ? 'text-white' : 'text-white/40 hover:text-white/70'">
-      <app-icon name="profile" [size]="20" [color]="isActive('/profile') ? '#FFFFFF' : '#8E8E93'"></app-icon>
-      <span class="text-[10px] font-semibold mt-1" [ngClass]="isActive('/profile') ? 'text-white' : 'text-white/40'">Profile</span>
+      [ngClass]="isActive('/profile') ? 'font-bold' : 'opacity-70 hover:opacity-100'">
+      <app-icon name="profile" [size]="20" [color]="isActive('/profile') ? (themeService.isDark() ? '#FFFFFF' : '#070706') : (themeService.isDark() ? '#A1A1A1' : '#575655')"></app-icon>
+      <span class="text-[10px] mt-0.5" [ngClass]="isActive('/profile') ? 'text-[#070706] dark:text-white font-bold' : 'text-[#575655] dark:text-[#A1A1A1] font-medium'">Profile</span>
     </button>
 
   </div>

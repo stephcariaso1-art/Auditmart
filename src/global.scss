@@ -23,8 +23,8 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #141416 !important;
-  color: #FFFFFF;
+  background-color: var(--bg-app) !important;
+  color: var(--text-primary);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   overflow-x: hidden;
@@ -34,6 +34,7 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Plus Jakarta Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 html::-webkit-scrollbar, body::-webkit-scrollbar {
@@ -49,7 +50,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  background-color: #141416;
+  background-color: var(--bg-app);
+  transition: background-color 0.25s ease;
 }
 
 .mobile-stage-frame {
@@ -57,18 +59,20 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   max-width: 430px;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: #141416;
+  background-color: var(--bg-app);
   position: relative;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  transition: background-color 0.25s ease;
 }
 
 .glass-dock {
-  background: rgba(30, 30, 35, 0.92);
+  background: var(--bg-dock);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -100,7 +104,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 .shimmer-wireframe {
   position: relative;
   overflow: hidden;
-  background-color: #24242A;
+  background-color: #1A1A1D;
 }
 
 .shimmer-wireframe::after {
@@ -113,11 +117,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   transform: translateX(-100%);
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(255, 255, 255, 0.16) 50%,
-    rgba(255, 255, 255, 0.05) 80%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(199, 199, 198, 0) 0%,
+    rgba(199, 199, 198, 0.04) 20%,
+    rgba(199, 199, 198, 0.12) 50%,
+    rgba(199, 199, 198, 0.04) 80%,
+    rgba(199, 199, 198, 0) 100%
   );
   animation: shimmerWave 1.6s infinite ease-in-out;
 }
@@ -159,4 +163,217 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   animation: splashProgress 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Palette Design Token Utilities */
+.bg-palette-07 { background-color: var(--palette-07); }
+.bg-palette-0b { background-color: var(--palette-0b); }
+.bg-palette-0f { background-color: var(--palette-0f); }
+.bg-palette-12 { background-color: var(--palette-12); }
+.bg-palette-15 { background-color: var(--palette-15); }
+.bg-palette-36 { background-color: var(--palette-36); }
+.bg-palette-57 { background-color: var(--palette-57); }
+.bg-palette-7c { background-color: var(--palette-7c); }
+.bg-palette-a1 { background-color: var(--palette-a1); }
+.bg-palette-c7 { background-color: var(--palette-c7); }
 
+.text-palette-07 { color: var(--palette-07); }
+.text-palette-0b { color: var(--palette-0b); }
+.text-palette-0f { color: var(--palette-0f); }
+.text-palette-12 { color: var(--palette-12); }
+.text-palette-15 { color: var(--palette-15); }
+.text-palette-36 { color: var(--palette-36); }
+.text-palette-57 { color: var(--palette-57); }
+.text-palette-7c { color: var(--palette-7c); }
+.text-palette-a1 { color: var(--palette-a1); }
+.text-palette-c7 { color: var(--palette-c7); }
+
+.border-palette-36 { border-color: var(--palette-36); }
+.border-palette-57 { border-color: var(--palette-57); }
+.border-palette-7c { border-color: var(--palette-7c); }
+.border-palette-c7 { border-color: var(--palette-c7); }
+
+/* Theme Utilities & Luxury Titanium Styling */
+.app-screen-bg {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.app-card-bg {
+  background-color: var(--bg-card);
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.app-input-bg {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.app-header-bg {
+  background-color: var(--bg-dock);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Titanium Acoustic Component System */
+.titanium-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.titanium-card:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-light);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.acoustic-chamber {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+
+.chrome-btn {
+  background-color: var(--accent-primary) !important;
+  color: var(--accent-contrast) !important;
+  border: 1px solid var(--accent-primary) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &, * {
+    color: inherit;
+  }
+
+  &:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.machined-pill {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--bg-subtle);
+    border-color: var(--border-light);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.glass-dock {
+  background: var(--bg-dock) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s ease;
+}
+
+/* Theme-Specific Enhancements & Fallback Guards */
+:root.light, [data-theme='light'] {
+  .titanium-card {
+    background: #FFFFFF;
+    border-color: #C7C7C6;
+  }
+  .acoustic-chamber {
+    background: #DCDCD8;
+    border-color: #C7C7C6;
+  }
+  .chrome-btn {
+    background: #070706 !important;
+    color: #FFFFFF !important;
+    border-color: #070706 !important;
+  }
+  .machined-pill {
+    background: #FFFFFF;
+    color: #070706;
+    border-color: #C7C7C6;
+  }
+  .shimmer-wireframe {
+    background-color: #DCDCD8;
+  }
+  .shimmer-wireframe::after {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.04) 20%,
+      rgba(0, 0, 0, 0.09) 50%,
+      rgba(0, 0, 0, 0.04) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
+:root.dark, [data-theme='dark'] {
+  .titanium-card {
+    background: #151413;
+    border-color: #363534;
+    color: #FFFFFF;
+  }
+  .titanium-card:hover {
+    background: #1E1D1C;
+    border-color: #575655;
+  }
+  .acoustic-chamber {
+    background: #0F0E0D;
+    border-color: #363534;
+  }
+  .chrome-btn {
+    background: #FFFFFF !important;
+    color: #070706 !important;
+    border-color: #FFFFFF !important;
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.20);
+  }
+  .chrome-btn:hover {
+    background: #F4F4F2 !important;
+  }
+  .machined-pill {
+    background: #151413;
+    color: #FFFFFF;
+    border-color: #363534;
+  }
+  .machined-pill:hover {
+    background: #1E1D1C;
+    border-color: #575655;
+  }
+  .shimmer-wireframe {
+    background-color: #151413;
+  }
+  .shimmer-wireframe::after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.04) 20%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.04) 80%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+}

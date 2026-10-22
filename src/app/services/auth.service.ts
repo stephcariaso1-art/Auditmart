@@ -33,7 +33,7 @@ export class AuthService {
     email: 'alex.rivera@audiomart.io',
     phone: '+1 (555) 234-8921',
     address: '742 Evergreen Terrace, Springfield, OR 97477',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+    avatar: 'assets/avatar.jpg',
     memberTier: 'Audiophile VIP Club'
   });
 
@@ -86,7 +86,7 @@ export class AuthService {
         email: email,
         phone: '+1 (555) 019-2831',
         address: '742 Evergreen Terrace, Springfield, OR 97477',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+        avatar: 'assets/avatar.jpg',
         memberTier: 'Gold Member'
       });
       this.isGuest.set(false);
@@ -103,7 +103,7 @@ export class AuthService {
         email,
         phone: '+1 (555) 000-0000',
         address: '742 Evergreen Terrace, Springfield, OR 97477',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+        avatar: 'assets/avatar.jpg',
         memberTier: 'New Member'
       });
       this.isGuest.set(false);

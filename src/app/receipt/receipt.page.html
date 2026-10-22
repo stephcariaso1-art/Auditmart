@@ -1,4 +1,4 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col justify-between p-5 pb-10 select-none animate-fade-in">
+<div class="w-full min-h-screen app-screen-bg flex flex-col justify-between p-5 pb-10 select-none animate-fade-in transition-colors">
 
   <app-navbar
     [title]="'Receipt'"
@@ -9,68 +9,68 @@
   <div class="relative w-full max-w-sm mx-auto my-auto pt-10">
 
     <div class="absolute top-0 left-1/2 -translate-x-1/2 z-20">
-      <div class="w-20 h-20 rounded-full bg-[#232328] border-4 border-[#141416] flex items-center justify-center shadow-2xl">
-        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black">
-          <app-icon name="check" [size]="24" color="#000000" [strokeWidth]="3"></app-icon>
+      <div class="w-20 h-20 rounded-full bg-white dark:bg-[#121110] border-4 border-neutral-200 dark:border-[#0B0A0A] flex items-center justify-center shadow-2xl">
+        <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center">
+          <app-icon name="check" [size]="24" color="#FFFFFF" [strokeWidth]="3"></app-icon>
         </div>
       </div>
     </div>
 
-    <div class="relative bg-white text-[#141416] rounded-[32px] pt-14 pb-8 px-6 shadow-2xl space-y-5 overflow-hidden">
+    <div class="relative bg-white dark:bg-[#121110] text-[#070706] dark:text-white rounded-[32px] pt-14 pb-8 px-6 shadow-2xl space-y-5 overflow-hidden border border-[#C7C7C6] dark:border-[#363534]">
 
       <div class="text-center space-y-1">
-        <div class="flex items-center justify-center gap-1 font-black text-xl tracking-tight text-black">
-          <span>audi</span><span class="text-neutral-500 font-semibold">Mart</span>
+        <div class="flex items-center justify-center gap-1 font-black text-xl tracking-tight text-[#070706] dark:text-white">
+          <span>audi</span><span class="text-[#7C7B7B] font-semibold">Mart</span>
         </div>
-        <h2 class="text-base font-bold tracking-tight text-neutral-800">Payment Successful</h2>
-        <p class="text-[11px] text-[#8E8E93]">Official Transaction Proof</p>
+        <h2 class="text-base font-bold tracking-tight text-[#070706] dark:text-white">Payment Successful</h2>
+        <p class="text-[11px] text-[#575655] dark:text-[#C7C7C6]">Official Transaction Proof</p>
       </div>
 
-      <div class="bg-[#F5F5F7] rounded-2xl p-3.5 space-y-1.5 text-xs">
+      <div class="bg-[#F4F4F3] dark:bg-[#0F0E0D] rounded-2xl p-3.5 space-y-1.5 text-xs border border-[#C7C7C6] dark:border-[#363534]">
         <div class="flex justify-between">
-          <span class="text-[#8E8E93] font-medium">Order Number</span>
-          <span class="font-bold text-black font-mono">#{{ order.orderNumber }}</span>
+          <span class="text-[#363534] dark:text-[#C7C7C6] font-medium">Order Number</span>
+          <span class="font-bold text-[#070706] dark:text-white font-mono">#{{ order.orderNumber }}</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-[#8E8E93] font-medium">Order Date</span>
-          <span class="font-semibold text-black">{{ order.date }}</span>
+          <span class="text-[#363534] dark:text-[#C7C7C6] font-medium">Order Date</span>
+          <span class="font-semibold text-[#070706] dark:text-white">{{ order.date }}</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-[#8E8E93] font-medium">Payment Method</span>
-          <span class="font-semibold text-black">{{ order.paymentMethod }}</span>
+          <span class="text-[#363534] dark:text-[#C7C7C6] font-medium">Payment Method</span>
+          <span class="font-semibold text-[#070706] dark:text-white">{{ order.paymentMethod }}</span>
         </div>
       </div>
 
       <div class="relative flex items-center justify-between -mx-6 my-4">
-        <div class="w-6 h-6 rounded-full bg-[#141416] -ml-3"></div>
-        <div class="flex-1 border-b-2 border-dashed border-black/10 mx-2"></div>
-        <div class="w-6 h-6 rounded-full bg-[#141416] -mr-3"></div>
+        <div class="w-6 h-6 rounded-full bg-[#EAEAE7] dark:bg-[#0B0A0A] -ml-3"></div>
+        <div class="flex-1 border-b-2 border-dashed border-[#C7C7C6] dark:border-[#363534] mx-2"></div>
+        <div class="w-6 h-6 rounded-full bg-[#EAEAE7] dark:bg-[#0B0A0A] -mr-3"></div>
       </div>
 
       <div class="space-y-2.5">
-        <p class="text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider">Purchased Items</p>
+        <p class="text-[11px] font-bold text-[#363534] dark:text-[#C7C7C6] uppercase tracking-wider">Purchased Items</p>
 
         <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
           @for (item of order.items; track item.product.id) {
             <div class="flex justify-between text-xs">
-              <span class="text-[#3A3A3E] truncate max-w-[180px]">
+              <span class="text-[#363534] dark:text-[#C7C7C6] truncate max-w-[180px]">
                 {{ item.product.name }} (×{{ item.quantity }})
               </span>
-              <span class="font-bold text-black">₱{{ item.product.price * item.quantity }}</span>
+              <span class="font-bold text-[#070706] dark:text-white">₱{{ item.product.price * item.quantity }}</span>
             </div>
           }
         </div>
 
-        <div class="border-t border-black/10 pt-2.5 space-y-1 text-xs">
-          <div class="flex justify-between text-[#8E8E93]">
+        <div class="border-t border-[#C7C7C6] dark:border-[#363534] pt-2.5 space-y-1 text-xs">
+          <div class="flex justify-between text-[#363534] dark:text-[#C7C7C6]">
             <span>Subtotal</span>
-            <span>₱{{ order.subtotal }}</span>
+            <span class="font-semibold text-[#070706] dark:text-white">₱{{ order.subtotal }}</span>
           </div>
-          <div class="flex justify-between text-[#8E8E93]">
+          <div class="flex justify-between text-[#363534] dark:text-[#C7C7C6]">
             <span>Shipping</span>
-            <span>{{ order.deliveryFee === 0 ? 'FREE' : '₱' + order.deliveryFee }}</span>
+            <span class="font-semibold text-[#070706] dark:text-white">{{ order.deliveryFee === 0 ? 'FREE' : '₱' + order.deliveryFee }}</span>
           </div>
-          <div class="flex justify-between text-sm font-black text-black pt-1 border-t border-black/5">
+          <div class="flex justify-between text-sm font-black text-[#070706] dark:text-white pt-1 border-t border-[#C7C7C6] dark:border-[#363534]">
             <span>Total Amount Paid</span>
             <span class="text-base font-black">₱{{ order.total }}</span>
           </div>
@@ -80,7 +80,7 @@
       <div class="pt-2">
         <button
           (click)="goHome()"
-          class="w-full py-3.5 rounded-full bg-[#141416] text-white text-xs font-extrabold tracking-wide hover:bg-black active:scale-[0.98] transition-all shadow-md cursor-pointer">
+          class="w-full py-3.5 rounded-full chrome-btn text-xs font-extrabold tracking-wide active:scale-[0.98] transition-all shadow-md cursor-pointer">
           Back to Home
         </button>
       </div>
@@ -92,7 +92,7 @@
   <div class="text-center pt-4">
     <button
       (click)="viewOrders()"
-      class="text-xs text-white/70 hover:text-white font-semibold underline cursor-pointer">
+      class="text-xs text-[#575655] hover:text-[#070706] dark:text-[#C7C7C6] dark:hover:text-white font-semibold underline cursor-pointer">
       View All Orders & Tracking
     </button>
   </div>

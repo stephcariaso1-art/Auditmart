@@ -6,6 +6,7 @@ import { TabbarComponent } from './components/tabbar/tabbar.component';
 import { IconComponent } from './components/icon/icon.component';
 import { CartService } from './services/cart.service';
 import { NotificationService } from './services/notification.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
   private router = inject(Router);
   cart = inject(CartService);
   notifService = inject(NotificationService);
+  themeService = inject(ThemeService);
 
   readonly showSplash = signal<boolean>(true);
   readonly isSplashFading = signal<boolean>(false);

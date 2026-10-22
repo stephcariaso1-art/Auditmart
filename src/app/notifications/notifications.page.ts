@@ -2,6 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NotificationService, AppNotification } from '../services/notification.service';
+import { ThemeService } from '../services/theme.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -14,6 +15,7 @@ import { IconComponent } from '../components/icon/icon.component';
 })
 export class NotificationsPage {
   notifService = inject(NotificationService);
+  themeService = inject(ThemeService);
   private router = inject(Router);
 
   activeFilter = signal<'all' | 'orders' | 'deals' | 'system'>('all');

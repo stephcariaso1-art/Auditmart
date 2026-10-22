@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ShippingAddress } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
+import { ThemeService } from '../services/theme.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -16,6 +17,7 @@ import { IconComponent } from '../components/icon/icon.component';
 })
 export class ShippingAddressesPage {
   auth = inject(AuthService);
+  themeService = inject(ThemeService);
   private cartService = inject(CartService);
   private router = inject(Router);
 

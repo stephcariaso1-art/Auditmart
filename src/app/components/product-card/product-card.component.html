@@ -1,26 +1,31 @@
 <div
   [routerLink]="['/product', product.id]"
-  class="group relative w-full min-h-[140px] bg-[#222226] hover:bg-[#28282D] active:scale-[0.985] rounded-[28px] px-5 py-4 flex items-center justify-between border border-white/[0.06] transition-all duration-200 cursor-pointer overflow-hidden shadow-md select-none">
+  class="group relative w-full min-h-[140px] titanium-card hover:bg-neutral-50 dark:hover:bg-[#1D1C1B] active:scale-[0.985] rounded-[28px] px-5 py-4 flex items-center justify-between transition-all duration-200 cursor-pointer overflow-hidden shadow-sm hover:shadow-md select-none">
 
   <div class="flex flex-col justify-between h-full z-10 flex-1 min-w-0 pr-3 py-0.5">
     <div>
+      <div class="flex items-center gap-1.5 pb-0.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#575655] dark:bg-[#C7C7C6]"></span>
+        <span class="text-[10px] uppercase font-bold tracking-wider text-[#575655] dark:text-[#A1A1A1]">Studio Acoustics</span>
+      </div>
       <h3 class="tracking-tight leading-snug flex items-baseline gap-1.5 flex-wrap truncate">
-        <span class="text-[15px] font-black text-white">{{ product.brand }}</span>
-        <span class="text-[14px] font-medium text-white/90 truncate">{{ getModel(product) }}</span>
+        <span class="text-[15px] font-black text-[#070706] dark:text-white font-sans">{{ product.brand }}</span>
+        <span class="text-[14px] font-semibold text-[#363534] dark:text-[#C7C7C6] truncate">{{ getModel(product) }}</span>
       </h3>
-      <p class="text-[11px] text-[#8E8E93] mt-1 font-medium truncate">
+      <p class="text-[11px] text-[#575655] dark:text-[#A1A1A1] mt-0.5 font-medium truncate">
         {{ product.subtitle }}
       </p>
     </div>
 
-    <div class="pt-2">
-      <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#34343A] text-white text-xs font-bold tracking-wide border border-white/5 group-hover:bg-white group-hover:text-black transition-colors shadow-xs tabular-nums">
+    <div class="pt-2 flex items-center gap-2">
+      <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-[#F4F4F2] dark:bg-[#363534] text-[#070706] dark:text-white text-xs font-bold tracking-wide border border-[#C7C7C6] dark:border-[#575655]/60 group-hover:bg-[#070706] group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-[#070706] transition-all shadow-xs tabular-nums">
         ₱{{ product.price }}
       </span>
+      <span class="text-[10px] font-mono text-[#575655] dark:text-[#A1A1A1] tracking-wider uppercase">Fidelity 24b</span>
     </div>
   </div>
 
-  <div class="relative w-28 h-28 rounded-2xl overflow-hidden flex items-center justify-center shrink-0 -mr-1 bg-[#1A1A1E] border border-white/10 shadow-inner">
+  <div class="relative w-28 h-28 rounded-2xl overflow-hidden flex items-center justify-center shrink-0 -mr-1 acoustic-chamber">
     <img
       [src]="product.images[0]"
       [alt]="product.name"

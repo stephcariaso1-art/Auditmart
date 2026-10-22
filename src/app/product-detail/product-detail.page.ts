@@ -5,6 +5,7 @@ import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
 import { ReviewService } from '../services/review.service';
+import { ThemeService } from '../services/theme.service';
 import { Product, ProductColor, Review } from '../models';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
@@ -22,6 +23,7 @@ export class ProductDetailPage implements OnInit {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private reviewService = inject(ReviewService);
+  themeService = inject(ThemeService);
   auth = inject(AuthService);
 
   product?: Product;
@@ -195,6 +197,36 @@ export class ProductDetailPage implements OnInit {
   goToSignUp() {
     this.showGuestAuthModal.set(false);
     this.router.navigate(['/signup']);
+  }
+
+  getProductSpecs(): { label: string; value: string }[] {
+    if (!this.product) return [];
+    if (this.product.category === 'Microphones') {
+      return [
+        { label: 'Pattern', value: 'Cardioid' },
+        { label: 'Freq Range', value: '20Hz-20kHz' },
+        { label: 'Interface', value: this.product.id.includes('yeti') ? 'USB-C 24b' : 'Studio XLR' }
+      ];
+    }
+    if (this.product.category === 'Speakers') {
+      return [
+        { label: 'Acoustics', value: '30W Peak' },
+        { label: 'Battery', value: '12 Hours' },
+        { label: 'Ingress', value: 'IP67 Water' }
+      ];
+    }
+    if (this.product.category === 'Earphones') {
+      return [
+        { label: 'Driver', value: '11mm Liquid' },
+        { label: 'Battery', value: '28h w/ Case' },
+        { label: 'Latency', value: 'Ultra-Low' }
+      ];
+    }
+    return [
+      { label: 'Driver', value: '45mm Dome' },
+      { label: 'Freq Range', value: '16Hz-20kHz' },
+      { label: 'Weight', value: '265g' }
+    ];
   }
 
   goHome() {

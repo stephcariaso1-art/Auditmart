@@ -1,21 +1,31 @@
-<header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none bg-[#141416]/90 backdrop-blur-md sticky top-0">
+<header class="w-full px-5 pt-4 pb-2 flex items-center justify-between z-30 select-none app-header-bg sticky top-0 transition-colors">
 
   @if (showBack) {
     <button
       (click)="onBack()"
-      class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer">
-      <app-icon name="arrow-left" [size]="20" color="#FFFFFF"></app-icon>
+      class="w-10 h-10 rounded-full flex items-center justify-center text-inherit hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+      title="Go back">
+      <app-icon name="arrow-left" [size]="20" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
     </button>
   } @else {
-    <div class="w-10 h-10"></div>
+    <button
+      (click)="themeService.toggleTheme()"
+      class="w-10 h-10 rounded-full flex items-center justify-center text-inherit hover:bg-black/5 dark:hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
+      [title]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+      <app-icon
+        [name]="themeService.isDark() ? 'sun' : 'moon'"
+        [size]="19"
+        [color]="themeService.isDark() ? '#FFFFFF' : '#070706'">
+      </app-icon>
+    </button>
   }
 
   <div class="flex-1 text-center">
     @if (title) {
-      <h1 class="text-base font-bold tracking-wide text-white">{{ title }}</h1>
+      <h1 class="text-base font-bold tracking-wide text-[#070706] dark:text-white">{{ title }}</h1>
     } @else {
-      <h1 class="text-lg font-black tracking-tight text-white flex items-center justify-center gap-0.5 font-sans">
-        <span>audi</span><span class="text-white/70 font-semibold">Mart</span>
+      <h1 class="text-lg font-black tracking-tight text-[#070706] dark:text-white flex items-center justify-center gap-0.5 font-sans">
+        <span>audi</span><span class="opacity-60 font-semibold">Mart</span>
       </h1>
     }
   </div>
@@ -24,11 +34,23 @@
     @if (hasNotification) {
       <button
         (click)="onRightClick()"
-        class="w-10 h-10 rounded-full flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer">
-        <app-icon [name]="rightIcon" [size]="20" color="#FFFFFF"></app-icon>
+        class="w-10 h-10 rounded-full flex items-center justify-center text-inherit hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+        title="Notifications">
+        <app-icon [name]="rightIcon" [size]="20" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
         @if (notifService.unreadCount() > 0) {
-          <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-[#141416]"></span>
+          <span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#0B0A0A]"></span>
         }
+      </button>
+    } @else if (showBack) {
+      <button
+        (click)="themeService.toggleTheme()"
+        class="w-10 h-10 rounded-full flex items-center justify-center text-inherit hover:bg-black/5 dark:hover:bg-white/10 active:scale-90 transition-all cursor-pointer"
+        [title]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        <app-icon
+          [name]="themeService.isDark() ? 'sun' : 'moon'"
+          [size]="19"
+          [color]="themeService.isDark() ? '#FFFFFF' : '#070706'">
+        </app-icon>
       </button>
     }
   </div>

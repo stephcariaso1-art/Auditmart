@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
+import { ThemeService } from '../services/theme.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -16,6 +17,7 @@ import { IconComponent } from '../components/icon/icon.component';
 export class CartPage implements OnInit {
   cart = inject(CartService);
   auth = inject(AuthService);
+  themeService = inject(ThemeService);
   private router = inject(Router);
 
   isLoading = signal<boolean>(true);

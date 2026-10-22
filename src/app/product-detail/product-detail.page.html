@@ -1,39 +1,31 @@
 @if (isLoading()) {
-  <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative pb-28">
-    <app-navbar
-      [title]="'Details'"
-      [showBack]="true"
-      backUrl="/home">
-    </app-navbar>
-
-    <div class="w-full pt-1 pb-3 flex flex-col items-center justify-center px-5">
-      <div class="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl shimmer-wireframe shadow-xl border border-white/10"></div>
-
-      <div class="flex items-center gap-2 pt-4">
-        <div class="w-10 h-10 rounded-xl shimmer-wireframe"></div>
-        <div class="w-10 h-10 rounded-xl shimmer-wireframe"></div>
-      </div>
+  <div class="w-full min-h-screen app-screen-bg p-5 space-y-4 animate-fade-in relative pb-28">
+    <div class="flex items-center justify-between pt-2">
+      <div class="w-10 h-10 rounded-full shimmer-wireframe"></div>
+      <div class="w-24 h-4 rounded-md shimmer-wireframe"></div>
+      <div class="w-10 h-10 rounded-full shimmer-wireframe"></div>
     </div>
 
-    <div class="px-5 space-y-4 pt-2">
+    <div class="w-64 h-64 sm:w-72 sm:h-72 mx-auto rounded-3xl shimmer-wireframe my-6"></div>
+
+    <div class="space-y-4 pt-4">
       <div class="space-y-2">
-        <div class="w-48 h-6 rounded-md shimmer-wireframe"></div>
-        <div class="w-32 h-4 rounded-md shimmer-wireframe"></div>
+        <div class="w-32 h-5 rounded-md shimmer-wireframe"></div>
+        <div class="w-48 h-7 rounded-md shimmer-wireframe"></div>
       </div>
-
-      <div class="w-24 h-4 rounded-md shimmer-wireframe"></div>
-
-      <div class="w-full h-20 rounded-2xl shimmer-wireframe border border-white/5"></div>
-
+      <div class="flex gap-3">
+        <div class="w-16 h-8 rounded-full shimmer-wireframe"></div>
+        <div class="w-16 h-8 rounded-full shimmer-wireframe"></div>
+        <div class="w-16 h-8 rounded-full shimmer-wireframe"></div>
+      </div>
       <div class="space-y-2 pt-2">
-        <div class="w-28 h-4 rounded-md shimmer-wireframe"></div>
         <div class="w-full h-3 rounded-md shimmer-wireframe"></div>
         <div class="w-5/6 h-3 rounded-md shimmer-wireframe"></div>
         <div class="w-4/6 h-3 rounded-md shimmer-wireframe"></div>
       </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto p-4 bg-[#141416]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-between z-30">
+    <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto p-4 bg-white/95 dark:bg-[#0B0A0A]/95 backdrop-blur-md border-t border-[#E2E2E0] dark:border-[#363534] flex items-center justify-between z-30">
       <div class="space-y-1">
         <div class="w-12 h-3 rounded shimmer-wireframe"></div>
         <div class="w-20 h-6 rounded shimmer-wireframe"></div>
@@ -45,7 +37,7 @@
     </div>
   </div>
 } @else if (product) {
-  <div class="w-full min-h-screen bg-[#141416] text-white flex flex-col select-none animate-fade-in relative">
+  <div class="w-full min-h-screen app-screen-bg text-inherit flex flex-col select-none animate-fade-in relative">
 
     <app-navbar
       [title]="'Details'"
@@ -56,7 +48,7 @@
     <div class="relative w-full pt-1 pb-3 flex flex-col items-center justify-center">
 
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-56 h-56 rounded-full bg-white/[0.04] blur-2xl"></div>
+        <div class="w-56 h-56 rounded-full bg-[#C7C7C6]/[0.10] blur-3xl"></div>
       </div>
 
       <div
@@ -68,7 +60,7 @@
         (pointerup)="onPointerUp($event)"
         (pointercancel)="onPointerCancel($event)"
         style="touch-action: pan-y; cursor: grab;"
-        class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center z-10 bg-[#1A1A1E] select-none active:cursor-grabbing group">
+        class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden shadow-2xl border border-[#E2E2E0] dark:border-[#363534] flex items-center justify-center z-10 acoustic-chamber select-none active:cursor-grabbing group">
 
         <img
           [src]="activeImage()"
@@ -80,20 +72,20 @@
           <button
             (click)="prevImage(); $event.stopPropagation()"
             type="button"
-            class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
-            <app-icon name="chevron-left" [size]="16" color="#FFFFFF"></app-icon>
+            class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-75 hover:opacity-100 z-20 cursor-pointer">
+            <app-icon name="chevron-left" [size]="16" [color]="themeService.isDark() ? '#C7C7C6' : '#FFFFFF'"></app-icon>
           </button>
           <button
             (click)="nextImage(); $event.stopPropagation()"
             type="button"
-            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100 z-20 cursor-pointer">
-            <app-icon name="chevron-right" [size]="16" color="#FFFFFF"></app-icon>
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-75 hover:opacity-100 z-20 cursor-pointer">
+            <app-icon name="chevron-right" [size]="16" [color]="themeService.isDark() ? '#C7C7C6' : '#FFFFFF'"></app-icon>
           </button>
         }
 
-        <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] text-white/80 font-medium border border-white/10 pointer-events-none flex items-center gap-1.5 z-20">
-          <span>{{ activeImageIndex() + 1 }} / {{ product.images.length }}</span>
-          <span class="text-white/40">·</span>
+        <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-xs text-[10px] text-[#C7C7C6] font-medium border border-white/10 dark:border-[#363534] pointer-events-none flex items-center gap-1.5 z-20">
+          <span class="font-bold">{{ activeImageIndex() + 1 }} / {{ product.images.length }}</span>
+          <span class="opacity-50">·</span>
           <span>Swipe</span>
         </div>
       </div>
@@ -108,11 +100,11 @@
 
             <div
               class="w-6 h-6 rounded-full border-2 transition-all shadow-xs"
-              [ngClass]="selectedColor()?.name === color.name ? 'border-white ring-2 ring-white/30' : 'border-white/20'"
+              [ngClass]="selectedColor()?.name === color.name ? 'border-[#0B0A0A] dark:border-[#C7C7C6] ring-2 ring-[#0B0A0A]/30 dark:ring-[#C7C7C6]/40' : 'border-neutral-300 dark:border-[#363534]'"
               [style.backgroundColor]="color.hex">
             </div>
 
-            <span class="absolute right-8 px-2 py-0.5 rounded bg-black/90 text-[10px] text-white font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <span class="absolute right-8 px-2 py-0.5 rounded bg-[#0B0A0A] text-[10px] text-[#C7C7C6] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-[#363534]">
               {{ color.name }}
             </span>
           </button>
@@ -126,37 +118,37 @@
             type="button"
             [title]="'View photo ' + (i + 1)"
             class="h-2 rounded-full transition-all duration-300 cursor-pointer p-0 border-0"
-            [ngClass]="activeImageIndex() === i ? 'w-6 bg-white shadow-xs' : 'w-2 bg-white/30 hover:bg-white/50'">
+            [ngClass]="activeImageIndex() === i ? 'w-6 bg-[#0B0A0A] dark:bg-[#C7C7C6] shadow-xs' : 'w-2 bg-neutral-300 dark:bg-[#363534] hover:bg-neutral-400'">
           </button>
         }
       </div>
 
     </div>
 
-    <div class="w-full flex-1 bg-white text-[#141416] rounded-t-[36px] p-6 pb-24 shadow-2xl space-y-4 relative z-20">
+    <div class="w-full flex-1 titanium-card text-[#070706] dark:text-white rounded-t-[36px] p-6 pb-36 space-y-4 relative z-20 border-t border-[#C7C7C6] dark:border-[#363534] transition-colors">
 
-      <div class="w-10 h-1 bg-black/10 rounded-full mx-auto -mt-2"></div>
+      <div class="w-10 h-1 bg-[#C7C7C6] dark:bg-[#363534] rounded-full mx-auto -mt-2"></div>
 
       <div class="space-y-1">
         <div class="flex items-baseline gap-2">
-          <span class="text-xl font-black tracking-tight text-black font-sans">{{ product.brand }}</span>
-          <span class="text-lg font-bold text-[#1C1C1E]">{{ getModel(product) }}</span>
+          <span class="text-xl font-black tracking-tight text-[#070706] dark:text-white font-sans">{{ product.brand }}</span>
+          <span class="text-lg font-bold text-[#363534] dark:text-[#C7C7C6]">{{ getModel(product) }}</span>
         </div>
-        <p class="text-xs text-[#55555B] leading-relaxed font-normal">
+        <p class="text-xs text-[#363534] dark:text-[#C7C7C6] leading-relaxed font-normal">
           {{ product.description }}
         </p>
       </div>
 
       <div class="space-y-2">
         @for (feat of product.features; track feat; let i = $index) {
-          <div class="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#F5F5F7] border border-black/[0.04] text-xs font-medium text-[#1C1C1E]">
-            <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-xs">
+          <div class="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-xs font-medium text-[#070706] dark:text-white">
+            <div class="w-6 h-6 rounded-full bg-white dark:bg-[#151413] border border-[#C7C7C6] dark:border-[#363534] flex items-center justify-center shadow-xs">
               @if (i === 0) {
-                <app-icon name="shield" [size]="13" color="#141416"></app-icon>
+                <app-icon name="shield" [size]="13" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
               } @else if (i === 1) {
-                <app-icon name="check-circle" [size]="13" color="#141416"></app-icon>
+                <app-icon name="check-circle" [size]="13" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
               } @else {
-                <app-icon name="star" [size]="13" color="#141416"></app-icon>
+                <app-icon name="star" [size]="13" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
               }
             </div>
             <span>{{ feat }}</span>
@@ -165,26 +157,20 @@
       </div>
 
       <div class="grid grid-cols-3 gap-2.5 pt-1">
-        <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
-          <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Driver</p>
-          <p class="text-xs font-bold text-black">40mm</p>
-        </div>
-        <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
-          <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Freq</p>
-          <p class="text-xs font-bold text-black">16Hz - 20kHz</p>
-        </div>
-        <div class="p-2.5 rounded-2xl bg-[#F5F5F7] text-center space-y-0.5">
-          <p class="text-[10px] text-[#8E8E93] font-semibold uppercase">Weight</p>
-          <p class="text-xs font-bold text-black">265g</p>
-        </div>
+        @for (spec of getProductSpecs(); track spec.label) {
+          <div class="p-2.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-center space-y-0.5">
+            <p class="text-[10px] text-[#575655] dark:text-[#A1A1A1] font-semibold uppercase">{{ spec.label }}</p>
+            <p class="text-xs font-bold text-[#070706] dark:text-white truncate">{{ spec.value }}</p>
+          </div>
+        }
       </div>
 
-      <div class="pt-4 border-t border-black/[0.06] space-y-3">
+      <div class="pt-4 border-t border-[#C7C7C6] dark:border-[#363534] space-y-3">
         <div class="flex items-center justify-between">
           <div class="space-y-0.5">
-            <h3 class="text-sm font-bold text-black flex items-center gap-1.5">
+            <h3 class="text-sm font-bold text-[#070706] dark:text-white flex items-center gap-1.5">
               <span>Customer Reviews</span>
-              <span class="text-xs font-medium text-[#8E8E93]">({{ totalReviewsCount() }})</span>
+              <span class="text-xs font-medium text-[#575655] dark:text-[#A1A1A1]">({{ totalReviewsCount() }})</span>
             </h3>
             <div class="flex items-center gap-1.5">
               <div class="flex items-center gap-0.5">
@@ -192,40 +178,40 @@
                   <app-icon
                     name="star"
                     [size]="13"
-                    [color]="s <= ratingSummary().average ? '#F59E0B' : '#D1D5DB'">
+                    [color]="s <= ratingSummary().average ? '#F59E0B' : (themeService.isDark() ? '#363534' : '#E5E7EB')">
                   </app-icon>
                 }
               </div>
-              <span class="text-xs font-black text-black">{{ ratingSummary().average }}</span>
-              <span class="text-[11px] text-[#8E8E93]">out of 5</span>
+              <span class="text-xs font-black text-[#070706] dark:text-white">{{ ratingSummary().average }}</span>
+              <span class="text-[11px] text-[#575655] dark:text-[#A1A1A1]">out of 5</span>
             </div>
           </div>
 
           <button
             type="button"
             (click)="goToAllReviews()"
-            class="text-xs font-bold text-black hover:text-neutral-600 flex items-center gap-1 cursor-pointer">
+            class="text-xs font-bold text-[#070706] dark:text-white hover:opacity-80 flex items-center gap-1 cursor-pointer">
             <span>See all</span>
-            <app-icon name="arrow-right" [size]="13" color="#141416"></app-icon>
+            <app-icon name="arrow-right" [size]="13" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
           </button>
         </div>
 
         <div class="space-y-2.5">
           @for (rev of topReviews(); track rev.id) {
-            <div class="p-3.5 rounded-2xl bg-[#F5F5F7] border border-black/[0.04] space-y-2">
+            <div class="p-3.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] space-y-2">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-full bg-black text-white text-[11px] font-bold flex items-center justify-center">
+                  <div class="w-7 h-7 rounded-full bg-[#070706] dark:bg-[#363534] text-white dark:text-[#C7C7C6] text-[11px] font-bold flex items-center justify-center">
                     {{ rev.authorName.charAt(0) }}
                   </div>
                   <div>
                     <div class="flex items-center gap-1.5">
-                      <span class="text-xs font-bold text-black">{{ rev.authorName }}</span>
+                      <span class="text-xs font-bold text-[#070706] dark:text-white">{{ rev.authorName }}</span>
                       @if (rev.verifiedPurchase) {
-                        <span class="text-[9px] font-semibold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full">Verified</span>
+                        <span class="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded-full">Verified</span>
                       }
                     </div>
-                    <span class="text-[10px] text-[#8E8E93]">{{ rev.date }}</span>
+                    <span class="text-[10px] text-[#575655] dark:text-[#A1A1A1]">{{ rev.date }}</span>
                   </div>
                 </div>
 
@@ -234,13 +220,13 @@
                     <app-icon
                       name="star"
                       [size]="11"
-                      [color]="s <= rev.rating ? '#F59E0B' : '#D1D5DB'">
+                      [color]="s <= rev.rating ? '#F59E0B' : (themeService.isDark() ? '#363534' : '#E5E7EB')">
                     </app-icon>
                   }
                 </div>
               </div>
 
-              <p class="text-xs text-[#444449] leading-relaxed">
+              <p class="text-xs text-[#363534] dark:text-[#C7C7C6] leading-relaxed">
                 {{ rev.comment }}
               </p>
             </div>
@@ -250,26 +236,26 @@
         <button
           type="button"
           (click)="goToAllReviews()"
-          class="w-full py-3 rounded-2xl bg-[#F5F5F7] hover:bg-[#EBEBEF] text-black text-xs font-bold border border-black/[0.06] transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+          class="w-full py-3 rounded-2xl machined-pill text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer">
           <span>See All {{ totalReviewsCount() }} Reviews</span>
-          <app-icon name="arrow-right" [size]="13" color="#141416"></app-icon>
+          <app-icon name="arrow-right" [size]="13" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
         </button>
       </div>
 
     </div>
 
-
+    <!-- Bottom Dock with 10-Shade Monochrome Titanium Palette -->
     <div class="fixed bottom-4 left-0 right-0 max-w-[420px] mx-auto px-5 z-40 select-none">
-      <div class="glass-dock rounded-[32px] px-5 py-2.5 flex items-center justify-between shadow-dock border border-white/10 bg-[#1A1A1E]/95 backdrop-blur-xl">
+      <div class="glass-dock rounded-[32px] px-5 py-2.5 flex items-center justify-between shadow-dock">
 
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5">
-            <span class="text-[10px] text-white/50 font-bold uppercase tracking-wider">Price</span>
+            <span class="text-[10px] text-[#575655] dark:text-[#A1A1A1] font-bold uppercase tracking-wider">Price</span>
             @if (auth.isGuest()) {
-              <span class="text-[9px] font-bold text-blue-400 px-1.5 py-0.5 rounded-full bg-blue-500/15 border border-blue-500/25">Guest</span>
+              <span class="text-[9px] font-bold text-[#363534] dark:text-[#C7C7C6] px-1.5 py-0.5 rounded-full bg-neutral-200 dark:bg-[#363534] border border-neutral-300 dark:border-[#575655]">Guest</span>
             }
           </div>
-          <span class="text-xl font-black text-white tracking-tight">
+          <span class="text-xl font-black text-[#070706] dark:text-white tracking-tight tabular-nums">
             ₱{{ product.price }}
           </span>
         </div>
@@ -279,15 +265,15 @@
           <button
             (click)="addToCart()"
             title="Add to Cart"
-            class="px-4 py-2.5 rounded-full bg-[#27272C] hover:bg-[#34343A] active:scale-95 text-white text-xs font-bold transition-all border border-white/10 flex items-center gap-1.5 cursor-pointer shadow-sm">
-            <app-icon name="cart" [size]="16" color="#FFFFFF"></app-icon>
+            class="px-4 py-2.5 rounded-full machined-pill text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <app-icon name="cart" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
             <span>Add</span>
           </button>
 
           <button
             (click)="buyNow()"
             title="Buy Now"
-            class="px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
+            class="px-6 py-2.5 rounded-full chrome-btn text-xs font-black tracking-wide shadow-md transition-all cursor-pointer">
             Buy Now
           </button>
         </div>
@@ -296,25 +282,25 @@
     </div>
 
     @if (showGuestAuthModal()) {
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
            (click)="showGuestAuthModal.set(false)">
         <div
-          class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl text-center relative"
+          class="w-full max-w-sm bg-white dark:bg-[#151413] rounded-[32px] p-6 space-y-4 border border-[#E2E2E0] dark:border-[#363534] shadow-2xl text-center relative"
           (click)="$event.stopPropagation()">
 
           <button
             (click)="showGuestAuthModal.set(false)"
-            class="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
+            class="absolute top-4 right-4 w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#363534] hover:bg-neutral-200 dark:hover:bg-[#575655] text-neutral-600 dark:text-[#C7C7C6] flex items-center justify-center text-xs transition-colors cursor-pointer">
             ✕
           </button>
 
-          <div class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mx-auto text-white mt-1">
-            <app-icon name="cart" [size]="24" color="#FFFFFF"></app-icon>
+          <div class="w-14 h-14 rounded-full bg-neutral-100 dark:bg-[#0F0E0D] border border-neutral-200 dark:border-[#363534] flex items-center justify-center mx-auto text-neutral-800 dark:text-[#C7C7C6] mt-1">
+            <app-icon name="cart" [size]="24" [color]="themeService.isDark() ? '#C7C7C6' : '#0B0A0A'"></app-icon>
           </div>
 
           <div class="space-y-1">
-            <h3 class="text-base font-bold text-white">Sign In to Continue</h3>
-            <p class="text-xs text-[#8E8E93] leading-relaxed">
+            <h3 class="text-base font-bold text-[#0B0A0A] dark:text-[#C7C7C6]">Sign In to Continue</h3>
+            <p class="text-xs text-[#575655] dark:text-[#7C7B7B] leading-relaxed">
               You are currently browsing as a guest. Please create an account or sign in to add items to your cart and place orders.
             </p>
           </div>
@@ -322,19 +308,19 @@
           <div class="space-y-2.5 pt-2">
             <button
               (click)="goToSignUp()"
-              class="w-full py-3.5 rounded-full bg-white text-black font-extrabold text-xs tracking-wide shadow-md hover:bg-neutral-200 active:scale-95 transition-all cursor-pointer">
+              class="w-full py-3.5 rounded-full chrome-btn font-extrabold text-xs tracking-wide shadow-md active:scale-95 transition-all cursor-pointer">
               Create Free Account
             </button>
 
             <button
               (click)="goToLogin()"
-              class="w-full py-3.5 rounded-full bg-[#27272C] text-white font-bold text-xs tracking-wide border border-white/10 hover:bg-[#34343A] active:scale-95 transition-all cursor-pointer">
+              class="w-full py-3.5 rounded-full machined-pill font-bold text-xs tracking-wide active:scale-95 transition-all cursor-pointer">
               Sign In with Email
             </button>
 
             <button
               (click)="showGuestAuthModal.set(false)"
-              class="w-full py-2 text-xs text-[#8E8E93] hover:text-white transition-colors cursor-pointer">
+              class="w-full py-2 text-xs text-[#575655] dark:text-[#7C7B7B] hover:text-black dark:hover:text-[#C7C7C6] transition-colors cursor-pointer">
               Continue Browsing
             </button>
           </div>
@@ -346,9 +332,9 @@
   </div>
 } @else {
 
-  <div class="w-full min-h-screen bg-[#141416] text-white p-6 flex flex-col items-center justify-center space-y-4">
-    <p class="text-base font-bold">Product not found</p>
-    <button (click)="goHome()" class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold cursor-pointer">
+  <div class="w-full min-h-screen app-screen-bg text-inherit p-6 flex flex-col items-center justify-center space-y-4">
+    <p class="text-base font-bold text-[#0B0A0A] dark:text-[#C7C7C6]">Product not found</p>
+    <button (click)="goHome()" class="px-5 py-2.5 rounded-full chrome-btn text-xs font-bold cursor-pointer hover:opacity-90 transition-all">
       Back to Home
     </button>
   </div>

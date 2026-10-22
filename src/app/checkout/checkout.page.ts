@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
 import { AuthService, PaymentCard, ShippingAddress } from '../services/auth.service';
+import { ThemeService } from '../services/theme.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
 
@@ -19,6 +20,7 @@ export class CheckoutPage implements OnInit {
   cart = inject(CartService);
   orderService = inject(OrderService);
   auth = inject(AuthService);
+  themeService = inject(ThemeService);
   private router = inject(Router);
 
   selectedShipping: 'standard' | 'express' = 'standard';

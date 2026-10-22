@@ -5,6 +5,7 @@ import { ProductService } from '../services/product.service';
 import { ReviewService } from '../services/review.service';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
+import { ThemeService } from '../services/theme.service';
 import { Product, Review } from '../models';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { IconComponent } from '../components/icon/icon.component';
@@ -23,6 +24,7 @@ export class ProductReviewsPage implements OnInit {
   reviewService = inject(ReviewService);
   auth = inject(AuthService);
   private cartService = inject(CartService);
+  themeService = inject(ThemeService);
 
   productId = signal<string>('');
   product = signal<Product | null>(null);

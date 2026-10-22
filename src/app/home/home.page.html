@@ -1,4 +1,4 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-32 select-none animate-fade-in relative">
+<div class="w-full min-h-screen app-screen-bg flex flex-col pb-36 select-none animate-fade-in relative transition-colors">
 
   <app-navbar></app-navbar>
 
@@ -6,26 +6,26 @@
 
     <div class="relative">
       <div class="relative flex items-center">
-        <div class="absolute left-4 flex items-center pointer-events-none text-[#7E7E88]">
-          <app-icon name="search" [size]="17" color="#7E7E88"></app-icon>
+        <div class="absolute left-4 flex items-center pointer-events-none">
+          <app-icon name="search" [size]="17" [color]="themeService.isDark() ? '#C7C7C6' : '#575655'"></app-icon>
         </div>
 
         <input
           type="text"
           [ngModel]="productService.searchQuery()"
           (ngModelChange)="productService.setSearchQuery($event)"
-          placeholder="Search audio products..."
-          class="w-full pl-11 pr-14 py-3.5 rounded-2xl bg-[#222226] border border-white/[0.06] text-white placeholder-[#6E6E78] text-xs font-medium focus:outline-none focus:border-white/30 transition-colors" />
+          placeholder="Search headphones, mics, speakers..."
+          class="w-full pl-11 pr-14 py-3.5 rounded-2xl bg-white dark:bg-[#151413] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs font-medium focus:outline-none focus:border-[#070706] dark:focus:border-white transition-colors shadow-xs" />
 
         <button
           type="button"
           (click)="toggleFilterModal($event)"
           title="Sort and filter products"
           class="absolute right-1.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer pointer-events-auto border active:scale-90"
-          [ngClass]="isSortActive() ? 'bg-white text-black border-white shadow-md' : 'bg-[#2A2A30] hover:bg-[#35353D] text-white border-white/10'">
-          <app-icon name="sliders" [size]="18" [color]="isSortActive() ? '#000000' : '#FFFFFF'"></app-icon>
+          [ngClass]="isSortActive() ? 'bg-[#070706] text-white border-[#070706] dark:bg-white dark:text-[#070706] dark:border-white shadow-md' : 'bg-[#F4F4F2] dark:bg-[#151413] hover:bg-neutral-200 dark:hover:bg-[#363534] text-[#363534] dark:text-[#C7C7C6] border-[#C7C7C6] dark:border-[#363534]'">
+          <app-icon name="sliders" [size]="18" [color]="isSortActive() ? (themeService.isDark() ? '#070706' : '#FFFFFF') : (themeService.isDark() ? '#FFFFFF' : '#070706')"></app-icon>
           @if (isSortActive()) {
-            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#222226]"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#575655] dark:bg-[#C7C7C6] ring-2 ring-white dark:ring-[#151413]"></span>
           }
         </button>
       </div>
@@ -33,38 +33,38 @@
       @if (showFilterModal()) {
 
         <div
-          class="fixed inset-0 z-40 bg-black/60 backdrop-blur-[2px]"
+          class="fixed inset-0 z-40 bg-black/50 dark:bg-black/75 backdrop-blur-[2px]"
           (click)="closeFilterModal()">
         </div>
 
         <div
-          class="absolute left-0 right-0 top-full mt-2 z-50 bg-[#1E1E22] border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.85)] space-y-4 animate-fade-in"
+          class="absolute left-0 right-0 top-full mt-2 z-50 bg-white dark:bg-[#151413] text-[#070706] dark:text-white border border-[#C7C7C6] dark:border-[#363534] rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] space-y-4 animate-fade-in"
           (click)="$event.stopPropagation()">
 
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <app-icon name="sliders" [size]="16" color="#FFFFFF"></app-icon>
-              <h3 class="text-sm font-bold text-white">Sort & Filter</h3>
+              <app-icon name="sliders" [size]="16" [color]="themeService.isDark() ? '#FFFFFF' : '#070706'"></app-icon>
+              <h3 class="text-sm font-bold text-[#070706] dark:text-white">Sort & Filter</h3>
             </div>
             @if (isSortActive()) {
               <button
                 type="button"
                 (click)="resetFilters()"
-                class="text-xs text-[#8E8E93] hover:text-white underline cursor-pointer">
+                class="text-xs text-[#575655] hover:text-[#070706] dark:text-[#A1A1A1] dark:hover:text-white underline cursor-pointer">
                 Reset
               </button>
             }
           </div>
 
           <div class="space-y-1.5">
-            <label class="text-[11px] font-bold uppercase tracking-wider text-[#8E8E93]">Sort Products By</label>
+            <label class="text-[11px] font-bold uppercase tracking-wider text-[#575655] dark:text-[#A1A1A1]">Sort Products By</label>
             <div class="grid grid-cols-2 gap-2 pt-1">
 
               <button
                 type="button"
                 (click)="setSort('default')"
                 class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
-                [ngClass]="sortBy() === 'default' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
+                [ngClass]="sortBy() === 'default' ? 'bg-[#070706] text-white border-[#070706] dark:bg-white dark:text-[#070706] dark:border-white font-bold shadow-md' : 'bg-[#F4F4F2] dark:bg-[#0F0E0D] text-[#363534] dark:text-[#C7C7C6] border-[#C7C7C6] dark:border-[#363534] hover:border-[#7C7B7B]'">
                 <span class="text-xs">Featured</span>
                 @if (sortBy() === 'default') {
                   <span class="text-xs font-black">✓</span>
@@ -75,7 +75,7 @@
                 type="button"
                 (click)="setSort('price-asc')"
                 class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
-                [ngClass]="sortBy() === 'price-asc' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
+                [ngClass]="sortBy() === 'price-asc' ? 'bg-[#070706] text-white border-[#070706] dark:bg-white dark:text-[#070706] dark:border-white font-bold shadow-md' : 'bg-[#F4F4F2] dark:bg-[#0F0E0D] text-[#363534] dark:text-[#C7C7C6] border-[#C7C7C6] dark:border-[#363534] hover:border-[#7C7B7B]'">
                 <span class="text-xs">Price: Low to High</span>
                 @if (sortBy() === 'price-asc') {
                   <span class="text-xs font-black">✓</span>
@@ -86,7 +86,7 @@
                 type="button"
                 (click)="setSort('price-desc')"
                 class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
-                [ngClass]="sortBy() === 'price-desc' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
+                [ngClass]="sortBy() === 'price-desc' ? 'bg-[#070706] text-white border-[#070706] dark:bg-white dark:text-[#070706] dark:border-white font-bold shadow-md' : 'bg-[#F4F4F2] dark:bg-[#0F0E0D] text-[#363534] dark:text-[#C7C7C6] border-[#C7C7C6] dark:border-[#363534] hover:border-[#7C7B7B]'">
                 <span class="text-xs">Price: High to Low</span>
                 @if (sortBy() === 'price-desc') {
                   <span class="text-xs font-black">✓</span>
@@ -97,7 +97,7 @@
                 type="button"
                 (click)="setSort('rating')"
                 class="p-3 rounded-2xl border text-left transition-all flex items-center justify-between cursor-pointer"
-                [ngClass]="sortBy() === 'rating' ? 'bg-white text-black border-white font-bold shadow-md' : 'bg-[#28282E] text-white/80 border-white/5 hover:border-white/20'">
+                [ngClass]="sortBy() === 'rating' ? 'bg-[#070706] text-white border-[#070706] dark:bg-white dark:text-[#070706] dark:border-white font-bold shadow-md' : 'bg-[#F4F4F2] dark:bg-[#0F0E0D] text-[#363534] dark:text-[#C7C7C6] border-[#C7C7C6] dark:border-[#363534] hover:border-[#7C7B7B]'">
                 <span class="text-xs">Top Rated</span>
                 @if (sortBy() === 'rating') {
                   <span class="text-xs font-black">✓</span>
@@ -106,23 +106,23 @@
             </div>
           </div>
 
-          <div class="space-y-1.5 pt-2 border-t border-white/10">
+          <div class="space-y-1.5 pt-2 border-t border-[#C7C7C6] dark:border-[#363534]">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-[#8E8E93] font-semibold text-[11px]">Maximum Price</span>
-              <span class="font-extrabold text-white font-mono text-sm">₱{{ maxPrice() }}</span>
+              <span class="text-[#575655] dark:text-[#A1A1A1] font-semibold text-[11px]">Maximum Price</span>
+              <span class="font-extrabold text-[#070706] dark:text-white font-mono text-sm">₱{{ maxPrice() }}</span>
             </div>
             <input
               type="range"
               min="50"
-              max="250"
-              step="5"
+              max="500"
+              step="10"
               [ngModel]="maxPrice()"
               (ngModelChange)="maxPrice.set($event)"
-              class="w-full accent-white cursor-pointer" />
-            <div class="flex justify-between text-[10px] text-[#7E7E88]">
+              class="w-full accent-[#070706] dark:accent-[#C7C7C6] cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-[#575655] dark:text-[#A1A1A1]">
               <span>₱50</span>
-              <span>₱150</span>
-              <span>₱250+</span>
+              <span>₱250</span>
+              <span>₱500</span>
             </div>
           </div>
 
@@ -130,7 +130,7 @@
             <button
               type="button"
               (click)="closeFilterModal()"
-              class="w-full py-3 rounded-full bg-white text-black text-xs font-extrabold shadow-lg hover:bg-neutral-200 transition-colors cursor-pointer">
+              class="w-full py-3 rounded-full chrome-btn text-xs font-extrabold shadow-lg transition-colors cursor-pointer">
               Done ({{ filteredProducts().length }} items)
             </button>
           </div>
@@ -139,32 +139,45 @@
       }
     </div>
 
-    <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-1 text-xs">
+    <!-- Category Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs">
       @for (cat of productService.categories; track cat) {
         @if (productService.selectedCategory() === cat) {
-
           <button
             type="button"
             (click)="setCategory(cat)"
-            class="px-5 py-2 rounded-full bg-white text-black font-extrabold whitespace-nowrap shadow-sm transition-all cursor-pointer">
+            class="px-4 py-2 rounded-full chrome-btn whitespace-nowrap shadow-sm cursor-pointer">
             {{ cat }}
           </button>
         } @else {
-
           <button
             type="button"
             (click)="setCategory(cat)"
-            class="px-4 py-2 rounded-full bg-[#222226] text-[#8E8E93] hover:text-white whitespace-nowrap transition-colors font-medium border border-white/[0.04] cursor-pointer">
+            class="px-4 py-2 rounded-full machined-pill whitespace-nowrap cursor-pointer">
             {{ cat }}
           </button>
         }
       }
     </div>
 
+    <!-- Collection Header -->
+    <div class="flex items-center justify-between px-1 pt-1">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#575655] dark:bg-[#C7C7C6]"></span>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#363534] dark:text-[#C7C7C6]">
+          {{ productService.selectedCategory() }} Collection
+        </h2>
+      </div>
+      <span class="text-[11px] font-mono text-[#575655] dark:text-[#A1A1A1]">
+        {{ filteredProducts().length }} {{ filteredProducts().length === 1 ? 'item' : 'items' }}
+      </span>
+    </div>
+
+    <!-- Product Grid/List -->
     <div class="pt-1 flex flex-col gap-4">
       @if (isLoading()) {
         @for (i of [1, 2, 3, 4]; track i) {
-          <div class="w-full min-h-[140px] bg-[#222226] rounded-[28px] px-5 py-4 flex items-center justify-between border border-white/[0.06] shadow-md select-none animate-fade-in">
+          <div class="w-full min-h-[140px] titanium-card rounded-[28px] px-5 py-4 flex items-center justify-between shadow-sm select-none animate-fade-in">
             <div class="flex flex-col justify-between h-full flex-1 pr-3 py-1 space-y-3">
               <div>
                 <div class="w-32 h-4 rounded-md shimmer-wireframe"></div>
@@ -174,7 +187,7 @@
                 <div class="w-16 h-7 rounded-full shimmer-wireframe"></div>
               </div>
             </div>
-            <div class="w-28 h-28 rounded-2xl shrink-0 -mr-1 shimmer-wireframe"></div>
+            <div class="w-28 h-28 rounded-2xl shrink-0 -mr-1 acoustic-chamber shimmer-wireframe"></div>
           </div>
         }
       } @else {
@@ -182,15 +195,15 @@
           <app-product-card [product]="product"></app-product-card>
         } @empty {
           <div class="py-16 text-center space-y-3">
-            <div class="w-12 h-12 rounded-full bg-[#222226] flex items-center justify-center mx-auto text-white/30">
-              <app-icon name="search" [size]="20" color="#7E7E88"></app-icon>
+            <div class="w-12 h-12 rounded-full bg-neutral-100 dark:bg-[#151413] flex items-center justify-center mx-auto text-[#575655] dark:text-[#C7C7C6]">
+              <app-icon name="search" [size]="20" [color]="themeService.isDark() ? '#FFFFFF' : '#575655'"></app-icon>
             </div>
-            <p class="text-sm font-bold text-white">No products found</p>
-            <p class="text-xs text-[#7E7E88]">Try changing your sort or category filter</p>
+            <p class="text-sm font-bold text-[#070706] dark:text-white">No products found</p>
+            <p class="text-xs text-[#575655] dark:text-[#A1A1A1]">Try changing your sort or category filter</p>
             <button
               type="button"
               (click)="resetFilters()"
-              class="mt-2 px-5 py-2 rounded-full bg-white/10 text-xs font-bold text-white hover:bg-white/20 transition-colors cursor-pointer">
+              class="mt-2 px-5 py-2 rounded-full machined-pill text-xs font-bold transition-colors cursor-pointer">
               Reset All Filters
             </button>
           </div>

@@ -1,16 +1,15 @@
-<div class="w-full min-h-screen bg-[#141416] text-white flex flex-col pb-24 select-none animate-fade-in relative">
+<div class="w-full min-h-screen app-screen-bg flex flex-col pb-36 select-none animate-fade-in relative transition-colors">
 
   <app-navbar
-    [title]="'Reviews'"
-    [showBack]="true"
-    [backUrl]="'/product/' + productId()">
+    [title]="'Reviews & Ratings'"
+    [showBack]="true">
   </app-navbar>
 
   <div class="px-5 space-y-4 pt-1 flex-1">
 
     @if (isLoading()) {
       <div class="space-y-4 pt-1">
-        <div class="bg-[#222226] rounded-[24px] p-4 space-y-3 border border-white/[0.06] shadow-md animate-fade-in">
+        <div class="titanium-card rounded-[24px] p-4 space-y-3 shadow-sm animate-fade-in">
           <div class="flex items-center gap-3">
             <div class="w-14 h-14 rounded-2xl shimmer-wireframe"></div>
             <div class="space-y-2 flex-1">
@@ -20,7 +19,7 @@
           </div>
         </div>
 
-        <div class="bg-[#222226] rounded-[24px] p-5 border border-white/[0.06] shadow-md grid grid-cols-2 gap-4">
+        <div class="titanium-card rounded-[24px] p-5 shadow-sm grid grid-cols-2 gap-4">
           <div class="space-y-2">
             <div class="w-20 h-10 rounded-md shimmer-wireframe"></div>
             <div class="w-28 h-4 rounded-md shimmer-wireframe"></div>
@@ -33,56 +32,58 @@
         </div>
 
         @for (i of [1, 2, 3]; track i) {
-          <div class="bg-[#222226] rounded-[24px] p-4 space-y-3 border border-white/[0.06] shadow-md">
+          <div class="p-3.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] space-y-2">
             <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-full shimmer-wireframe"></div>
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full shimmer-wireframe"></div>
                 <div class="space-y-1">
-                  <div class="w-28 h-3.5 rounded shimmer-wireframe"></div>
-                  <div class="w-16 h-2.5 rounded shimmer-wireframe"></div>
+                  <div class="w-24 h-3 rounded shimmer-wireframe"></div>
+                  <div class="w-16 h-2 rounded shimmer-wireframe"></div>
                 </div>
               </div>
               <div class="w-16 h-3 rounded shimmer-wireframe"></div>
             </div>
-            <div class="w-full h-12 rounded-xl shimmer-wireframe"></div>
+            <div class="w-full h-8 rounded-xl shimmer-wireframe"></div>
           </div>
         }
       </div>
     } @else {
 
       @if (product(); as prod) {
-        <div class="bg-[#222226] rounded-[24px] p-3.5 border border-white/[0.06] shadow-md flex items-center justify-between gap-3">
+        <!-- Product Header Bar -->
+        <div class="titanium-card rounded-[24px] p-3.5 shadow-sm flex items-center justify-between gap-3 transition-colors">
           <div class="flex items-center gap-3 min-w-0">
-            <div class="w-14 h-14 rounded-2xl bg-[#2D2D33] overflow-hidden shrink-0 border border-white/5">
+            <div class="w-14 h-14 rounded-2xl acoustic-chamber overflow-hidden shrink-0">
               <img
                 [src]="prod.images[0]"
                 [alt]="prod.name"
                 class="w-full h-full object-cover" />
             </div>
             <div class="min-w-0 flex-1">
-              <p class="text-[10px] text-[#8E8E93] font-bold uppercase tracking-wider">{{ prod.brand }}</p>
-              <h2 class="text-sm font-bold text-white truncate">{{ prod.name }}</h2>
-              <p class="text-xs font-black text-white/90">₱{{ prod.price }}</p>
+              <p class="text-[10px] text-[#575655] dark:text-[#A1A1A1] font-bold uppercase tracking-wider">{{ prod.brand }}</p>
+              <h2 class="text-sm font-bold text-[#070706] dark:text-white truncate font-sans">{{ prod.name }}</h2>
+              <p class="text-xs font-black text-[#070706] dark:text-white tabular-nums">₱{{ prod.price }}</p>
             </div>
           </div>
 
           <button
             type="button"
             (click)="openWriteModal()"
-            class="px-3.5 py-2 rounded-full bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-bold transition-all shrink-0 shadow-sm flex items-center gap-1.5 cursor-pointer">
-            <app-icon name="plus" [size]="12" color="#000000"></app-icon>
+            class="px-3.5 py-2 rounded-full chrome-btn active:scale-95 text-xs font-bold transition-all shrink-0 shadow-sm flex items-center gap-1.5 cursor-pointer">
+            <app-icon name="plus" [size]="12" [color]="themeService.isDark() ? '#070706' : '#FFFFFF'"></app-icon>
             <span>Review</span>
           </button>
         </div>
 
-        <div class="bg-[#222226] rounded-[28px] p-5 border border-white/[0.06] shadow-md space-y-4">
+        <!-- Rating Breakdown & Summary Card -->
+        <div class="titanium-card rounded-[28px] p-5 shadow-sm space-y-4 transition-colors">
 
           <div class="flex items-start justify-between gap-4">
 
             <div class="flex flex-col justify-center space-y-1.5 pr-2">
               <div class="flex items-baseline gap-1.5">
-                <span class="text-4xl font-black text-white tracking-tight">{{ ratingSummary.average }}</span>
-                <span class="text-xs text-[#8E8E93] font-semibold">/ 5.0</span>
+                <span class="text-4xl font-black text-[#070706] dark:text-white tracking-tight font-sans">{{ ratingSummary.average }}</span>
+                <span class="text-xs text-[#575655] dark:text-[#A1A1A1] font-semibold">/ 5.0</span>
               </div>
 
               <div class="flex items-center gap-1">
@@ -90,12 +91,12 @@
                   <app-icon
                     name="star"
                     [size]="15"
-                    [color]="s <= ratingSummary.average ? '#FACC15' : '#3F3F46'">
+                    [color]="s <= ratingSummary.average ? '#F59E0B' : (themeService.isDark() ? '#363534' : '#E5E7EB')">
                   </app-icon>
                 }
               </div>
 
-              <p class="text-xs text-[#8E8E93] pt-0.5">
+              <p class="text-xs text-[#575655] dark:text-[#A1A1A1] pt-0.5 font-medium">
                 {{ totalReviewsCount }} Verified Reviews
               </p>
 
@@ -103,22 +104,23 @@
                 type="button"
                 (click)="selectFilter('all')"
                 class="mt-2 px-3 py-1 rounded-full text-[11px] font-semibold transition-all border text-left flex items-center justify-between gap-2 cursor-pointer w-fit"
-                [ngClass]="selectedStarFilter() === 'all' ? 'bg-white text-black border-white' : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'">
+                [ngClass]="selectedStarFilter() === 'all' ? 'chrome-btn' : 'machined-pill'">
                 <span>All Reviews</span>
-                <span class="text-[10px] px-1.5 py-0.2 rounded-full" [ngClass]="selectedStarFilter() === 'all' ? 'bg-black/10 text-black font-bold' : 'bg-white/10 text-white/60'">
+                <span class="text-[10px] px-1.5 py-0.2 rounded-full" [ngClass]="selectedStarFilter() === 'all' ? 'bg-black/10 dark:bg-black/30 font-bold' : 'bg-black/5 dark:bg-white/10'">
                   {{ totalReviewsCount }}
                 </span>
               </button>
             </div>
 
-            <div class="flex-1 max-w-[210px] space-y-1.5 border-l border-white/[0.08] pl-3.5">
+            <!-- Star distribution filters -->
+            <div class="flex-1 max-w-[210px] space-y-1.5 border-l border-[#C7C7C6] dark:border-[#363534] pl-3.5">
               <div class="flex items-center justify-between pb-1">
-                <span class="text-[10px] font-bold text-[#8E8E93] uppercase tracking-wider">Filter Stars</span>
+                <span class="text-[10px] font-bold text-[#575655] dark:text-[#A1A1A1] uppercase tracking-wider">Filter Stars</span>
                 @if (selectedStarFilter() !== 'all') {
                   <button
                     type="button"
                     (click)="selectFilter('all')"
-                    class="text-[10px] text-amber-400 hover:underline cursor-pointer">
+                    class="text-[10px] text-[#575655] dark:text-[#A1A1A1] hover:underline cursor-pointer font-semibold">
                     Reset
                   </button>
                 }
@@ -129,24 +131,24 @@
                   type="button"
                   (click)="selectFilter(item.star)"
                   class="w-full flex items-center justify-between gap-2 px-2 py-1 rounded-xl transition-all cursor-pointer text-left"
-                  [ngClass]="selectedStarFilter() === item.star ? 'bg-white/15 ring-1 ring-white/40' : 'hover:bg-white/5'">
+                  [ngClass]="selectedStarFilter() === item.star ? 'bg-[#F4F4F2] dark:bg-[#363534] ring-1 ring-[#C7C7C6] dark:ring-[#575655]' : 'hover:bg-[#F4F4F2] dark:hover:bg-[#1D1C1B]'">
 
                   <div class="flex items-center gap-1 shrink-0 w-8">
-                    <span class="text-xs font-bold text-white">{{ item.star }}</span>
-                    <app-icon name="star" [size]="10" color="#FACC15"></app-icon>
+                    <span class="text-xs font-bold text-[#070706] dark:text-white">{{ item.star }}</span>
+                    <app-icon name="star" [size]="10" color="#F59E0B"></app-icon>
                   </div>
 
-                  <div class="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden mx-1">
+                  <div class="flex-1 h-1.5 rounded-full bg-[#EAEAE7] dark:bg-[#0F0E0D] border border-black/5 dark:border-[#363534] overflow-hidden mx-1">
                     <div
                       class="h-full rounded-full transition-all duration-500"
                       [style.width.%]="item.pct"
-                      [ngClass]="selectedStarFilter() === item.star ? 'bg-amber-400' : 'bg-white/50'">
+                      [ngClass]="selectedStarFilter() === item.star ? 'bg-[#070706] dark:bg-white' : 'bg-neutral-400 dark:bg-[#575655]'">
                     </div>
                   </div>
 
                   <span
                     class="text-[10px] font-bold px-1.5 py-0.5 rounded-md shrink-0 min-w-[24px] text-center"
-                    [ngClass]="selectedStarFilter() === item.star ? 'bg-amber-400 text-black font-black' : 'bg-white/5 text-[#8E8E93]'">
+                    [ngClass]="selectedStarFilter() === item.star ? 'bg-[#070706] text-white dark:bg-white dark:text-[#070706] font-black' : 'bg-[#F4F4F2] text-[#363534] dark:bg-[#363534] dark:text-[#C7C7C6]'">
                     {{ item.count }}
                   </span>
 
@@ -159,9 +161,10 @@
 
         </div>
 
+        <!-- Filter Title -->
         <div class="flex items-center justify-between px-1 pt-1">
           <div class="flex items-center gap-2">
-            <h3 class="text-xs font-bold text-white/90">
+            <h3 class="text-xs font-bold text-[#070706] dark:text-white font-sans">
               @if (selectedStarFilter() === 'all') {
                 All Reviews ({{ totalReviewsCount }})
               } @else {
@@ -170,7 +173,7 @@
             </h3>
 
             @if (selectedStarFilter() !== 'all') {
-              <span class="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-400 border border-amber-400/30 text-[10px] font-bold">
+              <span class="px-2 py-0.5 rounded-full bg-[#F4F4F2] dark:bg-[#363534] text-[#070706] dark:text-white border border-[#C7C7C6] dark:border-[#575655] text-[10px] font-bold">
                 Filtered: {{ selectedStarFilter() }} ★
               </span>
             }
@@ -180,63 +183,64 @@
             <button
               type="button"
               (click)="selectFilter('all')"
-              class="text-xs text-[#8E8E93] hover:text-white transition-colors cursor-pointer">
+              class="text-xs text-[#7C7B7B] hover:text-[#0B0A0A] dark:text-[#A1A1A1] dark:hover:text-white transition-colors cursor-pointer font-medium">
               Show All
             </button>
           }
         </div>
 
-        <div class="space-y-3">
+        <!-- Reviews List -->
+        <div class="space-y-2.5">
           @if (filteredReviews.length === 0) {
-            <div class="py-12 text-center space-y-3 bg-[#222226] rounded-[24px] p-6 border border-white/[0.06]">
-              <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-white/40">
-                <app-icon name="star" [size]="22" color="#7E7E88"></app-icon>
+            <div class="py-12 text-center space-y-3 rounded-2xl p-6 bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534]">
+              <div class="w-12 h-12 rounded-full bg-white dark:bg-[#151413] border border-[#C7C7C6] dark:border-[#363534] flex items-center justify-center mx-auto text-[#7C7B7B]">
+                <app-icon name="star" [size]="22" [color]="themeService.isDark() ? '#FFFFFF' : '#7C7B7B'"></app-icon>
               </div>
               <div class="space-y-1">
-                <p class="text-sm font-bold text-white">No {{ selectedStarFilter() }}-star reviews yet</p>
-                <p class="text-xs text-[#8E8E93]">There are currently no reviews matching this rating.</p>
+                <p class="text-sm font-bold text-[#070706] dark:text-white">No {{ selectedStarFilter() }}-star reviews yet</p>
+                <p class="text-xs text-[#363534] dark:text-[#C7C7C6]">There are currently no reviews matching this rating.</p>
               </div>
               <button
                 type="button"
                 (click)="selectFilter('all')"
-                class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors cursor-pointer">
+                class="px-4 py-2 rounded-full machined-pill text-xs font-bold transition-colors cursor-pointer">
                 View All Reviews
               </button>
             </div>
           } @else {
             @for (rev of filteredReviews; track rev.id) {
-              <div class="bg-[#222226] rounded-[24px] p-4.5 space-y-3 border border-white/[0.06] shadow-md animate-fade-in">
+              <div class="p-3.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] space-y-2 animate-fade-in transition-colors">
 
                 <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-white text-black text-xs font-black flex items-center justify-center shadow-xs">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-[#070706] dark:bg-[#363534] text-white dark:text-[#C7C7C6] text-[11px] font-bold flex items-center justify-center">
                       {{ rev.authorName.charAt(0) }}
                     </div>
                     <div>
-                      <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-white">{{ rev.authorName }}</span>
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-bold text-[#070706] dark:text-white">{{ rev.authorName }}</span>
                         @if (rev.verifiedPurchase) {
-                          <span class="text-[9px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.2 rounded-full">
-                            Verified Purchase
+                          <span class="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded-full">
+                            Verified
                           </span>
                         }
                       </div>
-                      <span class="text-[10px] text-[#8E8E93]">{{ rev.date }}</span>
+                      <span class="text-[10px] text-[#575655] dark:text-[#A1A1A1]">{{ rev.date }}</span>
                     </div>
                   </div>
 
-                  <div class="flex items-center gap-0.5 px-2 py-1 rounded-full bg-[#1A1A1E] border border-white/5">
+                  <div class="flex items-center gap-0.5">
                     @for (s of [1, 2, 3, 4, 5]; track s) {
                       <app-icon
                         name="star"
                         [size]="11"
-                        [color]="s <= rev.rating ? '#FACC15' : '#3F3F46'">
+                        [color]="s <= rev.rating ? '#F59E0B' : (themeService.isDark() ? '#363534' : '#E5E7EB')">
                       </app-icon>
                     }
                   </div>
                 </div>
 
-                <p class="text-xs text-white/80 leading-relaxed font-normal">
+                <p class="text-xs text-[#363534] dark:text-[#C7C7C6] leading-relaxed">
                   {{ rev.comment }}
                 </p>
 
@@ -251,43 +255,44 @@
 
   </div>
 
+  <!-- Write Review Modal with 10-Shade Monochrome Titanium Palette -->
   @if (showWriteReviewModal()) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/80 backdrop-blur-xs animate-fade-in"
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/50 dark:bg-black/80 backdrop-blur-xs animate-fade-in"
          (click)="showWriteReviewModal.set(false)">
       <div
-        class="w-full max-w-sm bg-[#1E1E22] rounded-[32px] p-6 space-y-4 border border-white/10 shadow-2xl relative"
+        class="w-full max-w-sm bg-white dark:bg-[#151413] text-[#070706] dark:text-white rounded-[32px] p-6 space-y-4 border border-[#C7C7C6] dark:border-[#363534] shadow-2xl relative"
         (click)="$event.stopPropagation()">
 
-        <div class="flex items-center justify-between pb-2 border-b border-white/10">
+        <div class="flex items-center justify-between pb-2 border-b border-[#C7C7C6] dark:border-[#363534]">
           <div>
-            <h3 class="text-sm font-bold text-white">Write a Review</h3>
-            <p class="text-[11px] text-[#7E7E88]">Rate this product</p>
+            <h3 class="text-sm font-bold text-[#070706] dark:text-white">Write a Review</h3>
+            <p class="text-[11px] text-[#575655] dark:text-[#A1A1A1]">Rate this product</p>
           </div>
           <button
             (click)="showWriteReviewModal.set(false)"
-            class="w-7 h-7 rounded-full bg-white/10 text-white flex items-center justify-center text-xs hover:bg-white/20 cursor-pointer">
+            class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-[#363534] text-[#575655] dark:text-[#C7C7C6] hover:bg-neutral-200 dark:hover:bg-[#575655] flex items-center justify-center text-xs cursor-pointer">
             ✕
           </button>
         </div>
 
         @if (product(); as prod) {
-          <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#141416] border border-white/5">
-            <div class="w-12 h-12 rounded-xl bg-[#2D2D33] overflow-hidden shrink-0 border border-white/5">
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534]">
+            <div class="w-12 h-12 rounded-xl bg-white dark:bg-[#151413] overflow-hidden shrink-0 border border-[#C7C7C6] dark:border-[#363534]">
               <img
                 [src]="prod.images[0]"
                 [alt]="prod.name"
                 class="w-full h-full object-cover" />
             </div>
             <div class="min-w-0 flex-1">
-              <p class="text-xs font-bold text-white truncate">{{ prod.name }}</p>
-              <p class="text-[11px] text-[#8E8E93] truncate">₱{{ prod.price }}</p>
+              <p class="text-xs font-bold text-[#070706] dark:text-white truncate">{{ prod.name }}</p>
+              <p class="text-[11px] text-[#575655] dark:text-[#A1A1A1] truncate">₱{{ prod.price }}</p>
             </div>
           </div>
         }
 
         <div class="space-y-2 text-center py-1">
-          <p class="text-xs font-semibold text-white/90">
-            Select Rating <span class="text-rose-400">*</span>
+          <p class="text-xs font-semibold text-[#070706] dark:text-white">
+            Select Rating <span class="text-rose-500">*</span>
           </p>
 
           <div class="flex items-center justify-center gap-2">
@@ -299,13 +304,13 @@
                 <app-icon
                   name="star"
                   [size]="28"
-                  [color]="star <= modalRating() ? '#FACC15' : '#3F3F46'">
+                  [color]="star <= modalRating() ? '#F59E0B' : (themeService.isDark() ? '#363534' : '#E5E7EB')">
                 </app-icon>
               </button>
             }
           </div>
 
-          <p class="text-[11px] font-medium" [ngClass]="modalRating() > 0 ? 'text-amber-400' : 'text-neutral-500'">
+          <p class="text-[11px] font-medium" [ngClass]="modalRating() > 0 ? 'text-amber-600 dark:text-amber-400 font-bold' : 'text-[#7C7B7B]'">
             @if (modalRating() === 5) { Excellent (5/5) }
             @else if (modalRating() === 4) { Good (4/5) }
             @else if (modalRating() === 3) { Average (3/5) }
@@ -315,18 +320,18 @@
           </p>
 
           @if (modalRatingError()) {
-            <p class="text-xs text-rose-400 font-medium animate-pulse">{{ modalRatingError() }}</p>
+            <p class="text-xs text-rose-500 font-medium animate-pulse">{{ modalRatingError() }}</p>
           }
         </div>
 
         <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-white/80">Your Review</label>
+          <label class="text-xs font-semibold text-[#070706] dark:text-white">Your Review</label>
           <textarea
             [value]="modalComment()"
             (input)="modalComment.set($any($event.target).value)"
             rows="3"
             placeholder="Share your experience with sound, build, and battery..."
-            class="w-full px-3.5 py-2.5 rounded-2xl bg-[#141416] border border-white/10 text-white placeholder-white/30 text-xs focus:outline-none focus:border-white/40 resize-none">
+            class="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4F4F2] dark:bg-[#0F0E0D] border border-[#C7C7C6] dark:border-[#363534] text-[#070706] dark:text-white placeholder-[#7C7B7B] dark:placeholder-[#A1A1A1] text-xs focus:outline-none focus:border-[#070706] dark:focus:border-[#C7C7C6] resize-none">
           </textarea>
         </div>
 
@@ -334,7 +339,7 @@
           <button
             type="button"
             (click)="showWriteReviewModal.set(false)"
-            class="flex-1 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-colors cursor-pointer">
+            class="flex-1 py-3 rounded-full machined-pill text-xs font-semibold transition-colors cursor-pointer">
             Cancel
           </button>
           <button
@@ -342,7 +347,7 @@
             (click)="submitModalReview()"
             [disabled]="modalRating() === 0"
             class="flex-1 py-3 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
-            [ngClass]="modalRating() > 0 ? 'bg-white hover:bg-neutral-200 text-black active:scale-95' : 'bg-white/20 text-white/40 cursor-not-allowed'">
+            [ngClass]="modalRating() > 0 ? 'chrome-btn active:scale-95' : 'bg-neutral-200 text-neutral-400 dark:bg-white/10 dark:text-[#A1A1A1] cursor-not-allowed'">
             <span>Submit Review</span>
           </button>
         </div>
